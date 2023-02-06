@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1048146804222",
+    "project_id": "td123-a669d",
+    "storage_bucket": "td123-a669d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048146804222:android:adb52f33be364300e4d4af",
+        "android_client_info": {
+          "package_name": "com.bcae_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048146804222-pa84e4009kkbh25vdlp68crbgce0kkc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZJEvswqxQElPZcXK-j2rIgYnP8eWS0LQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048146804222-pa84e4009kkbh25vdlp68crbgce0kkc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
