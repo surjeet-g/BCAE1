@@ -102,6 +102,7 @@ const Register = ({ navigation, props }) => {
   const [state, setStateProfile] = useState("");
   const [district, setDistrict] = useState("");
   const [postcode, setPostcode] = useState("");
+  const [hno, setHno] = useState("");
 
   const dispatch = useDispatch([
     fetchRegisterFormData,
@@ -253,7 +254,7 @@ const Register = ({ navigation, props }) => {
   const submitResndOTP = () => {
     if (mobileNo.length !== 7) {
       Alert.alert(strings.attention, strings.sevenDigit, [
-        { text: strings.ok, onPress: () => {} },
+        { text: strings.ok, onPress: () => { } },
       ]);
     } else {
       if (firstName.trim() === "") {
@@ -402,14 +403,14 @@ const Register = ({ navigation, props }) => {
     TDLog("onPlaceChosen Edit profile", JSON.stringify(params));
     setLocation(
       params.street +
-        "," +
-        params.state +
-        "," +
-        params.district +
-        "," +
-        params.country +
-        "," +
-        params.postCode
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
     setLatitude(params.currentLatitude);
     setLongitude(params.currentLongitude);
@@ -419,6 +420,7 @@ const Register = ({ navigation, props }) => {
     setDistrict(params.district);
     setCountry(params.country);
     setPostcode(params.postCode);
+    setHno(params.hno)
   };
   const formatOtpTimer = (otpTmr) => {
     let minute = 0;
@@ -512,7 +514,7 @@ const Register = ({ navigation, props }) => {
           serviceCode: service,
           address: {
             address: location,
-            hno: "",
+            hno: hno,
             buildingName: "",
             street: street,
             road: "",
@@ -525,8 +527,9 @@ const Register = ({ navigation, props }) => {
             postCode: postcode,
           },
         };
-
         console.warn("userRegister===>2" + JSON.stringify(registerObject));
+
+        // console.warn("userRegister===>2" + JSON.stringify(registerObject));
         dispatch(
           userRegister(registerObject, "Register", (message) =>
             showAlert(message)
@@ -776,7 +779,7 @@ const Register = ({ navigation, props }) => {
                 isResendOTP={true}
                 loader={
                   registerForm?.initOtpForm &&
-                  registerForm?.otpUsageType === "mobile"
+                    registerForm?.otpUsageType === "mobile"
                     ? true
                     : false
                 }
@@ -817,7 +820,7 @@ const Register = ({ navigation, props }) => {
                 label={strings.confirm_otp}
                 loader={
                   registerForm?.initOtpForm &&
-                  registerForm?.otpUsageType === "mobileOtp"
+                    registerForm?.otpUsageType === "mobileOtp"
                     ? true
                     : false
                 }
@@ -856,7 +859,7 @@ const Register = ({ navigation, props }) => {
                 isEmail={true}
                 loader={
                   registerForm?.initOtpForm &&
-                  registerForm?.otpUsageType === "email"
+                    registerForm?.otpUsageType === "email"
                     ? true
                     : false
                 }
@@ -891,7 +894,7 @@ const Register = ({ navigation, props }) => {
                 label={"CONFIRM OTP"}
                 loader={
                   registerForm?.initOtpForm &&
-                  registerForm?.otpUsageType === "emailOtp"
+                    registerForm?.otpUsageType === "emailOtp"
                     ? true
                     : false
                 }
@@ -1022,7 +1025,7 @@ const Register = ({ navigation, props }) => {
 
             <View style={{ marginTop: spacing.HEIGHT_24 }}>
               {registerForm?.initOtpForm &&
-              registerForm?.otpUsageType === "Register" ? (
+                registerForm?.otpUsageType === "Register" ? (
                 <CustomActivityIndicator
                   size={buttonSize.LARGE}
                   bgColor={color.BLACK}

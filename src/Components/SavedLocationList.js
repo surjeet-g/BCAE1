@@ -61,6 +61,7 @@ function SavedLocationItem({ item, onDeleteClicked, onItemClicked }) {
           getAddressString(item),
           item.latitude,
           item.longitude,
+          item.hno,
           item.street,
           item.state,
           item.district,
