@@ -86,6 +86,7 @@ const AddLocation = ({ route, navigation }) => {
   const [kampongName, setKampongName] = useState("");
   const [postcode, setPostcodeName] = useState("");
   const [simpangText, setSimpangText] = useState("");
+  const [hno, setHno] = useState("");
 
   const hideAddLocationModal = () => setAddLocationModalVisible(false);
   const showAddLocationModal = () => setAddLocationModalVisible(true);
@@ -99,6 +100,7 @@ const AddLocation = ({ route, navigation }) => {
       setValuePostcode("");
       setPostcodeName("");
       setSimpangText("");
+      setHno("")
     }
   };
 
@@ -106,14 +108,14 @@ const AddLocation = ({ route, navigation }) => {
     TDLog(
       "onClickedAddLocationTitleButton",
       simpangText +
-        ", " +
-        kampongName +
-        ", " +
-        distName +
-        ", " +
-        "Brunei Darussalam" +
-        ", " +
-        postcode
+      ", " +
+      kampongName +
+      ", " +
+      distName +
+      ", " +
+      "Brunei Darussalam" +
+      ", " +
+      postcode
     );
     if (!initAddLocation) {
       setInitAddLocation(true);
@@ -130,6 +132,7 @@ const AddLocation = ({ route, navigation }) => {
           longitude: currentLongitude,
           latitude: currentLatitude,
           postCode: postcode,
+          hno: hno
         });
 
         navigation.goBack();
@@ -170,14 +173,14 @@ const AddLocation = ({ route, navigation }) => {
     TDLog(
       "addSavedLocation",
       simpangText +
-        ", " +
-        kampongName +
-        ", " +
-        distName +
-        ", " +
-        "Brunei Darussalam" +
-        ", " +
-        postcode
+      ", " +
+      kampongName +
+      ", " +
+      distName +
+      ", " +
+      "Brunei Darussalam" +
+      ", " +
+      postcode
     );
     const obj = {
       customerId: customerId,
@@ -291,7 +294,7 @@ const AddLocation = ({ route, navigation }) => {
     } catch (error) {
       console.log(
         "There has been a problem with RNLocation fetch operation: " +
-          error.message
+        error.message
       );
     }
   };
@@ -692,6 +695,15 @@ const AddLocation = ({ route, navigation }) => {
                 <View style={{ marginTop: 10 }}>
                   <TextInput
                     style={styles.searchInputStreet}
+                    onChangeText={setHno}
+                    value={hno}
+                    placeholder={strings.hno}
+                    keyboardType="default"
+                  />
+                </View>
+                <View style={{ marginTop: 10 }}>
+                  <TextInput
+                    style={styles.searchInputStreet}
                     onChangeText={setSimpangText}
                     value={simpangText}
                     placeholder={strings.simpang}
@@ -779,7 +791,8 @@ const AddLocation = ({ route, navigation }) => {
                         distName === "" ||
                         kampongName === "" ||
                         postcode === "" ||
-                        simpangText === ""
+                        simpangText === "" ||
+                        hno === ""
                       }
                       bgColor={color.BCAE_PRIMARY}
                       textColor={color.WHITE}

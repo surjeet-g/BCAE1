@@ -120,12 +120,12 @@ const CreateComplaint = ({ route, navigation }) => {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
-          { text: strings.ok, onPress: () => {} },
+          { text: strings.ok, onPress: () => { } },
         ]);
       }
     } else {
       Alert.alert(strings.attention, strings.max_number_of_file, [
-        { text: strings.ok, onPress: () => {} },
+        { text: strings.ok, onPress: () => { } },
       ]);
     }
   };
@@ -147,7 +147,7 @@ const CreateComplaint = ({ route, navigation }) => {
   };
 
   const fetchMyInteractionData = () => {
-    dispatch(getMyTicketsData(() => {}));
+    dispatch(getMyTicketsData(() => { }));
   };
 
   const onServiceNameClick = (textStr) => {
@@ -479,7 +479,7 @@ const CreateComplaint = ({ route, navigation }) => {
   };
 
   const onPressWhatsApp = () => {
-    setContactPreference("CNT_PREF_WA");
+    setContactPreference("CNT_PREF_NTC");
   };
 
   const onDeleteClicked = (key) => {
@@ -512,7 +512,7 @@ const CreateComplaint = ({ route, navigation }) => {
       selectedValuePrblm === ""
     ) {
       Alert.alert(strings.attention, strings.field_empty_alert, [
-        { text: strings.ok, onPress: () => {} },
+        { text: strings.ok, onPress: () => { } },
       ]);
     } else {
       const myArray = location.split(",").reverse();
@@ -553,25 +553,25 @@ const CreateComplaint = ({ route, navigation }) => {
     TDLog(
       "onPlaceChosen create complaint Params",
       params.street +
-        "," +
-        params.state +
-        "," +
-        params.district +
-        "," +
-        params.country +
-        "," +
-        params.postCode
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
     setLocation(
       params.street +
-        "," +
-        params.state +
-        "," +
-        params.district +
-        "," +
-        params.country +
-        "," +
-        params.postCode
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
     TDLog("onPlaceChosen create complaint location", location);
     setLatitude(params.latitude);
@@ -657,15 +657,15 @@ const CreateComplaint = ({ route, navigation }) => {
                     setValue={setValueOrg}
                     data={
                       !enquilryDetailsData.initInquiry &&
-                      enquilryDetailsData?.organization &&
-                      enquilryDetailsData?.organization.length > 0
+                        enquilryDetailsData?.organization &&
+                        enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
-                            (data) =>
-                              data?.status?.includes("AC") &&
-                              data?.unitType?.includes("OU") &&
-                              data?.langEng != "" &&
-                              data?.langEng != null
-                          ) ?? []
+                          (data) =>
+                            data?.status?.includes("AC") &&
+                            data?.unitType?.includes("OU") &&
+                            data?.langEng != "" &&
+                            data?.langEng != null
+                        ) ?? []
                         : []
                     }
                     onChangeText={(text) => onOrganizationNameClick(text)}
@@ -682,21 +682,21 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE?.filter(
-                          (data) => {
-                            let deptArr = [];
-                            if (get(data, "mapping.ouDept.length", 0) > 0) {
-                              deptArr = get(data, "mapping.ouDept", []).map(
-                                (item) => item?.ouId || ""
-                              );
-                            }
-
-                            return (
-                              data?.mapping?.isMobile === "Y" &&
-                              data?.mapping?.ticketType?.includes("REQCOMP") &&
-                              deptArr.includes(organizationItem?.unitId)
+                        (data) => {
+                          let deptArr = [];
+                          if (get(data, "mapping.ouDept.length", 0) > 0) {
+                            deptArr = get(data, "mapping.ouDept", []).map(
+                              (item) => item?.ouId || ""
                             );
                           }
-                        ) ?? []
+
+                          return (
+                            data?.mapping?.isMobile === "Y" &&
+                            data?.mapping?.ticketType?.includes("REQCOMP") &&
+                            deptArr.includes(organizationItem?.unitId)
+                          );
+                        }
+                      ) ?? []
                       : []
                     // enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE ?? []
                   }
@@ -713,12 +713,13 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
-                          (data) =>
-                            data?.mapping?.serviceType?.includes(servicename) &&
-                            data?.mapping?.isMobile === "Y" &&
-                            data?.mapping?.ticketType?.includes("REQCOMP") &&
-                            servicename != ""
-                        ) ?? []
+                        (data) =>
+                          data?.mapping?.serviceType?.includes(servicename) &&
+                          data?.mapping?.isMobile === "Y" &&
+                          data?.status?.includes("AC") &&
+                          data?.mapping?.ticketType?.includes("REQCOMP") &&
+                          servicename != ""
+                      ) ?? []
                       : []
                   }
                   onChangeText={(text) => {
@@ -726,6 +727,7 @@ const CreateComplaint = ({ route, navigation }) => {
                     onDepDropdown([]);
 
                     const depIdsTemp = get(text, "mapping.deptId", []);
+                    console.warn('>>', depIdsTemp)
                     // const depIdsTemp = [
                     //   "DPT0000001.OPU0000001.ORG0000001",
                     //   "DPT0000001.OPU0000001.ORG0000001",
@@ -906,28 +908,28 @@ const CreateComplaint = ({ route, navigation }) => {
                       activeOpacity={0.9}
                       onPress={onPressWhatsApp}
                     >
-                      {contactPreference === "CNT_PREF_WA" && (
+                      {contactPreference === "CNT_PREF_NTC" && (
                         <ImageBackground
                           resizeMode="cover"
                           style={styles.selectedBackground}
                         >
                           <Image
                             style={styles.prefImgae}
-                            source={require("../../Assets/icons/ic_whatsapp_selected.png")}
+                            source={require("../../Assets/icons/ic_donot_white.png")}
                           ></Image>
-                          <Text style={styles.selectedText}>Whatsapp</Text>
+                          <Text style={{ ...styles.selectedText, fontSize: 9, lineHeight: 10, marginTop: 3 }}>Not To Contact</Text>
                         </ImageBackground>
                       )}
-                      {contactPreference != "CNT_PREF_WA" && (
+                      {contactPreference != "CNT_PREF_NTC" && (
                         <ImageBackground
                           resizeMode="cover"
                           style={styles.normalBackground}
                         >
                           <Image
                             style={styles.prefImgae}
-                            source={require("../../Assets/icons/ic_whatsapp_normal.png")}
+                            source={require("../../Assets/icons/ic_donot_black.png")}
                           ></Image>
-                          <Text style={styles.normalText}>Whatsapp</Text>
+                          <Text style={{ ...styles.normalText, fontSize: 9 }}>Not To Contact</Text>
                         </ImageBackground>
                       )}
                     </TouchableOpacity>
@@ -958,11 +960,11 @@ const CreateComplaint = ({ route, navigation }) => {
                         label={strings.submitComplaint}
                         disabled={
                           servicename === "" ||
-                          problem === "" ||
-                          finalDepId === "" ||
-                          description === "" ||
-                          location === "" ||
-                          contactPreference === ""
+                            problem === "" ||
+                            finalDepId === "" ||
+                            description === "" ||
+                            location === "" ||
+                            contactPreference === ""
                             ? true
                             : false
                         }
@@ -1109,7 +1111,7 @@ const CreateComplaint = ({ route, navigation }) => {
           {description}
         </Text>
       </Popup>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 

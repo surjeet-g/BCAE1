@@ -81,6 +81,7 @@ const EditProfile = ({ navigation, props }) => {
   let registerForm = useSelector((state) => state.registerForm);
   const dispatch1 = useDispatch([fetchRegisterFormData]);
 
+  const [hno, setHno] = useState("");
   const [street, setStreet] = useState("");
   const [state, setStateProfile] = useState("");
   const [district, setDistrict] = useState("");
@@ -182,7 +183,9 @@ const EditProfile = ({ navigation, props }) => {
     // here is your callback function
     TDLog("onPlaceChosen Edit profile", JSON.stringify(params));
     setLocation(
-      params.street +
+      params.hno +
+        "," +
+        params.street +
         "," +
         params.state +
         "," +
@@ -194,6 +197,7 @@ const EditProfile = ({ navigation, props }) => {
     );
     setLatitude(params.currentLatitude);
     setLongitude(params.currentLongitude);
+    setHno(params.hno);
     setStreet(params.street);
     setStateProfile(params.state);
     setDistrict(params.district);
@@ -414,7 +418,7 @@ const EditProfile = ({ navigation, props }) => {
           profilePicture: profileImageData,
           address: {
             address: location,
-            hno: "",
+            hno: hno,
             buildingName: "",
             street: street,
             road: "",
