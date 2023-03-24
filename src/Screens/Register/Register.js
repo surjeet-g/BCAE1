@@ -400,7 +400,7 @@ const Register = ({ navigation, props }) => {
 
   const onPlaceChosen = (params) => {
     // here is your callback function
-    TDLog("onPlaceChosen Edit profile", JSON.stringify(params));
+    TDLog("onPlaceChosen register screen", JSON.stringify(params));
     setLocation(
       params.street +
       "," +
