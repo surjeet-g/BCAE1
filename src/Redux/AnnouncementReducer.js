@@ -29,7 +29,6 @@ const AnnouncementsReducer = (state = announcementsInitialState, action) => {
       };
 
     case ANNOUNCEMENTS_DATA:
-      console.log("reducers 7");
       return {
         ...state,
         initAnnouncements: false,

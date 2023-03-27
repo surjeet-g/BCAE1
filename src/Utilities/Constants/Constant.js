@@ -10,7 +10,6 @@ import { BASE_URL, PROD_BASE_URL } from "../API/ApiConstants";
 export const GOOGLE_API_KEY = "AIzaSyBGKi6f1zYwwra1LVNtthEp6VPzUkvcPkk";
 const salt = "AE0DB48EBF4DDE3E59ABF92F1953F02A390B584CF65EE981E4598561D69F09D5";
 
-const LOG_ENABLED = false;
 export const DEBUG_BUILD = true;
 export const STAGE_CHAT_URL =
   "https://st-td123.comquest-brunei.com:13443/chatbot/";
@@ -304,7 +303,7 @@ export function validateNumber(text) {
 }
 
 export function TDLog(fileName, text) {
-  if (LOG_ENABLED) {
+  if (DEBUG_BUILD) {
     console.debug(
       "\n===TDLog==TD123=======>" + fileName + "===========> :" + text
     );
