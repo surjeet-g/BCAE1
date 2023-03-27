@@ -85,7 +85,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   const [selectedOUDep, setSelectedOuDp] = useState([]);
   const resetAllStateData = () => {
     setfinalDepId("");
-    setOrganizationObj("")
+    setOrganizationObj("");
     setValueType("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -96,6 +96,7 @@ const CreateEnquiry = ({ route, navigation }) => {
     setValueDeptId("");
     setAttachmentModalVisible(false);
     setFileAttachments([]);
+    setDepDropdown([]);
   };
 
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
@@ -109,12 +110,12 @@ const CreateEnquiry = ({ route, navigation }) => {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
-          { text: strings.ok, onPress: () => { } },
+          { text: strings.ok, onPress: () => {} },
         ]);
       }
     } else {
       Alert.alert(strings.attention, strings.max_number_of_file, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     }
   };
@@ -136,14 +137,13 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
 
   const fetchMyInteractionData = () => {
-    dispatch(getMyTicketsData(() => { }));
+    dispatch(getMyTicketsData(() => {}));
   };
 
   const onServiceNameClick = (textStr) => {
     setServiceName(textStr.code);
     setfinalDepId("");
     setServiceTypeObj(textStr);
-
 
     setselectValueDepIds("");
     setValuePrblm("");
@@ -200,11 +200,15 @@ const CreateEnquiry = ({ route, navigation }) => {
   const onDepDropdown = (depIds) => {
     console.log("deptids", JSON.stringify(depIds));
     console.warn("service type object", JSON.stringify(serviceTypeObj));
-    console.warn("orgin", JSON.stringify(organizationObj))
-    const selectOU = get(serviceTypeObj?.mapping?.ouDept.filter(ite => {
-      return ite.ouId == organizationObj.unitId
-    }), '[0].deptId', [])
-    console.warn("selectOU", selectOU)
+    console.warn("orgin", JSON.stringify(organizationObj));
+    const selectOU = get(
+      serviceTypeObj?.mapping?.ouDept.filter((ite) => {
+        return ite.ouId == organizationObj.unitId;
+      }),
+      "[0].deptId",
+      []
+    );
+    console.warn("selectOU", selectOU);
     // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
     depIds.length > 0 &&
@@ -214,8 +218,14 @@ const CreateEnquiry = ({ route, navigation }) => {
         selectOU.map((ouDepItem) => {
           if (ouDepItem == dep) {
             console.log("matching");
-            const unitDesc = get(selectedOUDep.filter(seletedOuItem => seletedOuItem.unitId == ouDepItem), '[0].unitDesc', '')
-            console.warn("unitDesc  unitDesc", unitDesc, dep)
+            const unitDesc = get(
+              selectedOUDep.filter(
+                (seletedOuItem) => seletedOuItem.unitId == ouDepItem
+              ),
+              "[0].unitDesc",
+              ""
+            );
+            console.warn("unitDesc  unitDesc", unitDesc, dep);
             finalArr.push({ description: unitDesc, id: dep });
           }
         });
@@ -422,7 +432,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   const onSubmitEnquiry = () => {
     if (servicename === "" || selectedValuePrblm === "") {
       Alert.alert(strings.attention, strings.field_empty_alert, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     } else {
       setInquiryProblemCode(problem);
@@ -459,13 +469,13 @@ const CreateEnquiry = ({ route, navigation }) => {
   const showSuccessMessage = (successMessage) => {
     console.log(
       "=======InquiryNotification=======" +
-      organizationItem.unitId +
-      " , " +
-      inquiryServiceName +
-      " , " +
-      inquiryProblemCode +
-      " , " +
-      inquiryDeptId
+        organizationItem.unitId +
+        " , " +
+        inquiryServiceName +
+        " , " +
+        inquiryProblemCode +
+        " , " +
+        inquiryDeptId
     );
     Alert.alert(strings.attention, successMessage, [
       {
@@ -539,16 +549,16 @@ const CreateEnquiry = ({ route, navigation }) => {
                     setValue={setValueOrg}
                     data={
                       !enquilryDetailsData.initInquiry &&
-                        enquilryDetailsData?.organization &&
-                        enquilryDetailsData?.organization.length > 0
+                      enquilryDetailsData?.organization &&
+                      enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
-                          (data) =>
-                            data?.status?.includes("AC") &&
-                            data?.isChat === "Y" &&
-                            data?.unitType?.includes("OU") &&
-                            data?.langEng != "" &&
-                            data?.langEng != null
-                        ) ?? []
+                            (data) =>
+                              data?.status?.includes("AC") &&
+                              data?.isChat === "Y" &&
+                              data?.unitType?.includes("OU") &&
+                              data?.langEng != "" &&
+                              data?.langEng != null
+                          ) ?? []
                         : []
                     }
                     onChangeText={(text) => onOrganizationNameClick(text)}
@@ -565,21 +575,21 @@ const CreateEnquiry = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE?.filter(
-                        (data) => {
-                          let deptArr = [];
-                          if (get(data, "mapping.ouDept.length", 0) > 0) {
-                            deptArr = get(data, "mapping.ouDept", []).map(
-                              (item) => item?.ouId || ""
+                          (data) => {
+                            let deptArr = [];
+                            if (get(data, "mapping.ouDept.length", 0) > 0) {
+                              deptArr = get(data, "mapping.ouDept", []).map(
+                                (item) => item?.ouId || ""
+                              );
+                            }
+
+                            return (
+                              data?.mapping?.isMobile === "Y" &&
+                              data?.mapping?.ticketType?.includes("REQINQ") &&
+                              deptArr.includes(organizationItem?.unitId)
                             );
                           }
-
-                          return (
-                            data?.mapping?.isMobile === "Y" &&
-                            data?.mapping?.ticketType?.includes("REQINQ") &&
-                            deptArr.includes(organizationItem?.unitId)
-                          );
-                        }
-                      ) ?? []
+                        ) ?? []
                       : []
                     // enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE ?? []
                   }
@@ -596,13 +606,13 @@ const CreateEnquiry = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
-                        (data) =>
-                          data?.mapping?.serviceType?.includes(servicename) &&
-                          data?.mapping?.isMobile === "Y" &&
-                          data?.status?.includes("AC") &&
-                          data?.mapping?.ticketType?.includes("REQINQ") &&
-                          servicename != ""
-                      ) ?? []
+                          (data) =>
+                            data?.mapping?.serviceType?.includes(servicename) &&
+                            data?.mapping?.isMobile === "Y" &&
+                            data?.status?.includes("AC") &&
+                            data?.mapping?.ticketType?.includes("REQINQ") &&
+                            servicename != ""
+                        ) ?? []
                       : []
                   }
                   onChangeText={(text) => {
@@ -686,8 +696,8 @@ const CreateEnquiry = ({ route, navigation }) => {
                       <View>
                         {showSuccessMessage(
                           strings.inquiry_success +
-                          " " +
-                          enquilryDetailsData?.inquiryData?.interactionId
+                            " " +
+                            enquilryDetailsData?.inquiryData?.interactionId
                         )}
                       </View>
                     ) : (

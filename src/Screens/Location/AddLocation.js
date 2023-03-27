@@ -293,7 +293,7 @@ const AddLocation = ({ route, navigation }) => {
     } catch (error) {
       console.log(
         "There has been a problem with RNLocation fetch operation: " +
-        error.message
+          error.message
       );
     }
   };
