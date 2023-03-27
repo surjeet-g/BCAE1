@@ -56,6 +56,8 @@ const CreateComplaint = ({ route, navigation }) => {
   let enquilryDetailsData = useSelector((state) => state.enquiry);
   const [modalVisible, setModalVisible] = useState(false);
   const [organizationName, setOrganizationName] = useState("");
+  const [organizationObj, setOrganizationObj] = useState("");
+  const [hno, setHno] = useState("")
   const [organizationItem, setOrganizationItem] = useState("");
   const [servicename, setServiceName] = useState("");
   const [problem, setProblem] = useState("");
@@ -76,6 +78,8 @@ const CreateComplaint = ({ route, navigation }) => {
   const [selectValueDepIds, setselectValueDepIds] = useState("");
   const [deptID, setDepID] = useState("");
   const [finalDepId, setfinalDepId] = useState("");
+  const [serviceTypeObj, setServiceTypeObj] = useState("");
+
   const [selectedOUDep, setSelectedOuDp] = useState([]);
   const [street, setStreet] = useState("");
   const [state, setState] = useState("");
@@ -92,6 +96,8 @@ const CreateComplaint = ({ route, navigation }) => {
 
   const resetAllStateData = () => {
     setfinalDepId("");
+    setHno("")
+    setOrganizationObj("")
     setValueType("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -107,6 +113,7 @@ const CreateComplaint = ({ route, navigation }) => {
     setLocation("");
     setLatitude("");
     setLongitude("");
+
   };
 
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
@@ -151,7 +158,9 @@ const CreateComplaint = ({ route, navigation }) => {
   };
 
   const onServiceNameClick = (textStr) => {
+    console.warn("test", textStr.mapping?.ouDept)
     setServiceName(textStr.code);
+    setServiceTypeObj(textStr);
     setfinalDepId("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -179,7 +188,7 @@ const CreateComplaint = ({ route, navigation }) => {
           // data?.langEng != null &&
           data?.parentUnit === textStr?.unitId
       );
-
+      setOrganizationObj(textStr);
       setSelectedOuDp(selectedOUDep);
       console.log("enter if case ", selectedOUDep);
       // console.log(
@@ -205,25 +214,34 @@ const CreateComplaint = ({ route, navigation }) => {
   };
 
   const onDepDropdown = (depIds) => {
-    // console.log("deptids", depIds);
-    console.log("selectedou", selectedOUDep);
+    console.log("deptids", JSON.stringify(depIds));
+    console.warn("service type object", JSON.stringify(serviceTypeObj));
+    console.warn("orgin", JSON.stringify(organizationObj))
+    const selectOU = get(serviceTypeObj?.mapping?.ouDept.filter(ite => {
+      return ite.ouId == organizationObj.unitId
+    }), '[0].deptId', [])
+    console.warn("selectOU", selectOU)
+    // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
     depIds.length > 0 &&
-      selectedOUDep.length > 0 &&
+      selectOU.length > 0 &&
       depIds.map((dep) => {
         console.log("enter deptID", dep);
-        selectedOUDep.map((ouDepItem) => {
-          if (ouDepItem.unitId == dep) {
+        selectOU.map((ouDepItem) => {
+          if (ouDepItem == dep) {
             console.log("matching");
-            finalArr.push({ description: ouDepItem.unitDesc, id: dep });
+            const unitDesc = get(selectedOUDep.filter(seletedOuItem => seletedOuItem.unitId == ouDepItem), '[0].unitDesc', '')
+            console.warn("unitDesc  unitDesc", unitDesc, dep)
+            finalArr.push({ description: unitDesc, id: dep });
           }
         });
       });
-    console.log("hiting dept on DepDropDown", finalArr);
+    // console.log("hiting dept on DepDropDown", servicename);
     //directly setting
     if (finalArr.length == 1) {
       console.log("hiting inside", finalArr);
       setfinalDepId(finalArr[0]?.id);
+      setDepDropdown(finalArr);
     } else if (finalArr.length > 1) {
       console.log("hiting more", finalArr);
       setDepDropdown(finalArr);
@@ -523,10 +541,10 @@ const CreateComplaint = ({ route, navigation }) => {
         ticketDescription: description,
         inquiryCategory: "COMPLAINT",
         problem: problem,
-        flatHouseUnitNo: "",
         block: "",
         building: "",
         street: street,
+        flatHouseUnitNo: hno,
         road: "",
         district: district,
         state: state,
@@ -563,6 +581,8 @@ const CreateComplaint = ({ route, navigation }) => {
       params.postCode
     );
     setLocation(
+      params.hno +
+      "," +
       params.street +
       "," +
       params.state +
@@ -581,6 +601,7 @@ const CreateComplaint = ({ route, navigation }) => {
     setDistrict(params.district);
     setCountry(params.country);
     setPostcode(params.postCode);
+    setHno(params.hno)
   };
 
   const showSuccessMessage = (successMessage, interactionId) => {
@@ -662,6 +683,7 @@ const CreateComplaint = ({ route, navigation }) => {
                         ? enquilryDetailsData?.organization?.filter(
                           (data) =>
                             data?.status?.includes("AC") &&
+                            data?.isChat === "Y" &&
                             data?.unitType?.includes("OU") &&
                             data?.langEng != "" &&
                             data?.langEng != null
@@ -740,6 +762,11 @@ const CreateComplaint = ({ route, navigation }) => {
                   placeHolder={strings.problemType + "*"}
                 />
               </View>
+              {/* {depDropdown.length == 1 && (
+                <View style={{ marginTop: spacing.HEIGHT_30 }}>
+                  <Text style={{ color: "red" }}>Selected Department : {depDropdown[0].description}</Text>
+                </View>
+              )} */}
               {depDropdown.length > 1 && (
                 <View style={{ marginTop: spacing.HEIGHT_20 }}>
                   <CustomDropDown
@@ -1111,7 +1138,7 @@ const CreateComplaint = ({ route, navigation }) => {
           {description}
         </Text>
       </Popup>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };
 
