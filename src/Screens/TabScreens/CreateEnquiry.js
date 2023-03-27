@@ -58,6 +58,7 @@ const CreateEnquiry = ({ route, navigation }) => {
 
   let enquilryDetailsData = useSelector((state) => state.enquiry);
   const [modalVisible, setModalVisible] = useState(false);
+  const [organizationObj, setOrganizationObj] = useState("");
   const [organizationName, setOrganizationName] = useState("");
   const [organizationItem, setOrganizationItem] = useState("");
   const [servicename, setServiceName] = useState("");
@@ -78,10 +79,13 @@ const CreateEnquiry = ({ route, navigation }) => {
   const [depIds, setDepIds] = useState([]);
   const [selectValueDepIds, setselectValueDepIds] = useState("");
   const [deptID, setDepID] = useState("");
+  const [serviceTypeObj, setServiceTypeObj] = useState("");
+
   const [finalDepId, setfinalDepId] = useState("");
   const [selectedOUDep, setSelectedOuDp] = useState([]);
   const resetAllStateData = () => {
     setfinalDepId("");
+    setOrganizationObj("")
     setValueType("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -138,6 +142,9 @@ const CreateEnquiry = ({ route, navigation }) => {
   const onServiceNameClick = (textStr) => {
     setServiceName(textStr.code);
     setfinalDepId("");
+    setServiceTypeObj(textStr);
+
+
     setselectValueDepIds("");
     setValuePrblm("");
     setProblem("");
@@ -164,6 +171,7 @@ const CreateEnquiry = ({ route, navigation }) => {
           // data?.langEng != null &&
           data?.parentUnit === textStr?.unitId
       );
+      setOrganizationObj(textStr);
 
       setSelectedOuDp(selectedOUDep);
       console.log("enter if case ", selectedOUDep);
@@ -190,25 +198,34 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
 
   const onDepDropdown = (depIds) => {
-    // console.log("deptids", depIds);
-    console.log("selectedou", selectedOUDep);
+    console.log("deptids", JSON.stringify(depIds));
+    console.warn("service type object", JSON.stringify(serviceTypeObj));
+    console.warn("orgin", JSON.stringify(organizationObj))
+    const selectOU = get(serviceTypeObj?.mapping?.ouDept.filter(ite => {
+      return ite.ouId == organizationObj.unitId
+    }), '[0].deptId', [])
+    console.warn("selectOU", selectOU)
+    // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
     depIds.length > 0 &&
-      selectedOUDep.length > 0 &&
+      selectOU.length > 0 &&
       depIds.map((dep) => {
         console.log("enter deptID", dep);
-        selectedOUDep.map((ouDepItem) => {
-          if (ouDepItem.unitId == dep) {
+        selectOU.map((ouDepItem) => {
+          if (ouDepItem == dep) {
             console.log("matching");
-            finalArr.push({ description: ouDepItem.unitDesc, id: dep });
+            const unitDesc = get(selectedOUDep.filter(seletedOuItem => seletedOuItem.unitId == ouDepItem), '[0].unitDesc', '')
+            console.warn("unitDesc  unitDesc", unitDesc, dep)
+            finalArr.push({ description: unitDesc, id: dep });
           }
         });
       });
-    console.log("hiting dept on DepDropDown", finalArr);
+    // console.log("hiting dept on DepDropDown", servicename);
     //directly setting
     if (finalArr.length == 1) {
       console.log("hiting inside", finalArr);
       setfinalDepId(finalArr[0]?.id);
+      setDepDropdown(finalArr);
     } else if (finalArr.length > 1) {
       console.log("hiting more", finalArr);
       setDepDropdown(finalArr);
@@ -527,6 +544,7 @@ const CreateEnquiry = ({ route, navigation }) => {
                         ? enquilryDetailsData?.organization?.filter(
                           (data) =>
                             data?.status?.includes("AC") &&
+                            data?.isChat === "Y" &&
                             data?.unitType?.includes("OU") &&
                             data?.langEng != "" &&
                             data?.langEng != null

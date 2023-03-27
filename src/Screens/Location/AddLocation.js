@@ -184,7 +184,7 @@ const AddLocation = ({ route, navigation }) => {
     );
     const obj = {
       customerId: customerId,
-      hno: "",
+      hno: hno,
       buildingName: "",
       street: simpangText,
       road: "",
