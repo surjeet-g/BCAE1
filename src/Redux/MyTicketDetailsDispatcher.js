@@ -7,7 +7,7 @@ import Geocoder from "@timwangdev/react-native-geocoder";
 import { getDataFromDB, saveDataToDB } from "../Storage/token";
 import get from "lodash.get";
 import { GOOGLE_API_KEY, storageKeys } from "../Utilities/Constants/Constant";
-import getGeoAddress from "../Utilities/Geocoder/index";
+
 import { serverCall } from "..//Utilities/API";
 import { endPoints, requestMethod } from "../../src/Utilities/API/ApiConstants";
 const DATA = [
@@ -208,10 +208,13 @@ const mergeAddressInfo = async (rowData) => {
     }
   }
   if (!hasGeocoderData) {
-    getGeoAddress(rowData?.address?.postCode)
+    Geocoder.geocodeAddress(addressString, {
+     // forceGoogleOnIos: true,
+     // apiKey: GOOGLE_API_KEY,
+    })
       .then((res) => {
-        rowData.latitude = res[0]?.lat;
-        rowData.longitude = res[0]?.lon;
+        rowData.latitude = res[0]?.position?.lat;
+        rowData.longitude = res[0]?.position?.lng;
       })
       .catch((err) => {
         rowData.latitude = parseFloat("4.5353");

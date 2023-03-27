@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import RNLocation from "react-native-location";
 import { useDispatch, useSelector } from "react-redux";
+import Geolocation from "@react-native-community/geolocation";
 
 const { height } = Dimensions.get("screen");
 import {
@@ -70,51 +71,37 @@ const Dashboard = ({ route, navigation }) => {
     dispatch(getMyDashboardData(page));
   };
 
+  const [counter, setCounter] = useState(0);
+  // useEffect(() => {
+  //   //getting data form local storage
+  //   setTimeout(() => {
+  //     setCounter(1);
+  //   }, 3000);
+  // }, []);
+
   const noData = dashboard?.noData;
 
   useEffect(() => {
+    //getting data form local storage
+    CheckForGPSEnablement().then((data) => {
+      if (data) {
+        try {
+          Geolocation.getCurrentPosition((info) => {
+            let lat = info.coords.latitude;
+            let long = info.coords.longitude;
+            setCurrentCoordinate({
+              latitude: lat,
+              longitude: long,
+            });
+          });
+        } catch (err) {
+          console.log("error getting current location");
+        }
+      }
+    });
+
     fetchMyDashboardData(0);
   }, []);
-
-  const Markers = React.memo(({ data }) => {
-    return data.map((marker, index) => {
-      const dom = (
-        <Marker
-          key={marker.intxnId}
-          onPress={() => onMarkerPressed(marker, index)}
-          coordinate={{
-            latitude: marker?.latitude,
-            longitude: marker?.longitude,
-          }}
-          //coordinate={{latitude: 4.931796, longitude: 114.836504}}
-          title={marker.address}
-        >
-          <TouchableOpacity onPress={() => setMarkerSelected(true)}>
-            {markerAddedWithRemoveDuplication(
-              {
-                latitude: marker?.latitude,
-                longitude: marker?.longitude,
-              },
-              index
-            )}
-          </TouchableOpacity>
-
-          <Callout tooltip={true} width={210} style={styles.ticketItem}>
-            <View>
-              <Text style={[styles.textBase, styles.description]}>
-                {getAddressFromResponse(marker)}
-              </Text>
-            </View>
-          </Callout>
-        </Marker>
-      );
-      mapPlotedCoordinates.push({
-        latitude: marker?.latitude,
-        longitude: marker?.longitude,
-      });
-      return dom;
-    });
-  });
 
   //checking section timeout
   const [sessionPopupDisable, setSessionPopupDisable] = useState(true);
@@ -233,21 +220,21 @@ const Dashboard = ({ route, navigation }) => {
     }
     return addressString;
   };
-  const markerAddedWithRemoveDuplication = (marker, index) => {
+  const markerAddedWithRemoveDuplication = (marker) => {
     const matchedCoord = mapPlotedCoordinates.filter(
       (mark) =>
         mark.latitude == marker.latitude && mark.longitude == marker.longitude
     );
-
-    const icon =
-      index == highlightedIndex
-        ? require("../../Assets/icons/ic_overlay_highlighted.png")
-        : require("../../Assets/icons/ic_overlay_normal_ios.png");
-    return (
-      <View>
-        <Image source={icon} style={styles.icon} resizeMode="contain" />
-      </View>
-    );
+    if (matchedCoord.length === 0) {
+      return (
+        <View>
+          <Image
+            source={require("../../Assets/icons/ic_overlay_normal.png")}
+            style={styles.icon}
+          />
+        </View>
+      );
+    }
   };
   const onScroll = useCallback(
     (event) => {
@@ -354,7 +341,6 @@ const Dashboard = ({ route, navigation }) => {
       {dashboard?.initMyDashboard && loaderDom(loadingMessage)}
       {!dashboard.initMyDashboard && !dashboard?.isMyDashboardError && (
         <MapView
-          showsMyLocationButton={true}
           provider={PROVIDER_GOOGLE}
           ref={mapRef}
           showsUserLocation={true}
@@ -373,9 +359,52 @@ const Dashboard = ({ route, navigation }) => {
           }}
         >
           {!dashboard?.initMyDashboard &&
-            dashboard?.myDashboardData?.length > 0 && (
-              <Markers data={dashboard?.myDashboardData} />
-            )}
+            dashboard?.myDashboardData?.length > 0 &&
+            dashboard?.myDashboardData?.map((marker, index) => {
+              const dom = (
+                <Marker
+                  key={marker.intxnId}
+                  onPress={() => onMarkerPressed(marker, index)}
+                  coordinate={{
+                    latitude: marker?.latitude,
+                    longitude: marker?.longitude,
+                  }}
+                  //coordinate={{latitude: 4.931796, longitude: 114.836504}}
+                  title={marker.address}
+                >
+                  <TouchableOpacity onPress={() => setMarkerSelected(true)}>
+                    {index == highlightedIndex ? (
+                      <View>
+                        <Image
+                          source={require("../../Assets/icons/ic_overlay_highlighted.png")}
+                          style={styles.icon}
+                        />
+                      </View>
+                    ) : (
+                      markerAddedWithRemoveDuplication({
+                        latitude: marker?.latitude,
+                        longitude: marker?.longitude,
+                      })
+                    )}
+                  </TouchableOpacity>
+
+                  <Callout tooltip={true} width={210} style={styles.ticketItem}>
+                    <View>
+                      <Text style={[styles.textBase, styles.description]}>
+                        {getAddressFromResponse(marker)}
+                      </Text>
+                    </View>
+                  </Callout>
+                </Marker>
+              );
+
+              mapPlotedCoordinates.push({
+                latitude: marker?.latitude,
+                longitude: marker?.longitude,
+              });
+
+              return dom;
+            })}
         </MapView>
       )}
       <View>
@@ -470,7 +499,7 @@ const styles = StyleSheet.create({
     // marginLeft: 20,
     width: "100%",
     position: "absolute",
-    bottom: height / 12,
+    bottom: height / 25,
   },
 
   map: {

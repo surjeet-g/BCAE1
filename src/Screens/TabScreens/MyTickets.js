@@ -185,17 +185,8 @@ const MyTickets = ({ route, navigation }) => {
                 }
                 onRequestClose={hideMenu}
               >
-                <MenuItem
-                  onPress={handleFilterChangeAll}
-                  style={{ marginTop: 12 }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                <MenuItem onPress={handleFilterChangeAll}>
+                  <View style={{ flexDirection: "row" }}>
                     <View style={styles.ticketItemHeading}>
                       {selectedFilter != "ALL" && (
                         <Image
@@ -214,13 +205,7 @@ const MyTickets = ({ route, navigation }) => {
                   </View>
                 </MenuItem>
                 <MenuItem onPress={handleFilterChangeEnquiry}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                  <View style={{ flexDirection: "row" }}>
                     <View style={styles.ticketItemHeading}>
                       {selectedFilter != "REQINQ" && (
                         <Image
@@ -239,13 +224,7 @@ const MyTickets = ({ route, navigation }) => {
                   </View>
                 </MenuItem>
                 <MenuItem onPress={handleFilterChangeComplaint}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                  <View style={{ flexDirection: "row" }}>
                     <View style={styles.ticketItemHeading}>
                       {selectedFilter != "REQCOMP" && (
                         <Image
@@ -499,10 +478,7 @@ const styles = StyleSheet.create({
   },
   ticketItemHeading: {
     minWidth: "95%",
-    margin: 12,
-    // justifyContent: "center",
-    alignItems: "center",
-    marginTop: 5,
+    marginVertical: 8,
     // backgroundColor: "white",
     flexDirection: "row",
   },

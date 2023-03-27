@@ -41,7 +41,6 @@ import { Button } from "../../Components/Button";
 import { LogBox } from "react-native";
 import { CustomDropDownAddress as CustomDropDown } from "../../Components/CustomDropDownAddress";
 const { height } = Dimensions.get("screen");
-import { check, PERMISSIONS, RESULTS, request } from "react-native-permissions";
 
 const AddLocation = ({ route, navigation }) => {
   const [activeDropDown, setActiveDropDown] = useState("district");
@@ -319,12 +318,15 @@ const AddLocation = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    console.warn("httin  first useEffect");
     animateToCurrentLocation();
   }, [locationGet]);
 
   useEffect(() => {
-    permissionHandle();
+    CheckForGPSEnablement().then((data) => {
+      if (data) {
+        permissionHandle();
+      }
+    });
   }, [location]);
 
   useEffect(() => {
@@ -438,7 +440,6 @@ const AddLocation = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <MapView
-        showsUserLocation={true}
         provider={PROVIDER_GOOGLE}
         ref={mapRef}
         style={styles.map}
