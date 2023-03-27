@@ -8,9 +8,6 @@ import { endPoints, requestMethod } from "../../src/Utilities/API/ApiConstants";
 import Geocoder from "@timwangdev/react-native-geocoder";
 import { GOOGLE_API_KEY, storageKeys } from "../Utilities/Constants/Constant";
 import { getDataFromDB, saveDataToDB } from "../Storage/token";
-import { Platform } from "react-native";
-import getGeoAddress from "../Utilities/Geocoder/index";
-
 import get from "lodash.get";
 
 export function getMyDashboardData(page = 0) {
@@ -91,7 +88,7 @@ const getModifiedInteractions = async (dataBeforeModification) => {
             //local db having data in local strorage
             if (!firstCall && get(localDB, "length", false)) {
               localAddreData = localDB.filter(
-                (geo) => geo.addressString == data.postCode
+                (geo) => geo.addressString == addressString
               );
               //checking the current address string in localdb
               if (localAddreData.length != 0) {
@@ -104,25 +101,27 @@ const getModifiedInteractions = async (dataBeforeModification) => {
             //data is empty in local db get data from gecoder
             if (get(localAddreData, "length", 0) == 0) {
               // console.warn("entering gecoder data", addressString);
-              //todo platform
-              await getGeoAddress(data?.postCode)
+
+              await Geocoder.geocodeAddress(addressString, {
+                // forceGoogleOnIos: true,
+                // apiKey: GOOGLE_API_KEY,
+              })
                 .then(async (res) => {
-                  data.latitude = res[0].lat;
-                  data.longitude = res[0].lon;
-                  console.warn("res from", res[0].lat);
+                  data.latitude = res[0].position.lat;
+                  data.longitude = res[0].position.lng;
                   dataAfterModification.push(data);
                   const coords = {
-                    latitude: res[0].lat,
-                    longitude: res[0].lon,
-                    addressString: data?.postCode,
+                    latitude: res[0].position.lat,
+                    longitude: res[0].position.lng,
+                    addressString,
                   };
-                  // console.warn("gecoder success ", res[0].lat);
+                  // console.warn("gecoder success ", res[0].position.lat);
                   if (firstCall) {
                     await saveDataToDB(storageKeys.GEOCODER_DATA, [
                       {
-                        latitude: res[0].lat,
-                        longitude: res[0].lon,
-                        addressString: data?.postCode,
+                        latitude: res[0].position.lat,
+                        longitude: res[0].position.lng,
+                        addressString,
                       },
                     ]);
                   } else {
@@ -223,7 +222,7 @@ const getModifiedMasterTickets = async (rowData, masterTicketDataList) => {
             if (!firstCall && get(localDB, "length", false)) {
               // console.warn("entering first call");
               localAddreData = localDB.filter(
-                (geo) => geo.addressString == masterTicketData.address.postCode
+                (geo) => geo.addressString == addressString
               );
 
               if (localAddreData.length != 0) {
@@ -242,27 +241,26 @@ const getModifiedMasterTickets = async (rowData, masterTicketDataList) => {
 
             if (get(localAddreData, "length", 0) == 0) {
               // console.warn("entering into gecoder lib");
-              await getGeoAddress(masterTicketData?.address?.postCode)
+              await Geocoder.geocodeAddress(addressString, {
+                // forceGoogleOnIos: true,
+                // forceGoogleOnIos: true,
+                // apiKey: GOOGLE_API_KEY,
+              })
                 .then(async (res) => {
-                  console.warn(
-                    "response",
-                    masterTicketData?.address?.postCode,
-                    res
-                  );
-                  const masterTicketLatitude = res[0].lat;
-                  const masterTicketLongitude = res[0].lon;
+                  const masterTicketLatitude = res[0].position.lat;
+                  const masterTicketLongitude = res[0].position.lng;
 
                   const coords = {
-                    latitude: res[0].lat,
-                    longitude: res[0].lon,
-                    addressString: masterTicketData?.address?.postCode,
+                    latitude: res[0].position.lat,
+                    longitude: res[0].position.lng,
+                    addressString,
                   };
                   if (firstCall) {
                     await saveDataToDB(storageKeys.GEOCODER_DATA, [
                       {
-                        latitude: res[0].lat,
-                        longitude: res[0].lon,
-                        addressString: masterTicketData?.address?.postCode,
+                        latitude: res[0].position.lat,
+                        longitude: res[0].position.lng,
+                        addressString,
                       },
                     ]);
                   } else {
