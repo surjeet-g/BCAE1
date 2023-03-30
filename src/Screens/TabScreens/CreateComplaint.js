@@ -218,8 +218,10 @@ const CreateComplaint = ({ route, navigation }) => {
     console.warn("service type object", JSON.stringify(serviceTypeObj));
     console.warn("orgin", JSON.stringify(organizationObj));
     const selectOU = get(
-      serviceTypeObj?.mapping?.ouDept.filter((ite) => {
-        return ite.ouId == organizationObj.unitId;
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+          return item.ouId == organizationObj.unitId;
+        }
       }),
       "[0].deptId",
       []
@@ -510,6 +512,24 @@ const CreateComplaint = ({ route, navigation }) => {
     setContactPreference("CNT_PREF_NTC");
   };
 
+  const checkDeptIdFromProblemCode = (ids) => {
+    const selectServiceDept = get(
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+          return item.ouId == organizationObj.unitId;
+        }
+      }),
+      "[0].deptId",
+      []
+    );
+    for (var i = 0; i < ids.length; i++) {
+      if (selectServiceDept.includes(ids[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const onDeleteClicked = (key) => {
     Alert.alert(
       strings.attention,
@@ -718,15 +738,16 @@ const CreateComplaint = ({ route, navigation }) => {
                             let deptArr = [];
                             if (get(data, "mapping.ouDept.length", 0) > 0) {
                               deptArr = get(data, "mapping.ouDept", []).map(
-                                (item) => item?.ouId || ""
+                                (item) => {
+                                  if (
+                                    item?.isMobile === "Y" &&
+                                    item?.ticketType?.includes("REQCOMP")
+                                  )
+                                    return item?.ouId || "";
+                                }
                               );
                             }
-
-                            return (
-                              data?.mapping?.isMobile === "Y" &&
-                              data?.mapping?.ticketType?.includes("REQCOMP") &&
-                              deptArr.includes(organizationItem?.unitId)
-                            );
+                            return deptArr.includes(organizationItem?.unitId);
                           }
                         ) ?? []
                       : []
@@ -750,7 +771,8 @@ const CreateComplaint = ({ route, navigation }) => {
                             data?.mapping?.isMobile === "Y" &&
                             data?.status?.includes("AC") &&
                             data?.mapping?.ticketType?.includes("REQCOMP") &&
-                            servicename != ""
+                            servicename != "" &&
+                            checkDeptIdFromProblemCode(data?.mapping?.deptId)
                         ) ?? []
                       : []
                   }
