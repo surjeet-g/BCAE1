@@ -203,7 +203,7 @@ const CreateEnquiry = ({ route, navigation }) => {
     console.warn("orgin", JSON.stringify(organizationObj));
     const selectOU = get(
       serviceTypeObj?.mapping?.ouDept.filter((item) => {
-        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
           return item.ouId == organizationObj.unitId;
         }
       }),
@@ -413,7 +413,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   const checkDeptIdFromProblemCode = (ids) => {
     const selectServiceDept = get(
       serviceTypeObj?.mapping?.ouDept.filter((item) => {
-        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
           return item.ouId == organizationObj.unitId;
         }
       }),
@@ -602,7 +602,7 @@ const CreateEnquiry = ({ route, navigation }) => {
                                 (item) => {
                                   if (
                                     item?.isMobile === "Y" &&
-                                    item?.ticketType?.includes("REQCOMP")
+                                    item?.ticketType?.includes("REQINQ")
                                   )
                                     return item?.ouId || "";
                                 }
