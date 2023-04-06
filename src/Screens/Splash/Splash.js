@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, Platform } from "react-native";
 import { strings } from "../../Utilities/Language";
 import { changeLanguage } from "../../Utilities/Language/MulitLanguageSupport";
 import { getLanguage } from "../../Utilities/Language/language";
@@ -16,6 +16,7 @@ import { getToken } from "../../Storage/token";
 import { networkAvailable } from "../../Utilities/API";
 
 const Splash = ({ route, navigation }) => {
+
   useEffect(() => {
     checkLanguage();
   }, []);
@@ -72,7 +73,7 @@ const Splash = ({ route, navigation }) => {
               backgroundColor: color.VERSION_BACKGROUND,
             }}
           >
-            {strings.version}
+            {Platform.OS === "android" ? strings.version : "3.0.1"}
           </Text>
         </View>
 
