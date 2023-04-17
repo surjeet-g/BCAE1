@@ -1,6 +1,6 @@
 //Staging environment
 //export const BASE_URL = 'https://bcae-test.comquest-brunei.com:1443/bcae/';
-export const BASE_URL = "https://st-td123.comquest-brunei.com:13443/td123/";
+export const BASE_URL = "https://st-td123.comquest-brunei.com:13443/staging/";
 
 export const BASE_URL_TENANT =
   "https://bcae-test.comquest-brunei.com:1443/tenant/";
