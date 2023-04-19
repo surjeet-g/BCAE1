@@ -196,7 +196,7 @@ const CreateComplaint = ({ route, navigation }) => {
       // );
     }
 
-    setOrganizationName(textStr?.unitDesc);
+    setOrganizationName(textStr?.langEng);
     setOrganizationItem(textStr);
     setfinalDepId("");
     setValueType("");
@@ -240,7 +240,7 @@ const CreateComplaint = ({ route, navigation }) => {
               selectedOUDep.filter(
                 (seletedOuItem) => seletedOuItem.unitId == ouDepItem
               ),
-              "[0].unitDesc",
+              "[0].langEng",
               ""
             );
             console.warn("unitDesc  unitDesc", unitDesc, dep);

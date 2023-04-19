@@ -49,7 +49,7 @@ const InquiryReducer = (state = inquiryInitialState, action) => {
       let deptDescArr = [];
       if (action?.data?.data.length != 0) {
         formatedData = action?.data?.data.map((d) => {
-          const obj = { id: d.unitId, description: d.unitDesc };
+          const obj = { id: d.unitId, description: d.langEng };
           deptDescArr.push(obj);
           return { ...d, ...{ description: d.langEng } };
         });
