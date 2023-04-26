@@ -485,7 +485,7 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-simple-crypto (0.2.15):
     - React
-  - react-native-webview (11.25.0):
+  - react-native-webview (12.0.2):
     - React-Core
   - React-perflogger (0.70.6)
   - React-RCTActionSheet (0.70.6):
@@ -907,7 +907,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-simple-crypto: 499ddd9f317932677e50393e58e7a72bca2a86e1
-  react-native-webview: a71da846ed2e9085440e1d6659c04e285528834b
+  react-native-webview: 203b6a1c7507737f777c91d7e10c30e7e67c1a17
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
   React-RCTAnimation: 5341e288375451297057391227f691d9b2326c3d

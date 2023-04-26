@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, Alert, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, Alert, SafeAreaView, Linking } from "react-native";
 import WebView from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Component/Header";
@@ -86,6 +86,14 @@ const Chat = ({ route, navigation }) => {
 
       {showWebView && (
         <WebView
+          startInLoadingState={true}
+          // allowUniversalAccessFromFileURLs={true}
+          // javaScriptEnabled={true}
+          // mixedContentMode={'always'}
+          onMessage={(data) => {
+            // console.warn("hiting on message", data.nativeEvent.data)
+            Linking.openURL(data.nativeEvent.data)
+          }}
           ref={webViewRef}
           source={{
             uri: (DEBUG_BUILD ? STAGE_CHAT_URL : PROD_CHAT_URL) + contactNo,
