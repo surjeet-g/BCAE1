@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, Alert, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, Alert, SafeAreaView, Linking } from "react-native";
 import WebView from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Component/Header";
@@ -18,8 +18,49 @@ import {
 } from "../../Utilities/Constants/Constant";
 import { strings } from "../../Utilities/Language";
 import LoadingAnimation from "../../Components/LoadingAnimation";
+import get from 'lodash.get'
+import { downloadFile } from "../../Utilities/API/FileSystem";
+import RNFetchBlob from "rn-fetch-blob";
 
 const Chat = ({ route, navigation }) => {
+  const handleUrlWithZip = (input) => {
+
+
+
+    const urlDownload = input;
+
+    let fileName = urlDownload
+
+
+    //Downloading the file on a folder
+
+    const dirs = RNFetchBlob.fs.dirs;
+    const path = dirs.DocumentDir + "/" + fileName;
+
+    RNFetchBlob
+      .config({
+        // response data will be saved to this path if it has access right.
+        path: path
+      })
+      .fetch('GET', urlDownload, {
+        //some headers ..
+
+      })
+      .progress((received, total) => {
+        console.warn('progress', received / total)
+      })
+      .then(async (res) => {
+
+        const base64String = await res.base64();
+        const contentType = get(res, 'respInfo.headers.Content-Type', 'image/jpg')
+        downloadFile('data:' + contentType + ';base64,' + base64String, "chatDoc")
+
+
+
+      })
+
+
+  }
   const webViewRef = useRef();
   let contactNo = route.params.contactNo;
 
@@ -86,6 +127,14 @@ const Chat = ({ route, navigation }) => {
 
       {showWebView && (
         <WebView
+          startInLoadingState={true}
+          // allowUniversalAccessFromFileURLs={true}
+          // javaScriptEnabled={true}
+          // mixedContentMode={'always'}
+          onMessage={(data) => {
+            // console.warn("hiting on message", data.nativeEvent.data)
+            Linking.openURL(data.nativeEvent.data)
+          }}
           ref={webViewRef}
           source={{
             uri: (DEBUG_BUILD ? STAGE_CHAT_URL : PROD_CHAT_URL) + contactNo,

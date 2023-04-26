@@ -57,7 +57,7 @@ const CreateComplaint = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [organizationName, setOrganizationName] = useState("");
   const [organizationObj, setOrganizationObj] = useState("");
-  const [hno, setHno] = useState("")
+  const [hno, setHno] = useState("");
   const [organizationItem, setOrganizationItem] = useState("");
   const [servicename, setServiceName] = useState("");
   const [problem, setProblem] = useState("");
@@ -96,8 +96,8 @@ const CreateComplaint = ({ route, navigation }) => {
 
   const resetAllStateData = () => {
     setfinalDepId("");
-    setHno("")
-    setOrganizationObj("")
+    setHno("");
+    setOrganizationObj("");
     setValueType("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -113,7 +113,7 @@ const CreateComplaint = ({ route, navigation }) => {
     setLocation("");
     setLatitude("");
     setLongitude("");
-
+    setDepDropdown([]);
   };
 
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
@@ -127,12 +127,12 @@ const CreateComplaint = ({ route, navigation }) => {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
-          { text: strings.ok, onPress: () => { } },
+          { text: strings.ok, onPress: () => {} },
         ]);
       }
     } else {
       Alert.alert(strings.attention, strings.max_number_of_file, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     }
   };
@@ -154,11 +154,11 @@ const CreateComplaint = ({ route, navigation }) => {
   };
 
   const fetchMyInteractionData = () => {
-    dispatch(getMyTicketsData(() => { }));
+    dispatch(getMyTicketsData(() => {}));
   };
 
   const onServiceNameClick = (textStr) => {
-    console.warn("test", textStr.mapping?.ouDept)
+    console.warn("test", textStr.mapping?.ouDept);
     setServiceName(textStr.code);
     setServiceTypeObj(textStr);
     setfinalDepId("");
@@ -216,11 +216,17 @@ const CreateComplaint = ({ route, navigation }) => {
   const onDepDropdown = (depIds) => {
     console.log("deptids", JSON.stringify(depIds));
     console.warn("service type object", JSON.stringify(serviceTypeObj));
-    console.warn("orgin", JSON.stringify(organizationObj))
-    const selectOU = get(serviceTypeObj?.mapping?.ouDept.filter(ite => {
-      return ite.ouId == organizationObj.unitId
-    }), '[0].deptId', [])
-    console.warn("selectOU", selectOU)
+    console.warn("orgin", JSON.stringify(organizationObj));
+    const selectOU = get(
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+          return item.ouId == organizationObj.unitId;
+        }
+      }),
+      "[0].deptId",
+      []
+    );
+    console.warn("selectOU", selectOU);
     // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
     depIds.length > 0 &&
@@ -230,8 +236,14 @@ const CreateComplaint = ({ route, navigation }) => {
         selectOU.map((ouDepItem) => {
           if (ouDepItem == dep) {
             console.log("matching");
-            const unitDesc = get(selectedOUDep.filter(seletedOuItem => seletedOuItem.unitId == ouDepItem), '[0].unitDesc', '')
-            console.warn("unitDesc  unitDesc", unitDesc, dep)
+            const unitDesc = get(
+              selectedOUDep.filter(
+                (seletedOuItem) => seletedOuItem.unitId == ouDepItem
+              ),
+              "[0].unitDesc",
+              ""
+            );
+            console.warn("unitDesc  unitDesc", unitDesc, dep);
             finalArr.push({ description: unitDesc, id: dep });
           }
         });
@@ -500,6 +512,24 @@ const CreateComplaint = ({ route, navigation }) => {
     setContactPreference("CNT_PREF_NTC");
   };
 
+  const checkDeptIdFromProblemCode = (ids) => {
+    const selectServiceDept = get(
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQCOMP")) {
+          return item.ouId == organizationObj.unitId;
+        }
+      }),
+      "[0].deptId",
+      []
+    );
+    for (var i = 0; i < ids.length; i++) {
+      if (selectServiceDept.includes(ids[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const onDeleteClicked = (key) => {
     Alert.alert(
       strings.attention,
@@ -530,7 +560,7 @@ const CreateComplaint = ({ route, navigation }) => {
       selectedValuePrblm === ""
     ) {
       Alert.alert(strings.attention, strings.field_empty_alert, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     } else {
       const myArray = location.split(",").reverse();
@@ -571,27 +601,27 @@ const CreateComplaint = ({ route, navigation }) => {
     TDLog(
       "onPlaceChosen create complaint Params",
       params.street +
-      "," +
-      params.state +
-      "," +
-      params.district +
-      "," +
-      params.country +
-      "," +
-      params.postCode
+        "," +
+        params.state +
+        "," +
+        params.district +
+        "," +
+        params.country +
+        "," +
+        params.postCode
     );
     setLocation(
       params.hno +
-      "," +
-      params.street +
-      "," +
-      params.state +
-      "," +
-      params.district +
-      "," +
-      params.country +
-      "," +
-      params.postCode
+        "," +
+        params.street +
+        "," +
+        params.state +
+        "," +
+        params.district +
+        "," +
+        params.country +
+        "," +
+        params.postCode
     );
     TDLog("onPlaceChosen create complaint location", location);
     setLatitude(params.latitude);
@@ -601,7 +631,7 @@ const CreateComplaint = ({ route, navigation }) => {
     setDistrict(params.district);
     setCountry(params.country);
     setPostcode(params.postCode);
-    setHno(params.hno)
+    setHno(params.hno);
   };
 
   const showSuccessMessage = (successMessage, interactionId) => {
@@ -678,16 +708,16 @@ const CreateComplaint = ({ route, navigation }) => {
                     setValue={setValueOrg}
                     data={
                       !enquilryDetailsData.initInquiry &&
-                        enquilryDetailsData?.organization &&
-                        enquilryDetailsData?.organization.length > 0
+                      enquilryDetailsData?.organization &&
+                      enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
-                          (data) =>
-                            data?.status?.includes("AC") &&
-                            data?.isChat === "Y" &&
-                            data?.unitType?.includes("OU") &&
-                            data?.langEng != "" &&
-                            data?.langEng != null
-                        ) ?? []
+                            (data) =>
+                              data?.status?.includes("AC") &&
+                              data?.isChat === "Y" &&
+                              data?.unitType?.includes("OU") &&
+                              data?.langEng != "" &&
+                              data?.langEng != null
+                          ) ?? []
                         : []
                     }
                     onChangeText={(text) => onOrganizationNameClick(text)}
@@ -704,21 +734,22 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE?.filter(
-                        (data) => {
-                          let deptArr = [];
-                          if (get(data, "mapping.ouDept.length", 0) > 0) {
-                            deptArr = get(data, "mapping.ouDept", []).map(
-                              (item) => item?.ouId || ""
-                            );
+                          (data) => {
+                            let deptArr = [];
+                            if (get(data, "mapping.ouDept.length", 0) > 0) {
+                              deptArr = get(data, "mapping.ouDept", []).map(
+                                (item) => {
+                                  if (
+                                    item?.isMobile === "Y" &&
+                                    item?.ticketType?.includes("REQCOMP")
+                                  )
+                                    return item?.ouId || "";
+                                }
+                              );
+                            }
+                            return deptArr.includes(organizationItem?.unitId);
                           }
-
-                          return (
-                            data?.mapping?.isMobile === "Y" &&
-                            data?.mapping?.ticketType?.includes("REQCOMP") &&
-                            deptArr.includes(organizationItem?.unitId)
-                          );
-                        }
-                      ) ?? []
+                        ) ?? []
                       : []
                     // enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE ?? []
                   }
@@ -735,13 +766,14 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
-                        (data) =>
-                          data?.mapping?.serviceType?.includes(servicename) &&
-                          data?.mapping?.isMobile === "Y" &&
-                          data?.status?.includes("AC") &&
-                          data?.mapping?.ticketType?.includes("REQCOMP") &&
-                          servicename != ""
-                      ) ?? []
+                          (data) =>
+                            data?.mapping?.serviceType?.includes(servicename) &&
+                            data?.mapping?.isMobile === "Y" &&
+                            data?.status?.includes("AC") &&
+                            data?.mapping?.ticketType?.includes("REQCOMP") &&
+                            servicename != "" &&
+                            checkDeptIdFromProblemCode(data?.mapping?.deptId)
+                        ) ?? []
                       : []
                   }
                   onChangeText={(text) => {
@@ -749,7 +781,7 @@ const CreateComplaint = ({ route, navigation }) => {
                     onDepDropdown([]);
 
                     const depIdsTemp = get(text, "mapping.deptId", []);
-                    console.warn('>>', depIdsTemp)
+                    console.warn(">>", depIdsTemp);
                     // const depIdsTemp = [
                     //   "DPT0000001.OPU0000001.ORG0000001",
                     //   "DPT0000001.OPU0000001.ORG0000001",
@@ -944,7 +976,16 @@ const CreateComplaint = ({ route, navigation }) => {
                             style={styles.prefImgae}
                             source={require("../../Assets/icons/ic_donot_white.png")}
                           ></Image>
-                          <Text style={{ ...styles.selectedText, fontSize: 9, lineHeight: 10, marginTop: 3 }}>Not To Contact</Text>
+                          <Text
+                            style={{
+                              ...styles.selectedText,
+                              fontSize: 9,
+                              lineHeight: 10,
+                              marginTop: 3,
+                            }}
+                          >
+                            Not To Contact
+                          </Text>
                         </ImageBackground>
                       )}
                       {contactPreference != "CNT_PREF_NTC" && (
@@ -956,7 +997,9 @@ const CreateComplaint = ({ route, navigation }) => {
                             style={styles.prefImgae}
                             source={require("../../Assets/icons/ic_donot_black.png")}
                           ></Image>
-                          <Text style={{ ...styles.normalText, fontSize: 9 }}>Not To Contact</Text>
+                          <Text style={{ ...styles.normalText, fontSize: 9 }}>
+                            Not To Contact
+                          </Text>
                         </ImageBackground>
                       )}
                     </TouchableOpacity>
@@ -987,11 +1030,11 @@ const CreateComplaint = ({ route, navigation }) => {
                         label={strings.submitComplaint}
                         disabled={
                           servicename === "" ||
-                            problem === "" ||
-                            finalDepId === "" ||
-                            description === "" ||
-                            location === "" ||
-                            contactPreference === ""
+                          problem === "" ||
+                          finalDepId === "" ||
+                          description === "" ||
+                          location === "" ||
+                          contactPreference === ""
                             ? true
                             : false
                         }

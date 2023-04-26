@@ -65,7 +65,7 @@ const AddLocation = ({ route, navigation }) => {
   const [mapOnLongitude, setMapOnLongitude] = useState(0.0);
   const [geoAddress, setGeoAddress] = useState("");
   const [locationGet, setCurrentLocationget] = useState(false);
-
+  const [suggestPostCode, setSuggestPostalCode] = useState("")
   const mapRef = useRef(null);
   const latitudeDelta = 0.0922;
   const longitudeDelta = latitudeDelta * ASPECT_RATIO;

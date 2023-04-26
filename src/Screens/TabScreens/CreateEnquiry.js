@@ -85,7 +85,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   const [selectedOUDep, setSelectedOuDp] = useState([]);
   const resetAllStateData = () => {
     setfinalDepId("");
-    setOrganizationObj("")
+    setOrganizationObj("");
     setValueType("");
     setselectValueDepIds("");
     setValuePrblm("");
@@ -96,6 +96,7 @@ const CreateEnquiry = ({ route, navigation }) => {
     setValueDeptId("");
     setAttachmentModalVisible(false);
     setFileAttachments([]);
+    setDepDropdown([]);
   };
 
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
@@ -143,7 +144,6 @@ const CreateEnquiry = ({ route, navigation }) => {
     setServiceName(textStr.code);
     setfinalDepId("");
     setServiceTypeObj(textStr);
-
 
     setselectValueDepIds("");
     setValuePrblm("");
@@ -200,11 +200,17 @@ const CreateEnquiry = ({ route, navigation }) => {
   const onDepDropdown = (depIds) => {
     console.log("deptids", JSON.stringify(depIds));
     console.warn("service type object", JSON.stringify(serviceTypeObj));
-    console.warn("orgin", JSON.stringify(organizationObj))
-    const selectOU = get(serviceTypeObj?.mapping?.ouDept.filter(ite => {
-      return ite.ouId == organizationObj.unitId
-    }), '[0].deptId', [])
-    console.warn("selectOU", selectOU)
+    console.warn("orgin", JSON.stringify(organizationObj));
+    const selectOU = get(
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
+          return item.ouId == organizationObj.unitId;
+        }
+      }),
+      "[0].deptId",
+      []
+    );
+    console.warn("selectOU", selectOU);
     // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
     depIds.length > 0 &&
@@ -214,8 +220,14 @@ const CreateEnquiry = ({ route, navigation }) => {
         selectOU.map((ouDepItem) => {
           if (ouDepItem == dep) {
             console.log("matching");
-            const unitDesc = get(selectedOUDep.filter(seletedOuItem => seletedOuItem.unitId == ouDepItem), '[0].unitDesc', '')
-            console.warn("unitDesc  unitDesc", unitDesc, dep)
+            const unitDesc = get(
+              selectedOUDep.filter(
+                (seletedOuItem) => seletedOuItem.unitId == ouDepItem
+              ),
+              "[0].unitDesc",
+              ""
+            );
+            console.warn("unitDesc  unitDesc", unitDesc, dep);
             finalArr.push({ description: unitDesc, id: dep });
           }
         });
@@ -398,6 +410,24 @@ const CreateEnquiry = ({ route, navigation }) => {
     setContactPreference("CNT_PREF_WA");
   };
 
+  const checkDeptIdFromProblemCode = (ids) => {
+    const selectServiceDept = get(
+      serviceTypeObj?.mapping?.ouDept.filter((item) => {
+        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
+          return item.ouId == organizationObj.unitId;
+        }
+      }),
+      "[0].deptId",
+      []
+    );
+    for (var i = 0; i < ids.length; i++) {
+      if (selectServiceDept.includes(ids[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const onDeleteClicked = (key) => {
     Alert.alert(
       strings.attention,
@@ -569,15 +599,17 @@ const CreateEnquiry = ({ route, navigation }) => {
                           let deptArr = [];
                           if (get(data, "mapping.ouDept.length", 0) > 0) {
                             deptArr = get(data, "mapping.ouDept", []).map(
-                              (item) => item?.ouId || ""
+                              (item) => {
+                                if (
+                                  item?.isMobile === "Y" &&
+                                  item?.ticketType?.includes("REQINQ")
+                                )
+                                  return item?.ouId || "";
+                              }
                             );
                           }
 
-                          return (
-                            data?.mapping?.isMobile === "Y" &&
-                            data?.mapping?.ticketType?.includes("REQINQ") &&
-                            deptArr.includes(organizationItem?.unitId)
-                          );
+                          return deptArr.includes(organizationItem?.unitId);
                         }
                       ) ?? []
                       : []
@@ -601,7 +633,8 @@ const CreateEnquiry = ({ route, navigation }) => {
                           data?.mapping?.isMobile === "Y" &&
                           data?.status?.includes("AC") &&
                           data?.mapping?.ticketType?.includes("REQINQ") &&
-                          servicename != ""
+                          servicename != "" &&
+                          checkDeptIdFromProblemCode(data?.mapping?.deptId)
                       ) ?? []
                       : []
                   }

@@ -24,7 +24,7 @@ import RNFS from "react-native-fs";
 import { ScrollView } from "react-native-gesture-handler";
 var { height, width } = Dimensions.get("screen");
 const FollowUp = ({
-  updateAction = () => {},
+  updateAction = () => { },
   description,
   setDescription,
   isFollowUpLoaing,
@@ -99,7 +99,7 @@ const FollowUp = ({
                   borderStyle: "solid",
                   padding: 12,
                 }}
-                clearText={() => {}}
+                clearText={() => { }}
                 // keyboardType="numeric"
                 isClose={false}
                 lines={3}
@@ -141,7 +141,7 @@ const FollowUp = ({
                 }}
               >
                 {moment(get(activeFollowUpData, "data.createdAt", "")).format(
-                  "DD MMM - hh:mm"
+                  "DD MMM YYYY hh:MM A"
                 )}
               </Text>
               {/* item listing */}

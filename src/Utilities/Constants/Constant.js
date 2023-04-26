@@ -3,7 +3,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Platform } from "react-native";
-import RNSimpleCrypto from "react-native-simple-crypto";
+
 const RNFetchBlob = require("rn-fetch-blob").default;
 import { BASE_URL, PROD_BASE_URL } from "../API/ApiConstants";
 

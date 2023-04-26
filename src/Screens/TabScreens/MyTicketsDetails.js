@@ -103,7 +103,7 @@ const MyTicketDetails = ({ route, navigation }) => {
   const onPressInquiryNotification = () => {
     console.log(
       "onPressInquiryNotification=====>" +
-        JSON.stringify(myTicketDetails?.myTicketDetailsData)
+      JSON.stringify(myTicketDetails?.myTicketDetailsData)
     );
     navigation.navigate("InquiryNotification", {
       ouId: myTicketDetails?.myTicketDetailsData?.parentUnit,
@@ -188,8 +188,8 @@ const MyTicketDetails = ({ route, navigation }) => {
             <View
               style={{ flexDirection: "row", marginBottom: spacing.HEIGHT_6 }}
             >
-              <Text style={styles.requestText}>
-                {Moment(data?.createdAt).format("DD MMM - hh:mm")}
+              <Text style={{ ...styles.requestText, fontSize: 12 }}>
+                {Moment(data?.createdAt).format("DD MMM YYYY hh:MM A")}
               </Text>
               <Image
                 style={{
@@ -245,7 +245,7 @@ const MyTicketDetails = ({ route, navigation }) => {
             marginLeft: 10,
           }}
         >
-          {Moment(data?.createdAt).format("DD MMM - hh:mm")}
+          {Moment(data?.createdAt).format("DD MMM YYYY hh:MM A")}
         </Text>
       </View>
     );
@@ -321,38 +321,38 @@ const MyTicketDetails = ({ route, navigation }) => {
                       <View style={[styles.box1]}>
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
                           "REQINQ" && (
-                          <>
-                            <View style={{ flexDirection: "row" }}>
-                              <View style={{ flex: 1 }}>
-                                <Text style={[styles.status]}>
-                                  {strings.inquiryNo}
-                                </Text>
-                              </View>
-                              <View style={{ flex: 1, alignItems: "flex-end" }}>
-                                <Pressable onPress={onPressInquiryNotification}>
-                                  <Text style={[styles.notification]}>
-                                    {strings.inquiryInfo}
+                            <>
+                              <View style={{ flexDirection: "row" }}>
+                                <View style={{ flex: 1 }}>
+                                  <Text style={[styles.status]}>
+                                    {strings.inquiryNo}
                                   </Text>
-                                </Pressable>
+                                </View>
+                                <View style={{ flex: 1, alignItems: "flex-end" }}>
+                                  <Pressable onPress={onPressInquiryNotification}>
+                                    <Text style={[styles.notification]}>
+                                      {strings.inquiryInfo}
+                                    </Text>
+                                  </Pressable>
+                                </View>
                               </View>
-                            </View>
 
-                            <Text style={[styles.requestText]}>
-                              {myTicketDetails?.myTicketDetailsData?.intxnId}
-                            </Text>
-                          </>
-                        )}
+                              <Text style={[styles.requestText]}>
+                                {myTicketDetails?.myTicketDetailsData?.intxnId}
+                              </Text>
+                            </>
+                          )}
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
                           "REQCOMP" && (
-                          <>
-                            <Text style={[styles.status]}>
-                              {strings.requestNo}
-                            </Text>
-                            <Text style={[styles.requestText]}>
-                              {myTicketDetails?.myTicketDetailsData?.intxnId}
-                            </Text>
-                          </>
-                        )}
+                            <>
+                              <Text style={[styles.status]}>
+                                {strings.requestNo}
+                              </Text>
+                              <Text style={[styles.requestText]}>
+                                {myTicketDetails?.myTicketDetailsData?.intxnId}
+                              </Text>
+                            </>
+                          )}
                       </View>
 
                       <View style={[styles.box3]}></View>
@@ -361,10 +361,10 @@ const MyTicketDetails = ({ route, navigation }) => {
                     <View style={{ flexDirection: "row" }}>
                       <View style={[styles.box1]}>
                         <Text style={[styles.status]}>{strings.date}</Text>
-                        <Text style={[styles.requestText]}>
+                        <Text style={{ ...styles.requestText, fontSize: 12 }}>
                           {Moment(
                             myTicketDetails?.myTicketDetailsData?.createdAt
-                          ).format("DD MMM - hh:mm")}
+                          ).format("DD MMM YYYY hh:MM A")}
                         </Text>
                       </View>
                       <View style={[styles.box2]}>
@@ -400,7 +400,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                           {strings.serviceType}
                         </Text>
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
-                        "REQCOMP" ? (
+                          "REQCOMP" ? (
                           <Text style={[styles.requestText]}>
                             {
                               myTicketDetails?.myTicketDetailsData
@@ -479,7 +479,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                                 />
                               </Pressable>
                             )}
-                            // textStyle={{ textAlign: "center" }}
+                          // textStyle={{ textAlign: "center" }}
                           >
                             <Text style={[styles.requestText]}>
                               {myTicketDetails?.myTicketDetailsData
@@ -541,103 +541,103 @@ const MyTicketDetails = ({ route, navigation }) => {
                       "myTicketDetailsData.addressString",
                       ""
                     ) != "" && (
-                      <>
-                        <View style={{ flexDirection: "row" }}>
-                          <Text
-                            style={[
-                              styles.textBase,
-                              styles.description,
-                              { marginTop: 20 },
-                            ]}
-                          >
-                            {strings.interaction_location}
-                          </Text>
-                        </View>
-                        {get(
-                          myTicketDetails,
-                          "myTicketDetailsData.address.addressType",
-                          false
-                        ) && (
+                        <>
+                          <View style={{ flexDirection: "row" }}>
+                            <Text
+                              style={[
+                                styles.textBase,
+                                styles.description,
+                                { marginTop: 20 },
+                              ]}
+                            >
+                              {strings.interaction_location}
+                            </Text>
+                          </View>
+                          {get(
+                            myTicketDetails,
+                            "myTicketDetailsData.address.addressType",
+                            false
+                          ) && (
+                              <View style={{ flexDirection: "row" }}>
+                                <View style={styles.ticketItemHeading}>
+                                  <Image
+                                    style={styles.searchIcon}
+                                    source={require("../../Assets/icons/ic_overlay_normal.png")}
+                                  />
+                                  <Text
+                                    style={[styles.textBase, styles.description]}
+                                  >
+                                    {get(
+                                      myTicketDetails,
+                                      "myTicketDetailsData.address.addressType",
+                                      ""
+                                    )}
+                                  </Text>
+                                </View>
+                              </View>
+                            )}
                           <View style={{ flexDirection: "row" }}>
                             <View style={styles.ticketItemHeading}>
-                              <Image
-                                style={styles.searchIcon}
-                                source={require("../../Assets/icons/ic_overlay_normal.png")}
-                              />
-                              <Text
-                                style={[styles.textBase, styles.description]}
-                              >
-                                {get(
-                                  myTicketDetails,
-                                  "myTicketDetailsData.address.addressType",
-                                  ""
-                                )}
+                              <Text style={[styles.textBase, styles.description]}>
+                                {
+                                  myTicketDetails?.myTicketDetailsData
+                                    ?.addressString
+                                }
                               </Text>
                             </View>
                           </View>
-                        )}
-                        <View style={{ flexDirection: "row" }}>
-                          <View style={styles.ticketItemHeading}>
-                            <Text style={[styles.textBase, styles.description]}>
-                              {
-                                myTicketDetails?.myTicketDetailsData
-                                  ?.addressString
-                              }
-                            </Text>
-                          </View>
-                        </View>
-                      </>
-                    )}
+                        </>
+                      )}
                     {get(myTicketDetails, "myTicketDetailsData.latitude", "") !=
                       "" && (
-                      <>
-                        <View
-                          style={[
-                            styles.cardView,
-                            {
-                              flexDirection: "row",
-                              height: 200,
-                              padding: 20,
-                            },
-                          ]}
-                        >
-                          <MapView
-                            provider={PROVIDER_GOOGLE}
-                            style={[styles.map]}
-                            initialRegion={{
-                              latitude: get(
-                                myTicketDetails,
-                                "myTicketDetailsData.latitude",
-                                ""
-                              ),
-                              longitude: get(
-                                myTicketDetails,
-                                "myTicketDetailsData.longitude",
-                                ""
-                              ),
-                              latitudeDelta: 0.0922,
-                              longitudeDelta: 0.0421,
-                            }}
+                        <>
+                          <View
+                            style={[
+                              styles.cardView,
+                              {
+                                flexDirection: "row",
+                                height: 200,
+                                padding: 20,
+                              },
+                            ]}
                           >
-                            <Marker
-                              key={1}
-                              coordinate={{
-                                latitude:
-                                  myTicketDetails?.myTicketDetailsData
-                                    ?.latitude,
-                                longitude:
-                                  myTicketDetails?.myTicketDetailsData
-                                    ?.longitude,
+                            <MapView
+                              provider={PROVIDER_GOOGLE}
+                              style={[styles.map]}
+                              initialRegion={{
+                                latitude: get(
+                                  myTicketDetails,
+                                  "myTicketDetailsData.latitude",
+                                  ""
+                                ),
+                                longitude: get(
+                                  myTicketDetails,
+                                  "myTicketDetailsData.longitude",
+                                  ""
+                                ),
                                 latitudeDelta: 0.0922,
                                 longitudeDelta: 0.0421,
                               }}
+                            >
+                              <Marker
+                                key={1}
+                                coordinate={{
+                                  latitude:
+                                    myTicketDetails?.myTicketDetailsData
+                                      ?.latitude,
+                                  longitude:
+                                    myTicketDetails?.myTicketDetailsData
+                                      ?.longitude,
+                                  latitudeDelta: 0.0922,
+                                  longitudeDelta: 0.0421,
+                                }}
                               // title={marker.title}
                               // description={marker.description}
-                            />
-                          </MapView>
-                        </View>
-                      </>
-                    )}
+                              />
+                            </MapView>
+                          </View>
+                        </>
+                      )}
                   </View>
                 </View>
                 <View style={[styles.cardViewTimeLine]}>
