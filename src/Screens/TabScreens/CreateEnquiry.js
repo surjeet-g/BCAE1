@@ -110,12 +110,12 @@ const CreateEnquiry = ({ route, navigation }) => {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
-          { text: strings.ok, onPress: () => { } },
+          { text: strings.ok, onPress: () => {} },
         ]);
       }
     } else {
       Alert.alert(strings.attention, strings.max_number_of_file, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     }
   };
@@ -137,7 +137,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
 
   const fetchMyInteractionData = () => {
-    dispatch(getMyTicketsData(() => { }));
+    dispatch(getMyTicketsData(() => {}));
   };
 
   const onServiceNameClick = (textStr) => {
@@ -180,7 +180,7 @@ const CreateEnquiry = ({ route, navigation }) => {
       // );
     }
 
-    setOrganizationName(textStr?.unitDesc);
+    setOrganizationName(textStr?.langEng);
     setOrganizationItem(textStr);
     setfinalDepId("");
     setValueType("");
@@ -224,7 +224,7 @@ const CreateEnquiry = ({ route, navigation }) => {
               selectedOUDep.filter(
                 (seletedOuItem) => seletedOuItem.unitId == ouDepItem
               ),
-              "[0].unitDesc",
+              "[0].langEng",
               ""
             );
             console.warn("unitDesc  unitDesc", unitDesc, dep);
@@ -452,7 +452,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   const onSubmitEnquiry = () => {
     if (servicename === "" || selectedValuePrblm === "") {
       Alert.alert(strings.attention, strings.field_empty_alert, [
-        { text: strings.ok, onPress: () => { } },
+        { text: strings.ok, onPress: () => {} },
       ]);
     } else {
       setInquiryProblemCode(problem);
@@ -489,13 +489,13 @@ const CreateEnquiry = ({ route, navigation }) => {
   const showSuccessMessage = (successMessage) => {
     console.log(
       "=======InquiryNotification=======" +
-      organizationItem.unitId +
-      " , " +
-      inquiryServiceName +
-      " , " +
-      inquiryProblemCode +
-      " , " +
-      inquiryDeptId
+        organizationItem.unitId +
+        " , " +
+        inquiryServiceName +
+        " , " +
+        inquiryProblemCode +
+        " , " +
+        inquiryDeptId
     );
     Alert.alert(strings.attention, successMessage, [
       {
@@ -569,16 +569,16 @@ const CreateEnquiry = ({ route, navigation }) => {
                     setValue={setValueOrg}
                     data={
                       !enquilryDetailsData.initInquiry &&
-                        enquilryDetailsData?.organization &&
-                        enquilryDetailsData?.organization.length > 0
+                      enquilryDetailsData?.organization &&
+                      enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
-                          (data) =>
-                            data?.status?.includes("AC") &&
-                            data?.isChat === "Y" &&
-                            data?.unitType?.includes("OU") &&
-                            data?.langEng != "" &&
-                            data?.langEng != null
-                        ) ?? []
+                            (data) =>
+                              data?.status?.includes("AC") &&
+                              data?.isChat === "Y" &&
+                              data?.unitType?.includes("OU") &&
+                              data?.langEng != "" &&
+                              data?.langEng != null
+                          ) ?? []
                         : []
                     }
                     onChangeText={(text) => onOrganizationNameClick(text)}
@@ -595,23 +595,23 @@ const CreateEnquiry = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE?.filter(
-                        (data) => {
-                          let deptArr = [];
-                          if (get(data, "mapping.ouDept.length", 0) > 0) {
-                            deptArr = get(data, "mapping.ouDept", []).map(
-                              (item) => {
-                                if (
-                                  item?.isMobile === "Y" &&
-                                  item?.ticketType?.includes("REQINQ")
-                                )
-                                  return item?.ouId || "";
-                              }
-                            );
-                          }
+                          (data) => {
+                            let deptArr = [];
+                            if (get(data, "mapping.ouDept.length", 0) > 0) {
+                              deptArr = get(data, "mapping.ouDept", []).map(
+                                (item) => {
+                                  if (
+                                    item?.isMobile === "Y" &&
+                                    item?.ticketType?.includes("REQINQ")
+                                  )
+                                    return item?.ouId || "";
+                                }
+                              );
+                            }
 
-                          return deptArr.includes(organizationItem?.unitId);
-                        }
-                      ) ?? []
+                            return deptArr.includes(organizationItem?.unitId);
+                          }
+                        ) ?? []
                       : []
                     // enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE ?? []
                   }
@@ -628,14 +628,14 @@ const CreateEnquiry = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
-                        (data) =>
-                          data?.mapping?.serviceType?.includes(servicename) &&
-                          data?.mapping?.isMobile === "Y" &&
-                          data?.status?.includes("AC") &&
-                          data?.mapping?.ticketType?.includes("REQINQ") &&
-                          servicename != "" &&
-                          checkDeptIdFromProblemCode(data?.mapping?.deptId)
-                      ) ?? []
+                          (data) =>
+                            data?.mapping?.serviceType?.includes(servicename) &&
+                            data?.mapping?.isMobile === "Y" &&
+                            data?.status?.includes("AC") &&
+                            data?.mapping?.ticketType?.includes("REQINQ") &&
+                            servicename != "" &&
+                            checkDeptIdFromProblemCode(data?.mapping?.deptId)
+                        ) ?? []
                       : []
                   }
                   onChangeText={(text) => {
@@ -719,8 +719,8 @@ const CreateEnquiry = ({ route, navigation }) => {
                       <View>
                         {showSuccessMessage(
                           strings.inquiry_success +
-                          " " +
-                          enquilryDetailsData?.inquiryData?.interactionId
+                            " " +
+                            enquilryDetailsData?.inquiryData?.interactionId
                         )}
                       </View>
                     ) : (
