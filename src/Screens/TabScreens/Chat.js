@@ -18,49 +18,8 @@ import {
 } from "../../Utilities/Constants/Constant";
 import { strings } from "../../Utilities/Language";
 import LoadingAnimation from "../../Components/LoadingAnimation";
-import get from 'lodash.get'
-import { downloadFile } from "../../Utilities/API/FileSystem";
-import RNFetchBlob from "rn-fetch-blob";
 
 const Chat = ({ route, navigation }) => {
-  const handleUrlWithZip = (input) => {
-
-
-
-    const urlDownload = input;
-
-    let fileName = urlDownload
-
-
-    //Downloading the file on a folder
-
-    const dirs = RNFetchBlob.fs.dirs;
-    const path = dirs.DocumentDir + "/" + fileName;
-
-    RNFetchBlob
-      .config({
-        // response data will be saved to this path if it has access right.
-        path: path
-      })
-      .fetch('GET', urlDownload, {
-        //some headers ..
-
-      })
-      .progress((received, total) => {
-        console.warn('progress', received / total)
-      })
-      .then(async (res) => {
-
-        const base64String = await res.base64();
-        const contentType = get(res, 'respInfo.headers.Content-Type', 'image/jpg')
-        downloadFile('data:' + contentType + ';base64,' + base64String, "chatDoc")
-
-
-
-      })
-
-
-  }
   const webViewRef = useRef();
   let contactNo = route.params.contactNo;
 
