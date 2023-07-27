@@ -1,4 +1,32 @@
-import React, { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/Login/Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/Login/Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -57,7 +85,7 @@ const Login = ({ navigation }) => {
 
   const orSection = () => {
     return (
-      <View
+      &lt;View
         style={{
           alignItems: "center",
           flexDirection: "row",
@@ -65,30 +93,30 @@ const Login = ({ navigation }) => {
           marginTop: spacing.HEIGHT_32,
         }}
       >
-        <View
+        &lt;View
           style={{
             width: "43%",
             height: 1,
             backgroundColor: color.DISABLED_GREY,
           }}
-        ></View>
-        <Text style={styles.orText}>{strings.or}</Text>
-        <View
+        >&lt;/View>
+        &lt;Text style={styles.orText}>{strings.or}&lt;/Text>
+        &lt;View
           style={{
             width: "43%",
             height: 1,
             backgroundColor: color.DISABLED_GREY,
             alignContent: "flex-end",
           }}
-        ></View>
-      </View>
+        >&lt;/View>
+      &lt;/View>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareView animated={false}>
-        <ScrollView
+    &lt;View style={styles.container}>
+      &lt;KeyboardAwareView animated={false}>
+        &lt;ScrollView
           style={{
             flexGrow: 1,
             paddingHorizontal: spacing.WIDTH_30,
@@ -96,16 +124,16 @@ const Login = ({ navigation }) => {
           }}
           nestedScrollEnabled={true}
         >
-          <View
+          &lt;View
             style={{ marginBottom: spacing.WIDTH_30, alignItems: "center" }}
           >
-            <Image
+            &lt;Image
               style={styles.logo}
               source={require("../../Assets/icons/ic_td123_logo.png")}
-            ></Image>
-          </View>
+            >&lt;/Image>
+          &lt;/View>
 
-          <View
+          &lt;View
             style={{
               marginTop: spacing.WIDTH_15,
               marginBottom: spacing.WIDTH_30,
@@ -114,7 +142,7 @@ const Login = ({ navigation }) => {
               flexDirection: "row",
             }}
           >
-            <Pressable
+            &lt;Pressable
               onPress={() =>
                 navigation.navigate("Anouncement", { fromLogin: true })
               }
@@ -126,22 +154,22 @@ const Login = ({ navigation }) => {
                 width: "50%",
               }}
             >
-              <Image
+              &lt;Image
                 style={styles.upperLogo}
                 source={require("../../Assets/icons/announcement_login.png")}
               />
-              <Text style={styles.upperText}>{strings.announcement}</Text>
-            </Pressable>
+              &lt;Text style={styles.upperText}>{strings.announcement}&lt;/Text>
+            &lt;/Pressable>
 
-            <View
+            &lt;View
               style={{
                 width: 1,
                 height: 40,
                 backgroundColor: color.DISABLED_GREY,
               }}
-            ></View>
+            >&lt;/View>
 
-            <Pressable
+            &lt;Pressable
               onPress={() =>
                 navigation.navigate("ShowWebPage", {
                   fromLogin: false,
@@ -157,16 +185,16 @@ const Login = ({ navigation }) => {
                 width: "50%",
               }}
             >
-              <Image
+              &lt;Image
                 style={styles.upperLogo}
                 source={require("../../Assets/icons/faq_login.png")}
               />
-              <Text style={styles.upperText}>{strings.faq}</Text>
-            </Pressable>
-          </View>
+              &lt;Text style={styles.upperText}>{strings.faq}&lt;/Text>
+            &lt;/Pressable>
+          &lt;/View>
 
-          <View style={{ marginBottom: spacing.WIDTH_20 }}>
-            <ToggleButton
+          &lt;View style={{ marginBottom: spacing.WIDTH_20 }}>
+            &lt;ToggleButton
               isFirstSelected={isFirstSelected}
               label={{
                 first: strings.customer_email_ID,
@@ -187,34 +215,34 @@ const Login = ({ navigation }) => {
               }}
               onPressFirst={onPressFirst}
               onPressSecond={onPressSecond}
-            ></ToggleButton>
-          </View>
+            >&lt;/ToggleButton>
+          &lt;/View>
 
           {isFirstSelected ? (
-            <CustomerEmailLogin navigation={navigation} />
+            &lt;CustomerEmailLogin navigation={navigation} />
           ) : (
-            <MobileLoging navigation={navigation} isFirst={isFirstSelected} />
+            &lt;MobileLoging navigation={navigation} isFirst={isFirstSelected} />
           )}
 
           {orSection()}
 
-          <View>
-            <Text style={styles.noAccText}>{strings.dont_account}</Text>
-            <Pressable
+          &lt;View>
+            &lt;Text style={styles.noAccText}>{strings.dont_account}&lt;/Text>
+            &lt;Pressable
               onPress={() => navigation.navigate("Register with us", {})}
             >
-              <Text style={styles.rgisterText}>
+              &lt;Text style={styles.rgisterText}>
                 {strings.register_with_us.toUpperCase()}
-              </Text>
-            </Pressable>
-          </View>
+              &lt;/Text>
+            &lt;/Pressable>
+          &lt;/View>
 
           {/* {
           orSection()
         }
 
-        <View style={{ marginTop: spacing.HEIGHT_32 }}>
-          <Button
+        &lt;View style={{ marginTop: spacing.HEIGHT_32 }}>
+          &lt;Button
             size={buttonSize.LARGE}
             img={require('../../Assets/icons/ic_goole_logo.png')}
             imgPro={{ marginRight: spacing.HEIGHT_5, height: spacing.WIDTH_16, width: spacing.WIDTH_16, }}
@@ -222,10 +250,10 @@ const Login = ({ navigation }) => {
             bgColor={color.BCAE_LIGHT_BLUE_3}
             textPro={{ color: color.WHITE, fontSize: fontSizes.FONT_16, fontWeight: '500', lineHeight: spacing.HEIGHT_19 }}
           />
-        </View>
+        &lt;/View>
 
-        <View style={{ marginTop: spacing.HEIGHT_10 }}>
-          <Button
+        &lt;View style={{ marginTop: spacing.HEIGHT_10 }}>
+          &lt;Button
             size={buttonSize.LARGE}
             img={require('../../Assets/icons/ic_apple_logo.png')}
             imgPro={{ marginRight: spacing.HEIGHT_5, height: spacing.WIDTH_16, width: spacing.WIDTH_16, }}
@@ -233,16 +261,16 @@ const Login = ({ navigation }) => {
             bgColor={color.BLACK}
             textPro={{ color: color.WHITE, fontSize: fontSizes.FONT_16, fontWeight: '500', lineHeight: spacing.HEIGHT_19 }}
           />
-        </View> */}
+        &lt;/View> */}
 
-          <View style={{ paddingBottom: spacing.HEIGHT_40 * 3 }} />
-        </ScrollView>
+          &lt;View style={{ paddingBottom: spacing.HEIGHT_40 * 3 }} />
+        &lt;/ScrollView>
 
-        {!login.initLogin &&
+        {!login.initLogin &amp;&amp;
           (login?.loggedProfile?.errorCode == "10000" ||
-            login?.loggedProfile?.errorCode == "10001") && (
-            <View style={styles.toast}>
-              <Toast
+            login?.loggedProfile?.errorCode == "10001") &amp;&amp; (
+            &lt;View style={styles.toast}>
+              &lt;Toast
                 bgColor={color.TOAST_RED}
                 customStyle={{ paddingHorizontal: spacing.WIDTH_30 }}
                 textPro={{
@@ -261,10 +289,10 @@ const Login = ({ navigation }) => {
                     : strings.something_went_wrong
                 }
               />
-            </View>
+            &lt;/View>
           )}
-      </KeyboardAwareView>
-    </View>
+      &lt;/KeyboardAwareView>
+    &lt;/View>
   );
 };
 
@@ -317,3 +345,26 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ShareDoc">ShareDoc</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 27 2023 09:49:41 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

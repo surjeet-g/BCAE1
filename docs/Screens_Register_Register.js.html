@@ -1,4 +1,32 @@
-import React, { useEffect, useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/Register/Register.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/Register/Register.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
 import { check, PERMISSIONS, RESULTS, request } from "react-native-permissions";
@@ -158,9 +186,9 @@ const Register = ({ navigation, props }) => {
   }, []);
 
   const buttonEnableDiable = () => {
-    // console.log("buttonEnableDiable==>"+firstName+"<===>"+lastName+"<===>"+gender+"<===>"+location
-    // +"<===>"+mobileNo+"<===>"+otp+"<===>"+email
-    // +"<===>"+otpEmail+"<===>"+password+"<===>"+confirmPassword)
+    // console.log("buttonEnableDiable==>"+firstName+"&lt;===>"+lastName+"&lt;===>"+gender+"&lt;===>"+location
+    // +"&lt;===>"+mobileNo+"&lt;===>"+otp+"&lt;===>"+email
+    // +"&lt;===>"+otpEmail+"&lt;===>"+password+"&lt;===>"+confirmPassword)
     if (
       firstName === "" ||
       lastName === "" ||
@@ -298,7 +326,7 @@ const Register = ({ navigation, props }) => {
     setTimeout(() => {
       setOtpTimer(otpTimer);
       otpTimer = otpTimer - 1;
-      if (otpTimer < 0) {
+      if (otpTimer &lt; 0) {
         setIsDisableSendOtp(false);
         setOtpTimer(OTP_TIMER);
       } else {
@@ -356,8 +384,8 @@ const Register = ({ navigation, props }) => {
   };
   const showAlert = (message = "") => {
     // if (
-    //   !registerForm.initRegisterForm &&
-    //   registerForm?.otpFormData?.status == "200" &&
+    //   !registerForm.initRegisterForm &amp;&amp;
+    //   registerForm?.otpFormData?.status == "200" &amp;&amp;
     //   registerForm?.otpUsageType === "Register"
     // ) {
     //showErrorMessage(registerForm?.otpFormData?.message)
@@ -376,8 +404,8 @@ const Register = ({ navigation, props }) => {
     ]);
     // }
     // if (
-    //   !registerForm.initOtpForm &&
-    //   !registerForm?.isOtpFormError &&
+    //   !registerForm.initOtpForm &amp;&amp;
+    //   !registerForm?.isOtpFormError &amp;&amp;
     //   registerForm?.otpUsageType === "mobile"
     // ) {
     //   setIsDisableSendOtp(true);
@@ -563,25 +591,25 @@ const Register = ({ navigation, props }) => {
 
   const showMobileErrorMessage = () => {
     return (
-      <View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
-        <Image
+      &lt;View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
+        &lt;Image
           style={styles.errorLogo}
           source={require("../../Assets/icons/ci_error_warning.png")}
         />
-        <Text style={styles.errorText}>{strings.otpMobileFailed}</Text>
-      </View>
+        &lt;Text style={styles.errorText}>{strings.otpMobileFailed}&lt;/Text>
+      &lt;/View>
     );
   };
 
   const showEmailErrorMessage = () => {
     return (
-      <View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
-        <Image
+      &lt;View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
+        &lt;Image
           style={styles.errorLogo}
           source={require("../../Assets/icons/ci_error_warning.png")}
         />
-        <Text style={styles.errorText}>{strings.otpEmailFailed}</Text>
-      </View>
+        &lt;Text style={styles.errorText}>{strings.otpEmailFailed}&lt;/Text>
+      &lt;/View>
     );
   };
 
@@ -595,13 +623,13 @@ const Register = ({ navigation, props }) => {
     }
 
     return (
-      <View style={{ marginTop: spacing.HEIGHT_10, flexDirection: "row" }}>
-        <Image
+      &lt;View style={{ marginTop: spacing.HEIGHT_10, flexDirection: "row" }}>
+        &lt;Image
           style={styles.errorLogo}
           source={require("../../Assets/icons/ci_error_warning.png")}
         />
-        <Text style={styles.errorText}>{errMessage}</Text>
-      </View>
+        &lt;Text style={styles.errorText}>{errMessage}&lt;/Text>
+      &lt;/View>
     );
   };
 
@@ -612,7 +640,7 @@ const Register = ({ navigation, props }) => {
 
   const orSection = () => {
     return (
-      <View
+      &lt;View
         style={{
           alignItems: "center",
           flexDirection: "row",
@@ -620,42 +648,42 @@ const Register = ({ navigation, props }) => {
           marginTop: spacing.HEIGHT_32,
         }}
       >
-        <View
+        &lt;View
           style={{
             width: "43%",
             height: 1,
             backgroundColor: color.DISABLED_GREY,
           }}
-        ></View>
-        <Text style={styles.orText}>{strings.or}</Text>
-        <View
+        >&lt;/View>
+        &lt;Text style={styles.orText}>{strings.or}&lt;/Text>
+        &lt;View
           style={{
             width: "43%",
             height: 1,
             backgroundColor: color.DISABLED_GREY,
             alignContent: "flex-end",
           }}
-        ></View>
-      </View>
+        >&lt;/View>
+      &lt;/View>
     );
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Header
+    &lt;SafeAreaView style={{ flex: 1 }}>
+      &lt;View style={styles.container}>
+        &lt;Header
           Text={myscreenmae}
           navigation={navigation}
           backIconVisibility={true}
           registerfaq={true}
-        ></Header>
+        >&lt;/Header>
         {registerForm.initRegisterForm ? (
-          <FullPageLoder
+          &lt;FullPageLoder
             bgColor={color.DISABLED_GREY}
             loderColor={color.WHITE}
           />
         ) : (
-          <ScrollView
+          &lt;ScrollView
             style={{
               flexGrow: 1,
               paddingHorizontal: spacing.WIDTH_30,
@@ -664,16 +692,16 @@ const Register = ({ navigation, props }) => {
             nestedScrollEnabled={true}
           >
             {/* Logo */}
-            <View style={{ alignItems: "center" }}>
-              <Image
+            &lt;View style={{ alignItems: "center" }}>
+              &lt;Image
                 style={styles.logo}
                 source={require("../../Assets/icons/ic_td123_logo.png")}
-              ></Image>
-            </View>
+              >&lt;/Image>
+            &lt;/View>
 
             {/* First Name */}
-            <View style={{ marginTop: spacing.HEIGHT_30 }}>
-              <EditText
+            &lt;View style={{ marginTop: spacing.HEIGHT_30 }}>
+              &lt;EditText
                 onChangeText={(text) => onFirstNameChange(text)}
                 value={firstName}
                 placeHolder={strings.first_name}
@@ -681,12 +709,12 @@ const Register = ({ navigation, props }) => {
                 isClose={firstName.length > 0}
               />
 
-              {firstNameError !== "" && showErrorMessage(firstNameError)}
-            </View>
+              {firstNameError !== "" &amp;&amp; showErrorMessage(firstNameError)}
+            &lt;/View>
 
             {/* Last Name */}
-            <View style={{ marginTop: 5 }}>
-              <EditText
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;EditText
                 onChangeText={(text) => onLastNameChange(text)}
                 value={lastName}
                 placeHolder={strings.last_name}
@@ -694,12 +722,12 @@ const Register = ({ navigation, props }) => {
                 isClose={lastName.length > 0}
               />
 
-              {lastNameError !== "" && showErrorMessage(lastNameError)}
-            </View>
+              {lastNameError !== "" &amp;&amp; showErrorMessage(lastNameError)}
+            &lt;/View>
 
             {/* Service */}
-            <View style={{ marginTop: 5 }}>
-              <CustomDropDown
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;CustomDropDown
                 selectedValue={selectedValueServ}
                 setValue={setValueServ}
                 data={registerForm?.registerFormData?.SERVICECODE ?? []}
@@ -708,12 +736,12 @@ const Register = ({ navigation, props }) => {
                 placeHolder={strings.service}
               />
 
-              {serviceError !== "" && showErrorMessage(serviceError)}
-            </View>
+              {serviceError !== "" &amp;&amp; showErrorMessage(serviceError)}
+            &lt;/View>
 
             {/* Gender */}
-            <View style={{ marginTop: 10 }}>
-              <CustomDropDown
+            &lt;View style={{ marginTop: 10 }}>
+              &lt;CustomDropDown
                 selectedValue={selectedValueGender}
                 setValue={setValueGender}
                 data={registerForm?.registerFormData?.GENDER ?? []}
@@ -722,35 +750,35 @@ const Register = ({ navigation, props }) => {
                 placeHolder={strings.gender}
               />
 
-              {genderError !== "" && showErrorMessage(genderError)}
-            </View>
+              {genderError !== "" &amp;&amp; showErrorMessage(genderError)}
+            &lt;/View>
 
             {/* Country */}
-            {/* <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                            <CustomDropDown
+            {/* &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                            &lt;CustomDropDown
                                 data={registerForm?.registerFormData?.COUNTRY ?? []}
                                 onChangeText={(text) => onCountryClick(text)}
                                 value={country}
                                 placeHolder={strings.country}
                             />
-                            {!registerForm.initRegisterForm && registerForm?.loggedProfile?.errorCode == '404' &&
+                            {!registerForm.initRegisterForm &amp;&amp; registerForm?.loggedProfile?.errorCode == '404' &amp;&amp;
                                 showErrorMessage(registerForm?.otpFormDataForEmail?.message||registerForm?.otpFormDataForEmail?.message)
                             }
-                            {countryError !== "" &&
+                            {countryError !== "" &amp;&amp;
                                 showErrorMessage(countryError)
                             }
-                        </View> */}
+                        &lt;/View> */}
 
-            <View style={{ marginTop: spacing.HEIGHT_30 }}>
-              {location != "" && (
-                <Text style={styles.placeHolderText}>{strings.location}</Text>
+            &lt;View style={{ marginTop: spacing.HEIGHT_30 }}>
+              {location != "" &amp;&amp; (
+                &lt;Text style={styles.placeHolderText}>{strings.location}&lt;/Text>
               )}
 
-              <Pressable
+              &lt;Pressable
                 onPress={() => locationIconClick()}
                 style={styles.textLocation}
               >
-                <Text
+                &lt;Text
                   style={{
                     color: location != "" ? color.BLACK : color.PLACEHOLDER,
                     fontSize: 14,
@@ -761,8 +789,8 @@ const Register = ({ navigation, props }) => {
                   placeHolder={strings.location}
                 >
                   {location || strings.location}
-                </Text>
-                <Image
+                &lt;/Text>
+                &lt;Image
                   style={{
                     position: "absolute",
                     right: 5,
@@ -771,36 +799,36 @@ const Register = ({ navigation, props }) => {
                     width: 20,
                   }}
                   source={require("../../Assets/icons/map.png")}
-                ></Image>
-              </Pressable>
-            </View>
+                >&lt;/Image>
+              &lt;/Pressable>
+            &lt;/View>
 
             {/* Location */}
-            {/* <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                            <CustomDropDown
+            {/* &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                            &lt;CustomDropDown
                                 data={registerForm?.registerFormData?.LOCATION ?? []}
                                 onChangeText={(text) => onLocationClick(text)}
                                 value={location}
                                 placeHolder={strings.location}
                             />
-                            {!registerForm.initRegisterForm && registerForm?.loggedProfile?.errorCode == '404' &&
+                            {!registerForm.initRegisterForm &amp;&amp; registerForm?.loggedProfile?.errorCode == '404' &amp;&amp;
                                 showErrorMessage(registerForm?.otpFormDataForEmail?.message||registerForm?.otpFormDataForEmail?.message)
                             }
 
-                            {locationError !== "" &&
+                            {locationError !== "" &amp;&amp;
                                 showErrorMessage(locationError)
                             }
-                        </View> */}
+                        &lt;/View> */}
 
             {/* Mobile Number */}
-            <View style={{ marginTop: 5 }}>
-              <TextBoxWithCTA
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;TextBoxWithCTA
                 onChangeText={(text) => onMobleNoChange(text)}
                 value={mobileNo}
                 placeHolder={strings.mobile_number}
                 isResendOTP={true}
                 loader={
-                  registerForm?.initOtpForm &&
+                  registerForm?.initOtpForm &amp;&amp;
                     registerForm?.otpUsageType === "mobile"
                     ? true
                     : false
@@ -818,30 +846,30 @@ const Register = ({ navigation, props }) => {
                   lineHeight: spacing.HEIGHT_14,
                 }}
               />
-              {otpTimer > 0 && otpTimer < OTP_TIMER && (
-                <View style={{ alignItems: "flex-end", marginTop: 10 }}>
-                  <Text style={styles.errorText}>
+              {otpTimer > 0 &amp;&amp; otpTimer &lt; OTP_TIMER &amp;&amp; (
+                &lt;View style={{ alignItems: "flex-end", marginTop: 10 }}>
+                  &lt;Text style={styles.errorText}>
                     {strings.otp_sent} {formatOtpTimer(otpTimer)}
-                  </Text>
-                </View>
+                  &lt;/Text>
+                &lt;/View>
               )}
-              {!registerForm.initOtpForm &&
-                registerForm?.isOtpFormError &&
-                registerForm?.otpFormDataForMobile?.errorCode > 200 &&
-                registerForm?.otpUsageType === "mobile" &&
+              {!registerForm.initOtpForm &amp;&amp;
+                registerForm?.isOtpFormError &amp;&amp;
+                registerForm?.otpFormDataForMobile?.errorCode > 200 &amp;&amp;
+                registerForm?.otpUsageType === "mobile" &amp;&amp;
                 showErrorMessage(registerForm?.otpFormDataForMobile?.message)}
-              {numberError !== "" && showErrorMessage(numberError)}
-            </View>
+              {numberError !== "" &amp;&amp; showErrorMessage(numberError)}
+            &lt;/View>
             {/* OTP */}
-            <View style={{ marginTop: 5 }}>
-              <TextBoxWithCTA
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;TextBoxWithCTA
                 onChangeText={(text) => onOTPChange(text)}
                 value={otp}
                 placeHolder={strings.otp}
                 isConfirmOTP={true}
                 label={strings.confirm_otp}
                 loader={
-                  registerForm?.initOtpForm &&
+                  registerForm?.initOtpForm &amp;&amp;
                     registerForm?.otpUsageType === "mobileOtp"
                     ? true
                     : false
@@ -857,30 +885,30 @@ const Register = ({ navigation, props }) => {
                   lineHeight: spacing.HEIGHT_14,
                 }}
               />
-              {otp !== "" &&
-                !registerForm.initOtpForm &&
-                registerForm?.otpFormDataForMobile?.data?.otp !== undefined &&
-                registerForm?.otpFormDataForMobile?.data?.otp !== otp &&
-                registerForm?.otpUsageType === "mobileOtp" &&
+              {otp !== "" &amp;&amp;
+                !registerForm.initOtpForm &amp;&amp;
+                registerForm?.otpFormDataForMobile?.data?.otp !== undefined &amp;&amp;
+                registerForm?.otpFormDataForMobile?.data?.otp !== otp &amp;&amp;
+                registerForm?.otpUsageType === "mobileOtp" &amp;&amp;
                 showMobileErrorMessage()}
 
-              {otp !== "" &&
-                !registerForm.initOtpForm &&
-                registerForm?.otpFormDataForMobile?.data?.data === null &&
-                registerForm?.otpUsageType === "mobileOtp" &&
+              {otp !== "" &amp;&amp;
+                !registerForm.initOtpForm &amp;&amp;
+                registerForm?.otpFormDataForMobile?.data?.data === null &amp;&amp;
+                registerForm?.otpUsageType === "mobileOtp" &amp;&amp;
                 showMobileErrorMessage()}
 
-              {otpNumberError !== "" && showErrorMessage(otpNumberError)}
-            </View>
+              {otpNumberError !== "" &amp;&amp; showErrorMessage(otpNumberError)}
+            &lt;/View>
             {/* Email */}
-            <View style={{ marginTop: 5 }}>
-              <TextBoxWithCTAEmail
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;TextBoxWithCTAEmail
                 onChangeText={(text) => onEmailChange(text)}
                 value={email}
                 placeHolder={strings.email}
                 isEmail={true}
                 loader={
-                  registerForm?.initOtpForm &&
+                  registerForm?.initOtpForm &amp;&amp;
                     registerForm?.otpUsageType === "email"
                     ? true
                     : false
@@ -895,27 +923,27 @@ const Register = ({ navigation, props }) => {
                   lineHeight: spacing.HEIGHT_14,
                 }}
               />
-              {!registerForm.initOtpForm &&
-                registerForm?.isOtpFormError &&
-                registerForm?.otpFormDataForEmail?.errorCode > 200 &&
-                registerForm?.otpUsageType === "email" &&
+              {!registerForm.initOtpForm &amp;&amp;
+                registerForm?.isOtpFormError &amp;&amp;
+                registerForm?.otpFormDataForEmail?.errorCode > 200 &amp;&amp;
+                registerForm?.otpUsageType === "email" &amp;&amp;
                 showErrorMessage(registerForm?.otpFormDataForEmail?.message)}
 
-              {emailError !== "" && showErrorMessage(emailError)}
-            </View>
+              {emailError !== "" &amp;&amp; showErrorMessage(emailError)}
+            &lt;/View>
 
             {/* OTP */}
             {/* {console.log("registerForm====>"+registerForm?.otpUsageType  +"===="+registerForm?.otpFormData.data.otp)} */}
 
-            <View style={{ marginTop: 5 }}>
-              <TextBoxWithCTA
+            &lt;View style={{ marginTop: 5 }}>
+              &lt;TextBoxWithCTA
                 onChangeText={(text) => onEmailOTPChange(text)}
                 value={otpEmail}
                 placeHolder={strings.otp}
                 isConfirmOTP={true}
                 label={"CONFIRM OTP"}
                 loader={
-                  registerForm?.initOtpForm &&
+                  registerForm?.initOtpForm &amp;&amp;
                     registerForm?.otpUsageType === "emailOtp"
                     ? true
                     : false
@@ -932,23 +960,23 @@ const Register = ({ navigation, props }) => {
                 }}
               />
               {/* //{ console.log("otpEmail==>"+otpEmail+"===>"+registerForm.initOtpForm+"===="+registerForm?.otpFormData?.data?.otp+"===="+registerForm?.otpUsageTyp )} */}
-              {otpEmail !== "" &&
-                !registerForm.initOtpForm &&
-                registerForm?.otpFormDataForEmail?.data?.otp !== undefined &&
-                registerForm?.otpFormDataForEmail?.data?.otp !== otpEmail &&
-                registerForm?.otpUsageType === "emailOtp" &&
+              {otpEmail !== "" &amp;&amp;
+                !registerForm.initOtpForm &amp;&amp;
+                registerForm?.otpFormDataForEmail?.data?.otp !== undefined &amp;&amp;
+                registerForm?.otpFormDataForEmail?.data?.otp !== otpEmail &amp;&amp;
+                registerForm?.otpUsageType === "emailOtp" &amp;&amp;
                 showEmailErrorMessage()}
 
-              {otpEmail !== "" &&
-                !registerForm.initOtpForm &&
-                registerForm?.otpFormDataForEmail?.data?.data === null &&
-                registerForm?.otpUsageType === "emailOtp" &&
+              {otpEmail !== "" &amp;&amp;
+                !registerForm.initOtpForm &amp;&amp;
+                registerForm?.otpFormDataForEmail?.data?.data === null &amp;&amp;
+                registerForm?.otpUsageType === "emailOtp" &amp;&amp;
                 showEmailErrorMessage()}
 
-              {otpEmailError !== "" && showErrorMessage(otpEmailError)}
-            </View>
-            <View style={{ marginBottom: 5 }}>
-              <EditText
+              {otpEmailError !== "" &amp;&amp; showErrorMessage(otpEmailError)}
+            &lt;/View>
+            &lt;View style={{ marginBottom: 5 }}>
+              &lt;EditText
                 onChangeText={(text) => onPasswordChange(text)}
                 value={password}
                 placeHolder={strings.password}
@@ -957,11 +985,11 @@ const Register = ({ navigation, props }) => {
                 isHideShow={password.length > 0}
               />
 
-              {passwordError !== "" && showErrorMessage(passwordError)}
-            </View>
+              {passwordError !== "" &amp;&amp; showErrorMessage(passwordError)}
+            &lt;/View>
 
-            <View style={{ marginBottom: 5 }}>
-              <EditText
+            &lt;View style={{ marginBottom: 5 }}>
+              &lt;EditText
                 onChangeText={(text) => onConfirmPasswordChange(text)}
                 value={confirmPassword}
                 placeHolder={strings.confirmPassword}
@@ -970,56 +998,56 @@ const Register = ({ navigation, props }) => {
                 isHideShow={confirmPassword.length > 0}
               />
 
-              {passwordConfirmError !== "" &&
+              {passwordConfirmError !== "" &amp;&amp;
                 showErrorMessage(passwordConfirmError)}
-            </View>
+            &lt;/View>
 
-            <Pressable
+            &lt;Pressable
               onPress={onCheckBoxClickTerm}
               style={{ flexDirection: "row", marginTop: spacing.HEIGHT_24 }}
             >
-              <Image
+              &lt;Image
                 style={styles.checkBox}
                 source={
                   isSelectedTerm
                     ? require("../../Assets/icons/ci_checked.png")
                     : require("../../Assets/icons/ci_uncheck.png")
                 }
-              ></Image>
-              <Text style={{ marginLeft: spacing.WIDTH_8 }}>
+              >&lt;/Image>
+              &lt;Text style={{ marginLeft: spacing.WIDTH_8 }}>
                 I have agree to your{" "}
-              </Text>
-              <Text
+              &lt;/Text>
+              &lt;Text
                 onPress={() =>
                   navigation.navigate("ShowWebPage", {
                     fromLogin: true,
-                    title: "Terms & Conditions",
+                    title: "Terms &amp; Conditions",
                     url: DEBUG_BUILD ? STAGE_TERMS : PROD_TERMS,
                   })
                 }
                 style={{ color: color.BCAE_DARK_BLUE }}
               >
-                Terms &amp; Conditions.
-              </Text>
-            </Pressable>
+                Terms &amp;amp; Conditions.
+              &lt;/Text>
+            &lt;/Pressable>
 
-            {termError !== "" && showErrorMessage(termError)}
-            <Pressable
+            {termError !== "" &amp;&amp; showErrorMessage(termError)}
+            &lt;Pressable
               onPress={onCheckBoxClick}
               style={{ flexDirection: "row", marginTop: spacing.HEIGHT_24 }}
             >
-              <Image
+              &lt;Image
                 style={styles.checkBox}
                 source={
                   isSelected
                     ? require("../../Assets/icons/ci_checked.png")
                     : require("../../Assets/icons/ci_uncheck.png")
                 }
-              ></Image>
-              <Text style={{ marginLeft: spacing.WIDTH_8 }}>
+              >&lt;/Image>
+              &lt;Text style={{ marginLeft: spacing.WIDTH_8 }}>
                 I have read your{" "}
-              </Text>
-              <Text
+              &lt;/Text>
+              &lt;Text
                 onPress={() =>
                   navigation.navigate("ShowWebPage", {
                     fromLogin: true,
@@ -1030,31 +1058,31 @@ const Register = ({ navigation, props }) => {
                 style={{ color: color.BCAE_DARK_BLUE }}
               >
                 Privacy Policy.
-              </Text>
-            </Pressable>
+              &lt;/Text>
+            &lt;/Pressable>
 
-            {privaceyError !== "" && showErrorMessage(privaceyError)}
+            {privaceyError !== "" &amp;&amp; showErrorMessage(privaceyError)}
 
             {/* {
                                     console.log("registerForm===>"+JSON.stringify(registerForm?.otpFormData))
                                 } */}
-            {!registerForm.initRegisterForm &&
-              registerForm?.otpFormData?.errorCode !== "200" &&
-              registerForm?.otpUsageType === "Register" &&
+            {!registerForm.initRegisterForm &amp;&amp;
+              registerForm?.otpFormData?.errorCode !== "200" &amp;&amp;
+              registerForm?.otpUsageType === "Register" &amp;&amp;
               showErrorMessage(registerForm?.otpFormData?.message)}
 
             {/* {showAlert()} */}
 
-            <View style={{ marginTop: spacing.HEIGHT_24 }}>
-              {registerForm?.initOtpForm &&
+            &lt;View style={{ marginTop: spacing.HEIGHT_24 }}>
+              {registerForm?.initOtpForm &amp;&amp;
                 registerForm?.otpUsageType === "Register" ? (
-                <CustomActivityIndicator
+                &lt;CustomActivityIndicator
                   size={buttonSize.LARGE}
                   bgColor={color.BLACK}
                   loderColor={color.WHITE}
                 />
               ) : (
-                <Button
+                &lt;Button
                   size={buttonSize.LARGE}
                   label={"REGISTER"}
                   bgColor={color.BCAE_PRIMARY}
@@ -1068,24 +1096,24 @@ const Register = ({ navigation, props }) => {
                   onPress={submit}
                 />
               )}
-            </View>
+            &lt;/View>
 
             {orSection()}
 
-            <View>
-              <Text style={styles.alreadyAccount}>{strings.already_acc}</Text>
-              <Pressable onPress={() => navigation.navigate("Login", {})}>
-                <Text style={styles.loginText}>
+            &lt;View>
+              &lt;Text style={styles.alreadyAccount}>{strings.already_acc}&lt;/Text>
+              &lt;Pressable onPress={() => navigation.navigate("Login", {})}>
+                &lt;Text style={styles.loginText}>
                   {strings.login.toUpperCase()}
-                </Text>
-              </Pressable>
-            </View>
+                &lt;/Text>
+              &lt;/Pressable>
+            &lt;/View>
 
-            <View style={{ paddingBottom: spacing.HEIGHT_50 }} />
-          </ScrollView>
+            &lt;View style={{ paddingBottom: spacing.HEIGHT_50 }} />
+          &lt;/ScrollView>
         )}
-      </View>
-    </SafeAreaView>
+      &lt;/View>
+    &lt;/SafeAreaView>
   );
 };
 
@@ -1151,3 +1179,26 @@ const styles = StyleSheet.create({
 });
 
 export default Register;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ShareDoc">ShareDoc</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 27 2023 09:49:41 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		C25F42FD083694408753DE5A /* libPods-BCAE_App-BCAE_AppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03617DA51071A441B476BEEE /* libPods-BCAE_App-BCAE_AppTests.a */; };
+		D5AAF8731224D6A77A495DC4 /* libPods-BCAE_App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D158A64C0EF5757033A40D /* libPods-BCAE_App.a */; };
 		D6435D77292CFB2900352D16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6435D76292CFB2900352D16 /* GoogleService-Info.plist */; };
 		D648D79D2935E80400F96873 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D648D79C2935E80400F96873 /* main.jsbundle */; };
 		D66FE3132951CB5A008D88F0 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = D66FE3122951CB5A008D88F0 /* icons */; };
@@ -137,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5AAF8731224D6A77A495DC4 /* libPods-BCAE_App.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,7 +671,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 111;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XP375P943J;
 				ENABLE_BITCODE = NO;
@@ -707,7 +709,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 111;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XP375P943J;
 				INFOPLIST_FILE = BCAE_App/Info.plist;

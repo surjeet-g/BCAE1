@@ -1,4 +1,32 @@
-import React, { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/Login/component/MobileLoging.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/Login/component/MobileLoging.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -85,19 +113,19 @@ const MobileLoging = (props) => {
 
   const showErrorMessage = (errMessage) => {
     return (
-      <View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
-        <Image
+      &lt;View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
+        &lt;Image
           style={styles.errorLogo}
           source={require("../../../Assets/icons/ci_error_warning.png")}
         />
-        <Text style={styles.errorText}>{errMessage}</Text>
-      </View>
+        &lt;Text style={styles.errorText}>{errMessage}&lt;/Text>
+      &lt;/View>
     );
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <CountryPicker
+    &lt;View style={{ flex: 1 }}>
+      &lt;CountryPicker
         style={{ width: "100%", backgroundColor: "red" }}
         show={show}
         pickerButtonOnPress={(item) => {
@@ -105,17 +133,17 @@ const MobileLoging = (props) => {
           setShow(false);
         }}
       />
-      <View>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
+      &lt;View>
+        &lt;View style={{ flexDirection: "row" }}>
+          &lt;TouchableOpacity
             //onPress={() => setShow(true)}
             style={styles.countrycode}
           >
-            <Text style={styles.countrycodetext}>{countryCode}</Text>
-          </TouchableOpacity>
+            &lt;Text style={styles.countrycodetext}>{countryCode}&lt;/Text>
+          &lt;/TouchableOpacity>
 
-          <View style={{}}>
-            <EditText
+          &lt;View style={{}}>
+            &lt;EditText
               customStyle={{ paddingLeft: width / 8 }}
               onChangeText={(text) => onIDChange(text)}
               value={number}
@@ -124,16 +152,16 @@ const MobileLoging = (props) => {
               keyboardType="numeric"
               isClose={number.length > 0}
             />
-          </View>
-        </View>
-        {!login.initLogin &&
-          login?.loggedProfile?.errorCode == "404" &&
+          &lt;/View>
+        &lt;/View>
+        {!login.initLogin &amp;&amp;
+          login?.loggedProfile?.errorCode == "404" &amp;&amp;
           showErrorMessage(login?.loggedProfile?.message)}
-        {numberError !== "" && showErrorMessage(numberError)}
-      </View>
+        {numberError !== "" &amp;&amp; showErrorMessage(numberError)}
+      &lt;/View>
 
-      <View style={{ marginBottom: spacing.HEIGHT_20 }}>
-        <EditText
+      &lt;View style={{ marginBottom: spacing.HEIGHT_20 }}>
+        &lt;EditText
           onChangeText={(text) => onPasswordChange(text)}
           value={password}
           placeHolder={strings.password}
@@ -141,38 +169,38 @@ const MobileLoging = (props) => {
           hideShowClick={hideShowClick}
           isHideShow={password.length > 0}
         />
-        {!login.initLogin &&
-          login?.loggedProfile?.errorCode &&
-          login.loggedProfile.errorCode != "404" &&
-          login?.loggedProfile?.errorCode != "10000" &&
-          login?.loggedProfile?.errorCode != "10001" &&
+        {!login.initLogin &amp;&amp;
+          login?.loggedProfile?.errorCode &amp;&amp;
+          login.loggedProfile.errorCode != "404" &amp;&amp;
+          login?.loggedProfile?.errorCode != "10000" &amp;&amp;
+          login?.loggedProfile?.errorCode != "10001" &amp;&amp;
           showErrorMessage(login?.loggedProfile?.message)}
-        {passwordError !== "" && showErrorMessage(passwordError)}
-      </View>
-      <Pressable
+        {passwordError !== "" &amp;&amp; showErrorMessage(passwordError)}
+      &lt;/View>
+      &lt;Pressable
         onPress={() => props.navigation.navigate("ForgotPassword", {})}
       >
-        <View
+        &lt;View
           style={{
             alignSelf: "center",
             marginBottom: spacing.HEIGHT_20,
             marginTop: 20,
           }}
         >
-          <Text style={styles.forgotText}>
+          &lt;Text style={styles.forgotText}>
             {strings.forgot_password.toUpperCase()}
-          </Text>
-        </View>
-      </Pressable>
-      <View>
+          &lt;/Text>
+        &lt;/View>
+      &lt;/Pressable>
+      &lt;View>
         {login.initLogin ? (
-          <CustomActivityIndicator
+          &lt;CustomActivityIndicator
             size={buttonSize.LARGE}
             bgColor={color.BLACK}
             loderColor={color.WHITE}
           />
         ) : (
-          <Button
+          &lt;Button
             type={buttonType.PRIMARY}
             size={buttonSize.LARGE}
             label={strings.login}
@@ -188,8 +216,8 @@ const MobileLoging = (props) => {
             onPress={submit}
           />
         )}
-      </View>
-    </View>
+      &lt;/View>
+    &lt;/View>
   );
 };
 
@@ -239,3 +267,26 @@ const styles = StyleSheet.create({
 });
 
 export default MobileLoging;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ShareDoc">ShareDoc</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 27 2023 09:49:41 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

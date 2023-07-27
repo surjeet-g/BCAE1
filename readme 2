@@ -1,6 +1,0 @@
-git stash && git push && git stash apply
-
-
-get pull from target folder
-
-cd /Users/vipinv/workspace/comparefolder/BCAE-Mobile-App/ && git pull && cd /Users/vipinv/workspace/rn/BCAE-Mobile-App/ && pwd

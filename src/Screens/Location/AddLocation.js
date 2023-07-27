@@ -25,6 +25,7 @@ import {
   Platform,
   TDLog,
 } from "../../Utilities/Constants/Constant";
+
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -372,8 +373,8 @@ const AddLocation = ({ route, navigation }) => {
   };
   const onKampongClick = (text) => {
     setKampongName(text?.description);
-    setValuePostcode("");
-    setPostcodeName("");
+    // setValuePostcode("");
+    // setPostcodeName("");
   };
   const onPostcodeClick = (text) => {
     setPostcodeName(text?.description);

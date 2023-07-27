@@ -51,7 +51,11 @@ import { TDLog } from "../../Utilities/Constants/Constant";
 import LoadingAnimation from "../../Components/LoadingAnimation";
 import { check, PERMISSIONS, RESULTS, request } from "react-native-permissions";
 
-// create a component
+
+/**
+ * CreateComplaint : Customer can able create complaint
+ * @namespace CreateComplaints
+ */
 const CreateComplaint = ({ route, navigation }) => {
   let enquilryDetailsData = useSelector((state) => state.enquiry);
   const [modalVisible, setModalVisible] = useState(false);
@@ -93,7 +97,10 @@ const CreateComplaint = ({ route, navigation }) => {
     });
     return willFocusSubscription;
   }, []);
-
+  /**
+  * Reset State Value for remove old state data
+  * @memberOf CreateComplaints
+  */
   const resetAllStateData = () => {
     setfinalDepId("");
     setHno("");
@@ -115,7 +122,10 @@ const CreateComplaint = ({ route, navigation }) => {
     setLongitude("");
     setDepDropdown([]);
   };
-
+  /**
+* Toggle file upload popup menu
+* @memberOf CreateComplaints
+*/
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
   const showAttachmentModal = () => {
     if (fileAttachments.length < 5) {
@@ -127,12 +137,12 @@ const CreateComplaint = ({ route, navigation }) => {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
-          { text: strings.ok, onPress: () => {} },
+          { text: strings.ok, onPress: () => { } },
         ]);
       }
     } else {
       Alert.alert(strings.attention, strings.max_number_of_file, [
-        { text: strings.ok, onPress: () => {} },
+        { text: strings.ok, onPress: () => { } },
       ]);
     }
   };
@@ -148,15 +158,22 @@ const CreateComplaint = ({ route, navigation }) => {
     dispatch(fetchDetailsData("initial"));
     dispatch(fetchDetailsData("PROBLEM_CODE"));
   }, []);
-
+  /**
+  * Fetch pre required data form master data API
+  * @memberOf CreateComplaints
+  */
   const fetchMyDashboardData = () => {
     dispatch(getMyDashboardData());
   };
 
   const fetchMyInteractionData = () => {
-    dispatch(getMyTicketsData(() => {}));
+    dispatch(getMyTicketsData(() => { }));
   };
-
+  /**
+ * Handle select the service name dropdown menu
+ * @memberOf CreateComplaints
+ * @param  {Object} textStr currently selected value
+ */
   const onServiceNameClick = (textStr) => {
     console.warn("test", textStr.mapping?.ouDept);
     setServiceName(textStr.code);
@@ -170,7 +187,11 @@ const CreateComplaint = ({ route, navigation }) => {
     onDepDropdown([]);
     setDepDropdown([]);
   };
-
+  /**
+ * Handle select the organization name dropdown menu
+ * @memberOf CreateComplaints
+ * @param  {Object} textStr currently selected value
+ */
   const onOrganizationNameClick = (textStr) => {
     console.log("enter fun", textStr);
     if (
@@ -208,11 +229,19 @@ const CreateComplaint = ({ route, navigation }) => {
     setValueDeptId("");
     setDepDropdown([]);
   };
-
+  /**
+ * Handle select the problem name dropdown menu
+ * @memberOf CreateComplaints
+ * @param  {Object} textStr currently selected value
+ */
   const onProblemClick = (textStr) => {
     setProblem(textStr.code);
   };
-
+  /**
+ * Handle select the department name dropdown menu
+ * @memberOf CreateComplaints
+ * @param  {Object} textStr currently selected value
+ */
   const onDepDropdown = (depIds) => {
     console.log("deptids", JSON.stringify(depIds));
     console.warn("service type object", JSON.stringify(serviceTypeObj));
@@ -273,6 +302,10 @@ const CreateComplaint = ({ route, navigation }) => {
       fromPage: "CreateEnquiry",
     });
   };
+  /**
+* Handle Camara open and handles camara permission and validation
+* @memberOf CreateComplaints
+*/
   const openCamara = () => {
     launchCamera(
       {
@@ -550,7 +583,11 @@ const CreateComplaint = ({ route, navigation }) => {
       ]
     );
   };
-
+  /**
+ * API call for submitting complaint 
+ * collect the API payload data from state value and check validation
+ * @memberOf CreateComplaints
+ */
   const onSubmitComplaint = () => {
     if (
       servicename === "" ||
@@ -560,7 +597,7 @@ const CreateComplaint = ({ route, navigation }) => {
       selectedValuePrblm === ""
     ) {
       Alert.alert(strings.attention, strings.field_empty_alert, [
-        { text: strings.ok, onPress: () => {} },
+        { text: strings.ok, onPress: () => { } },
       ]);
     } else {
       const myArray = location.split(",").reverse();
@@ -601,27 +638,27 @@ const CreateComplaint = ({ route, navigation }) => {
     TDLog(
       "onPlaceChosen create complaint Params",
       params.street +
-        "," +
-        params.state +
-        "," +
-        params.district +
-        "," +
-        params.country +
-        "," +
-        params.postCode
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
     setLocation(
       params.hno +
-        "," +
-        params.street +
-        "," +
-        params.state +
-        "," +
-        params.district +
-        "," +
-        params.country +
-        "," +
-        params.postCode
+      "," +
+      params.street +
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
     TDLog("onPlaceChosen create complaint location", location);
     setLatitude(params.latitude);
@@ -708,16 +745,16 @@ const CreateComplaint = ({ route, navigation }) => {
                     setValue={setValueOrg}
                     data={
                       !enquilryDetailsData.initInquiry &&
-                      enquilryDetailsData?.organization &&
-                      enquilryDetailsData?.organization.length > 0
+                        enquilryDetailsData?.organization &&
+                        enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
-                            (data) =>
-                              data?.status?.includes("AC") &&
-                              data?.isChat === "Y" &&
-                              data?.unitType?.includes("OU") &&
-                              data?.langEng != "" &&
-                              data?.langEng != null
-                          ) ?? []
+                          (data) =>
+                            data?.status?.includes("AC") &&
+                            data?.isChat === "Y" &&
+                            data?.unitType?.includes("OU") &&
+                            data?.langEng != "" &&
+                            data?.langEng != null
+                        ) ?? []
                         : []
                     }
                     onChangeText={(text) => onOrganizationNameClick(text)}
@@ -734,22 +771,22 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE?.filter(
-                          (data) => {
-                            let deptArr = [];
-                            if (get(data, "mapping.ouDept.length", 0) > 0) {
-                              deptArr = get(data, "mapping.ouDept", []).map(
-                                (item) => {
-                                  if (
-                                    item?.isMobile === "Y" &&
-                                    item?.ticketType?.includes("REQCOMP")
-                                  )
-                                    return item?.ouId || "";
-                                }
-                              );
-                            }
-                            return deptArr.includes(organizationItem?.unitId);
+                        (data) => {
+                          let deptArr = [];
+                          if (get(data, "mapping.ouDept.length", 0) > 0) {
+                            deptArr = get(data, "mapping.ouDept", []).map(
+                              (item) => {
+                                if (
+                                  item?.isMobile === "Y" &&
+                                  item?.ticketType?.includes("REQCOMP")
+                                )
+                                  return item?.ouId || "";
+                              }
+                            );
                           }
-                        ) ?? []
+                          return deptArr.includes(organizationItem?.unitId);
+                        }
+                      ) ?? []
                       : []
                     // enquilryDetailsData?.DetailsDataData?.data?.PROD_TYPE ?? []
                   }
@@ -766,14 +803,14 @@ const CreateComplaint = ({ route, navigation }) => {
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
-                          (data) =>
-                            data?.mapping?.serviceType?.includes(servicename) &&
-                            data?.mapping?.isMobile === "Y" &&
-                            data?.status?.includes("AC") &&
-                            data?.mapping?.ticketType?.includes("REQCOMP") &&
-                            servicename != "" &&
-                            checkDeptIdFromProblemCode(data?.mapping?.deptId)
-                        ) ?? []
+                        (data) =>
+                          data?.mapping?.serviceType?.includes(servicename) &&
+                          data?.mapping?.isMobile === "Y" &&
+                          data?.status?.includes("AC") &&
+                          data?.mapping?.ticketType?.includes("REQCOMP") &&
+                          servicename != "" &&
+                          checkDeptIdFromProblemCode(data?.mapping?.deptId)
+                      ) ?? []
                       : []
                   }
                   onChangeText={(text) => {
@@ -1030,11 +1067,11 @@ const CreateComplaint = ({ route, navigation }) => {
                         label={strings.submitComplaint}
                         disabled={
                           servicename === "" ||
-                          problem === "" ||
-                          finalDepId === "" ||
-                          description === "" ||
-                          location === "" ||
-                          contactPreference === ""
+                            problem === "" ||
+                            finalDepId === "" ||
+                            description === "" ||
+                            location === "" ||
+                            contactPreference === ""
                             ? true
                             : false
                         }

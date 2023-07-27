@@ -1,4 +1,32 @@
-//import liraries
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/TabScreens/CreateComplaint.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/TabScreens/CreateComplaint.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//import liraries
 import React, { Component, useCallback, useEffect, useState } from "react";
 import {
   View,
@@ -12,6 +40,7 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
+  Platform,
 } from "react-native";
 import get from "lodash.get";
 import Toast from "react-native-toast-message";
@@ -21,6 +50,7 @@ import ImagePicker, {
   launchCamera,
   launchImageLibrary,
 } from "react-native-image-picker";
+
 import AttachmentList from "../../Components/AttachmentList";
 import Modal from "react-native-modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,55 +73,65 @@ import {
 } from "../../Utilities/Constants/Constant";
 import { strings } from "../../Utilities/Language";
 import Header from "./Component/Header";
+import { PopupDescription as Popup } from "../../Components/PopupDescription";
 import RNFS from "react-native-fs";
 import { TDLog } from "../../Utilities/Constants/Constant";
 import LoadingAnimation from "../../Components/LoadingAnimation";
+import { check, PERMISSIONS, RESULTS, request } from "react-native-permissions";
+
 
 /**
- * CreateEquiry : Customer can able create complaint
- * @namespace CreateEquiry
+ * CreateComplaint : Customer can able create complaint
+ * @namespace CreateComplaints
  */
-const CreateEnquiry = ({ route, navigation }) => {
-  useEffect(() => {
-    const willFocusSubscription = navigation.addListener("focus", () => {
-      resetAllStateData();
-    });
-    return willFocusSubscription;
-  }, []);
-
+const CreateComplaint = ({ route, navigation }) => {
   let enquilryDetailsData = useSelector((state) => state.enquiry);
   const [modalVisible, setModalVisible] = useState(false);
-  const [organizationObj, setOrganizationObj] = useState("");
   const [organizationName, setOrganizationName] = useState("");
+  const [organizationObj, setOrganizationObj] = useState("");
+  const [hno, setHno] = useState("");
   const [organizationItem, setOrganizationItem] = useState("");
   const [servicename, setServiceName] = useState("");
   const [problem, setProblem] = useState("");
+  const [description, setDescription] = useState("");
   const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
+  const [contactPreference, setContactPreference] = useState("CNT_PREF_PHONE");
   const [fileAttachments, setFileAttachments] = useState([]);
+  const [location, setLocation] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [selectedValue, setValue] = useState("");
   const [selectedValueType, setValueType] = useState("");
   const [selectedValuePrblm, setValuePrblm] = useState("");
-  const [inquiryProblemCode, setInquiryProblemCode] = useState("");
-  const [inquiryServiceName, setInquiryServiceName] = useState("");
-  const [inquiryDeptId, setInquInquiryDeptId] = useState("");
   const [selectedValueOrg, setValueOrg] = useState("");
   const [selectedValueDeptId, setValueDeptId] = useState("");
   const [depDropdown, setDepDropdown] = useState([]);
   const [depIds, setDepIds] = useState([]);
   const [selectValueDepIds, setselectValueDepIds] = useState("");
   const [deptID, setDepID] = useState("");
+  const [finalDepId, setfinalDepId] = useState("");
   const [serviceTypeObj, setServiceTypeObj] = useState("");
 
-  const [finalDepId, setfinalDepId] = useState("");
   const [selectedOUDep, setSelectedOuDp] = useState([]);
+  const [street, setStreet] = useState("");
+  const [state, setState] = useState("");
+  const [district, setDistrict] = useState("");
+  const [country, setCountry] = useState("");
+  const [postCode, setPostcode] = useState("");
+
+  useEffect(() => {
+    const willFocusSubscription = navigation.addListener("state", () => {
+      resetAllStateData();
+    });
+    return willFocusSubscription;
+  }, []);
   /**
-* Reset State Value for remove old state data
-* @memberOf CreateEquiry
-*/
+  * Reset State Value for remove old state data
+  * @memberOf CreateComplaints
+  */
   const resetAllStateData = () => {
     setfinalDepId("");
+    setHno("");
     setOrganizationObj("");
     setValueType("");
     setselectValueDepIds("");
@@ -101,22 +141,27 @@ const CreateEnquiry = ({ route, navigation }) => {
     setServiceName("");
     setProblem("");
     setValueDeptId("");
+    setDescription("");
     setAttachmentModalVisible(false);
+    setContactPreference("CNT_PREF_PHONE");
     setFileAttachments([]);
+    setLocation("");
+    setLatitude("");
+    setLongitude("");
     setDepDropdown([]);
   };
   /**
 * Toggle file upload popup menu
-* @memberOf CreateEquiry
+* @memberOf CreateComplaints
 */
   const hideAttachmentModal = () => setAttachmentModalVisible(false);
   const showAttachmentModal = () => {
-    if (fileAttachments.length < 5) {
+    if (fileAttachments.length &lt; 5) {
       let totalSize = 0;
       fileAttachments.forEach((element) => {
         totalSize += element.fileSize;
       });
-      if (totalSize < 25000000) {
+      if (totalSize &lt; 25000000) {
         setAttachmentModalVisible(true);
       } else {
         Alert.alert(strings.attention, strings.max_file_size, [
@@ -141,7 +186,10 @@ const CreateEnquiry = ({ route, navigation }) => {
     dispatch(fetchDetailsData("initial"));
     dispatch(fetchDetailsData("PROBLEM_CODE"));
   }, []);
-
+  /**
+  * Fetch pre required data form master data API
+  * @memberOf CreateComplaints
+  */
   const fetchMyDashboardData = () => {
     dispatch(getMyDashboardData());
   };
@@ -151,14 +199,14 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
   /**
  * Handle select the service name dropdown menu
- * @memberOf CreateEquiry
+ * @memberOf CreateComplaints
  * @param  {Object} textStr currently selected value
  */
   const onServiceNameClick = (textStr) => {
+    console.warn("test", textStr.mapping?.ouDept);
     setServiceName(textStr.code);
-    setfinalDepId("");
     setServiceTypeObj(textStr);
-
+    setfinalDepId("");
     setselectValueDepIds("");
     setValuePrblm("");
     setProblem("");
@@ -169,28 +217,27 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
   /**
  * Handle select the organization name dropdown menu
- * @memberOf CreateEquiry
+ * @memberOf CreateComplaints
  * @param  {Object} textStr currently selected value
  */
   const onOrganizationNameClick = (textStr) => {
     console.log("enter fun", textStr);
     if (
-      !enquilryDetailsData.initInquiry &&
-      enquilryDetailsData?.organization &&
+      !enquilryDetailsData.initInquiry &amp;&amp;
+      enquilryDetailsData?.organization &amp;&amp;
       enquilryDetailsData?.organization.length > 0
     ) {
       console.log("enter if case ", enquilryDetailsData?.organization);
       let selectedOUDep = enquilryDetailsData?.organization?.filter(
         (data) =>
-          data?.status?.includes("AC") &&
-          data?.unitType?.includes("DEPT") &&
-          data?.isChat === "Y" &&
-          // data?.langEng != "" &&
-          // data?.langEng != null &&
+          data?.status?.includes("AC") &amp;&amp;
+          data?.unitType?.includes("DEPT") &amp;&amp;
+          data?.isChat === "Y" &amp;&amp;
+          // data?.langEng != "" &amp;&amp;
+          // data?.langEng != null &amp;&amp;
           data?.parentUnit === textStr?.unitId
       );
       setOrganizationObj(textStr);
-
       setSelectedOuDp(selectedOUDep);
       console.log("enter if case ", selectedOUDep);
       // console.log(
@@ -212,7 +259,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
   /**
  * Handle select the problem name dropdown menu
- * @memberOf CreateEquiry
+ * @memberOf CreateComplaints
  * @param  {Object} textStr currently selected value
  */
   const onProblemClick = (textStr) => {
@@ -220,7 +267,7 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
   /**
  * Handle select the department name dropdown menu
- * @memberOf CreateEquiry
+ * @memberOf CreateComplaints
  * @param  {Object} textStr currently selected value
  */
   const onDepDropdown = (depIds) => {
@@ -229,7 +276,7 @@ const CreateEnquiry = ({ route, navigation }) => {
     console.warn("orgin", JSON.stringify(organizationObj));
     const selectOU = get(
       serviceTypeObj?.mapping?.ouDept.filter((item) => {
-        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
+        if (item?.isMobile === "Y" &amp;&amp; item?.ticketType?.includes("REQCOMP")) {
           return item.ouId == organizationObj.unitId;
         }
       }),
@@ -239,8 +286,8 @@ const CreateEnquiry = ({ route, navigation }) => {
     console.warn("selectOU", selectOU);
     // console.warn("selectOU", JSON.stringify(selectOU))
     let finalArr = [];
-    depIds.length > 0 &&
-      selectOU.length > 0 &&
+    depIds.length > 0 &amp;&amp;
+      selectOU.length > 0 &amp;&amp;
       depIds.map((dep) => {
         console.log("enter deptID", dep);
         selectOU.map((ouDepItem) => {
@@ -270,17 +317,24 @@ const CreateEnquiry = ({ route, navigation }) => {
     }
   };
 
-  const launchCamera1 = () => {
-    // let options = {
-    //   storageOptions: {
-    //     skipBackup: true,
-    //     path: "images",
-    //     mediaType: "photo",
-    //     includeBase64: true,
-    //     maxHeight: 200,
-    //     maxWidth: 200,
-    //   },
-    // };
+  const onDescriptionChange = (textStr) => {
+    setDescription(textStr);
+  };
+  const clearDescription = () => {
+    setDescription("");
+  };
+
+  const locationIconClick = () => {
+    navigation.navigate("SavedLocation", {
+      onPlaceChosen,
+      fromPage: "CreateEnquiry",
+    });
+  };
+  /**
+* Handle Camara open and handles camara permission and validation
+* @memberOf CreateComplaints
+*/
+  const openCamara = () => {
     launchCamera(
       {
         mediaType: "photo|video",
@@ -290,6 +344,7 @@ const CreateEnquiry = ({ route, navigation }) => {
         compressImageQuality: 1,
       },
       (response) => {
+        hideAttachmentModal();
         if (response.didCancel) {
           console.log("User cancelled image picker");
           Toast.show({
@@ -305,9 +360,34 @@ const CreateEnquiry = ({ route, navigation }) => {
         } else if (response.customButton) {
           console.log("User tapped custom button: ", response.customButton);
           // alert(response.customButton);
+        } else if (response?.errorCode) {
+          let errorMsg = "";
+          switch (response?.errorCode) {
+            case "camera_unavailable":
+              errorMsg = "Camara unavailable";
+
+              break;
+            case "permission":
+              errorMsg = "Permission not grant";
+
+              break;
+            case "others":
+              errorMsg = "Technical error";
+
+              break;
+
+            default:
+              errorMsg = "Technical error";
+              break;
+          }
+          Toast.show({
+            type: "bctError",
+            text1: errorMsg,
+          });
         } else {
-          const source = { uri: response.uri };
-          if (response?.assets[0]?.fileSize < 5000000) {
+          // const source = { uri: response.uri };
+
+          if (response?.assets[0]?.fileSize &lt; 5000000) {
             setFileAttachments([
               ...fileAttachments,
               {
@@ -327,7 +407,60 @@ const CreateEnquiry = ({ route, navigation }) => {
         }
       }
     );
-    hideAttachmentModal();
+  };
+  const launchCamera1 = () => {
+    // let options = {
+    //   storageOptions: {
+    //     skipBackup: true,
+    //     path: "images",
+    //     mediaType: "photo",
+    //     includeBase64: true,
+    //     maxHeight: 200,
+    //     maxWidth: 200,
+    //   },
+    // };
+    // if (Platform.OS === "ios") {
+
+    // }
+
+    check(PERMISSIONS.IOS.CAMERA)
+      .then((result) => {
+        switch (result) {
+          case RESULTS.UNAVAILABLE:
+            request(PERMISSIONS.IOS.CAMERA)
+              .then((result) => {
+                console.warn("point three", result);
+                openCamara();
+              })
+              .catch((error) => console.log(error));
+
+            break;
+          case RESULTS.DENIED:
+            request(PERMISSIONS.IOS.CAMERA)
+              .then((result) => {
+                console.warn("point w", result);
+                openCamara();
+              })
+              .catch((error) => console.log(error));
+            break;
+          case RESULTS.LIMITED:
+            console.log("The permission is limited: some actions are possible");
+            break;
+          case RESULTS.GRANTED:
+            console.warn("greant", result);
+            openCamara();
+
+            break;
+          case RESULTS.BLOCKED:
+            console.log("The permission is denied and not requestable anymore");
+            break;
+        }
+      })
+      .catch((error) => {
+        // …
+      });
+
+    // hideAttachmentModal();
   };
 
   const launchImageLibrary1 = () => {
@@ -364,9 +497,13 @@ const CreateEnquiry = ({ route, navigation }) => {
           });
         } else if (response.customButton) {
           console.log("User tapped custom button: ", response.customButton);
+        } else if (response.errorCode) {
+          Toast.show({
+            type: "bctError",
+            text1: "Technical Issue",
+          });
         } else {
-          const source = { uri: response.uri };
-          if (response?.assets[0]?.fileSize < 5000000) {
+          if (response?.assets[0]?.fileSize &lt; 5000000) {
             setFileAttachments([
               ...fileAttachments,
               {
@@ -403,7 +540,7 @@ const CreateEnquiry = ({ route, navigation }) => {
         base64: true,
       });
 
-      if (response[0]?.size < 5000000) {
+      if (response[0]?.size &lt; 5000000) {
         fileAttachments.push({
           fileType: response[0]?.type,
           fileName: response[0]?.name,
@@ -433,20 +570,20 @@ const CreateEnquiry = ({ route, navigation }) => {
   };
 
   const onPressWhatsApp = () => {
-    setContactPreference("CNT_PREF_WA");
+    setContactPreference("CNT_PREF_NTC");
   };
 
   const checkDeptIdFromProblemCode = (ids) => {
     const selectServiceDept = get(
       serviceTypeObj?.mapping?.ouDept.filter((item) => {
-        if (item?.isMobile === "Y" && item?.ticketType?.includes("REQINQ")) {
+        if (item?.isMobile === "Y" &amp;&amp; item?.ticketType?.includes("REQCOMP")) {
           return item.ouId == organizationObj.unitId;
         }
       }),
       "[0].deptId",
       []
     );
-    for (var i = 0; i < ids.length; i++) {
+    for (var i = 0; i &lt; ids.length; i++) {
       if (selectServiceDept.includes(ids[i])) {
         return true;
       }
@@ -477,38 +614,44 @@ const CreateEnquiry = ({ route, navigation }) => {
   /**
  * API call for submitting complaint 
  * collect the API payload data from state value and check validation
- * @memberOf CreateEquiry
+ * @memberOf CreateComplaints
  */
-  const onSubmitEnquiry = () => {
-    if (servicename === "" || selectedValuePrblm === "") {
+  const onSubmitComplaint = () => {
+    if (
+      servicename === "" ||
+      description === "" ||
+      location === "" ||
+      contactPreference === "" ||
+      selectedValuePrblm === ""
+    ) {
       Alert.alert(strings.attention, strings.field_empty_alert, [
         { text: strings.ok, onPress: () => { } },
       ]);
     } else {
-      setInquiryProblemCode(problem);
-      setInquInquiryDeptId(finalDepId);
-      setInquiryServiceName(servicename);
-
+      const myArray = location.split(",").reverse();
+      console.log("htting final finalDepId", finalDepId);
       const obj = {
-        intxnType: "REQINQ",
+        intxnType: "REQCOMP",
         serviceType: servicename,
-        ticketDescription: "",
-        inquiryCategory: "INQUIRY",
+        ticketDescription: description,
+        inquiryCategory: "COMPLAINT",
         problem: problem,
-        flatHouseUnitNo: "",
         block: "",
         building: "",
-        street: "",
+        street: street,
+        flatHouseUnitNo: hno,
         road: "",
-        district: "",
-        state: "",
+        district: district,
+        state: state,
         village: "",
         cityTown: "",
-        country: "",
-        postCode: "",
-        contactPreference: "",
+        country: country,
+        postCode: postCode,
+        contactPreference: contactPreference,
         fileAttachments: fileAttachments,
         deptID: finalDepId,
+        latitude: latitude,
+        longitude: longitude,
       };
       TDLog("finalDepId ======== ", finalDepId);
 
@@ -516,30 +659,61 @@ const CreateEnquiry = ({ route, navigation }) => {
     }
   };
 
-  const showSuccessMessage = (successMessage) => {
-    console.log(
-      "=======InquiryNotification=======" +
-      organizationItem.unitId +
-      " , " +
-      inquiryServiceName +
-      " , " +
-      inquiryProblemCode +
-      " , " +
-      inquiryDeptId
+  const onPlaceChosen = (params) => {
+    console.warn("onplace choose ", params);
+    // here is your callback function
+    TDLog("onPlaceChosen create complaint", JSON.stringify(params));
+    TDLog(
+      "onPlaceChosen create complaint Params",
+      params.street +
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
     );
+    setLocation(
+      params.hno +
+      "," +
+      params.street +
+      "," +
+      params.state +
+      "," +
+      params.district +
+      "," +
+      params.country +
+      "," +
+      params.postCode
+    );
+    TDLog("onPlaceChosen create complaint location", location);
+    setLatitude(params.latitude);
+    setLongitude(params.longitude);
+    setStreet(params.street);
+    setState(params.state);
+    setDistrict(params.district);
+    setCountry(params.country);
+    setPostcode(params.postCode);
+    setHno(params.hno);
+  };
+
+  const showSuccessMessage = (successMessage, interactionId) => {
     Alert.alert(strings.attention, successMessage, [
       {
-        text: strings.inquiryInfo,
+        text: strings.navigatePost,
         onPress: () => {
-          navigation.navigate("InquiryNotification", {
-            ouId: organizationItem.unitId,
-            serviceType: inquiryServiceName,
-            problemCode: inquiryProblemCode,
-            deptId: inquiryDeptId,
-          });
           dispatch(resetInquiry());
           fetchMyDashboardData();
           fetchMyInteractionData();
+          navigation.navigate("MyTicketsStack", {
+            screen: "MyTicketDetails",
+            params: {
+              intxnId: interactionId,
+              intxnType: "REQCOMP",
+            },
+          });
         },
       },
       {
@@ -569,44 +743,44 @@ const CreateEnquiry = ({ route, navigation }) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, paddingHorizontal: 20 }}>
-        <Header Text={strings.createInquiry} navigation={navigation}></Header>
+    &lt;SafeAreaView style={styles.container}>
+      &lt;View style={{ flex: 1, paddingHorizontal: 20 }}>
+        &lt;Header Text={strings.createComplaint} navigation={navigation}>&lt;/Header>
 
         {enquilryDetailsData?.initDetailsData ? (
-          <View
+          &lt;View
             style={{
               alignItems: "center",
               justifyContent: "center",
               marginTop: 200,
             }}
           >
-            <LoadingAnimation></LoadingAnimation>
-            <Text style={styles.emptyList}>{strings.please_wait}</Text>
-          </View>
+            &lt;LoadingAnimation>&lt;/LoadingAnimation>
+            &lt;Text style={styles.emptyList}>{strings.please_wait}&lt;/Text>
+          &lt;/View>
         ) : !enquilryDetailsData?.isDetailsDataError ? (
-          <ScrollView
+          &lt;ScrollView
             style={{ flexGrow: 1 }}
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
           >
-            <Text>{strings.inquiry_note}</Text>
-            <View style={styles.EnquiryView}>
+            &lt;Text>{strings.inquiry_note}&lt;/Text>
+            &lt;View style={styles.EnquiryView}>
               {
-                <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                  <CustomDropDown
+                &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                  &lt;CustomDropDown
                     selectedValue={selectedValueOrg}
                     setValue={setValueOrg}
                     data={
-                      !enquilryDetailsData.initInquiry &&
-                        enquilryDetailsData?.organization &&
+                      !enquilryDetailsData.initInquiry &amp;&amp;
+                        enquilryDetailsData?.organization &amp;&amp;
                         enquilryDetailsData?.organization.length > 0
                         ? enquilryDetailsData?.organization?.filter(
                           (data) =>
-                            data?.status?.includes("AC") &&
-                            data?.isChat === "Y" &&
-                            data?.unitType?.includes("OU") &&
-                            data?.langEng != "" &&
+                            data?.status?.includes("AC") &amp;&amp;
+                            data?.isChat === "Y" &amp;&amp;
+                            data?.unitType?.includes("OU") &amp;&amp;
+                            data?.langEng != "" &amp;&amp;
                             data?.langEng != null
                         ) ?? []
                         : []
@@ -615,11 +789,11 @@ const CreateEnquiry = ({ route, navigation }) => {
                     value={organizationName}
                     placeHolder={strings.ouname + "*"}
                   />
-                </View>
+                &lt;/View>
               }
 
-              <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                <CustomDropDown
+              &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                &lt;CustomDropDown
                   selectedValue={selectedValueType}
                   setValue={setValueType}
                   data={
@@ -631,14 +805,13 @@ const CreateEnquiry = ({ route, navigation }) => {
                             deptArr = get(data, "mapping.ouDept", []).map(
                               (item) => {
                                 if (
-                                  item?.isMobile === "Y" &&
-                                  item?.ticketType?.includes("REQINQ")
+                                  item?.isMobile === "Y" &amp;&amp;
+                                  item?.ticketType?.includes("REQCOMP")
                                 )
                                   return item?.ouId || "";
                               }
                             );
                           }
-
                           return deptArr.includes(organizationItem?.unitId);
                         }
                       ) ?? []
@@ -649,21 +822,21 @@ const CreateEnquiry = ({ route, navigation }) => {
                   value={servicename}
                   placeHolder={strings.sericeName + "*"}
                 />
-              </View>
+              &lt;/View>
 
-              <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                <CustomDropDown
+              &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                &lt;CustomDropDown
                   selectedValue={selectedValuePrblm}
                   setValue={setValuePrblm}
                   data={
                     !enquilryDetailsData.initInquiry
                       ? enquilryDetailsData?.problemCode?.PROBLEM_CODE?.filter(
                         (data) =>
-                          data?.mapping?.serviceType?.includes(servicename) &&
-                          data?.mapping?.isMobile === "Y" &&
-                          data?.status?.includes("AC") &&
-                          data?.mapping?.ticketType?.includes("REQINQ") &&
-                          servicename != "" &&
+                          data?.mapping?.serviceType?.includes(servicename) &amp;&amp;
+                          data?.mapping?.isMobile === "Y" &amp;&amp;
+                          data?.status?.includes("AC") &amp;&amp;
+                          data?.mapping?.ticketType?.includes("REQCOMP") &amp;&amp;
+                          servicename != "" &amp;&amp;
                           checkDeptIdFromProblemCode(data?.mapping?.deptId)
                       ) ?? []
                       : []
@@ -673,6 +846,7 @@ const CreateEnquiry = ({ route, navigation }) => {
                     onDepDropdown([]);
 
                     const depIdsTemp = get(text, "mapping.deptId", []);
+                    console.warn(">>", depIdsTemp);
                     // const depIdsTemp = [
                     //   "DPT0000001.OPU0000001.ORG0000001",
                     //   "DPT0000001.OPU0000001.ORG0000001",
@@ -684,10 +858,15 @@ const CreateEnquiry = ({ route, navigation }) => {
                   value={problem}
                   placeHolder={strings.problemType + "*"}
                 />
-              </View>
-              {depDropdown.length > 1 && (
-                <View style={{ marginTop: spacing.HEIGHT_20 }}>
-                  <CustomDropDown
+              &lt;/View>
+              {/* {depDropdown.length == 1 &amp;&amp; (
+                &lt;View style={{ marginTop: spacing.HEIGHT_30 }}>
+                  &lt;Text style={{ color: "red" }}>Selected Department : {depDropdown[0].description}&lt;/Text>
+                &lt;/View>
+              )} */}
+              {depDropdown.length > 1 &amp;&amp; (
+                &lt;View style={{ marginTop: spacing.HEIGHT_20 }}>
+                  &lt;CustomDropDown
                     selectedValue={selectedValueDeptId}
                     setValue={setValueDeptId}
                     data={
@@ -700,18 +879,40 @@ const CreateEnquiry = ({ route, navigation }) => {
                     value={selectedValueDeptId}
                     placeHolder={strings.selectDepId + "*"}
                   />
-                </View>
+                &lt;/View>
               )}
 
-              {/* <AttachmentList
+              &lt;View style={{ marginTop: spacing.HEIGHT_15 }}>
+                &lt;EditText
+                  onChangeText={(text) => onDescriptionChange(text)}
+                  value={description}
+                  placeHolder={strings.problem_description + "*"}
+                  clearText={clearDescription}
+                  multiline={true}
+                  lines={2}
+                  isClose={description.length > 0}
+                />
+              &lt;/View>
+              &lt;TouchableOpacity
+                style={{ marginTop: 10 }}
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                &lt;Text style={{ color: color.BCAE_PRIMARY }}>
+                  {strings.view_desc}
+                &lt;/Text>
+              &lt;/TouchableOpacity>
+
+              &lt;AttachmentList
                 attachmentList={fileAttachments}
                 onDeleteClicked={onDeleteClicked}
-              ></AttachmentList>
-              <Pressable
+              >&lt;/AttachmentList>
+              &lt;Pressable
                 style={styles.textAttach}
                 onPress={() => showAttachmentModal()}
               >
-                <Text
+                &lt;Text
                   style={{
                     color: color.INPUT_TEXT_BORDER,
                     fontSize: 14,
@@ -719,9 +920,9 @@ const CreateEnquiry = ({ route, navigation }) => {
                   }}
                 >
                   {strings.attachment + " (" + strings.optional + ")"}
-                </Text>
+                &lt;/Text>
 
-                <Image
+                &lt;Image
                   style={{
                     position: "absolute",
                     right: 5,
@@ -731,37 +932,176 @@ const CreateEnquiry = ({ route, navigation }) => {
                     resizeMode: "cover",
                   }}
                   source={require("../../Assets/icons/attachment.png")}
-                ></Image>
-              </Pressable> */}
+                >&lt;/Image>
+              &lt;/Pressable>
 
-              <View style={styles.preference}>
-                <View style={{ marginTop: 40 }}>
+              &lt;Pressable
+                onPress={() => locationIconClick()}
+                style={styles.textLocation}
+              >
+                &lt;Text
+                  style={{
+                    color: location != "" ? color.BLACK : color.PLACEHOLDER,
+                    fontSize: 14,
+                    marginBottom: 5,
+                    width: "95%",
+                  }}
+                  placeHolder={strings.location}
+                >
+                  {location || "Location"}
+                &lt;/Text>
+                &lt;Image
+                  style={{
+                    position: "absolute",
+                    right: 5,
+                    bottom: 5,
+                    height: 20,
+                    width: 20,
+                  }}
+                  source={require("../../Assets/icons/map.png")}
+                >&lt;/Image>
+              &lt;/Pressable>
+
+              &lt;View style={styles.preference}>
+                &lt;Text style={{ color: color.BCAE_PRIMARY }}>
+                  {strings.contact_pref}
+                &lt;/Text>
+                &lt;View style={styles.preferenceImageline}>
+                  &lt;View style={styles.predImageBox}>
+                    &lt;TouchableOpacity
+                      activeOpacity={0.9}
+                      onPress={onPressPhone}
+                    >
+                      {contactPreference === "CNT_PREF_PHONE" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.selectedBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_call_selected.png")}
+                          >&lt;/Image>
+                          &lt;Text style={styles.selectedText}>Phone&lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                      {contactPreference != "CNT_PREF_PHONE" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.normalBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_call_normal.png")}
+                          >&lt;/Image>
+                          &lt;Text style={styles.normalText}>Phone&lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                    &lt;/TouchableOpacity>
+                  &lt;/View>
+                  &lt;View style={styles.predImageBox}>
+                    &lt;TouchableOpacity activeOpacity={0.9} onPress={onPressMail}>
+                      {contactPreference === "CNT_PREF_EMAIL" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.selectedBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_mail_selected.png")}
+                          >&lt;/Image>
+                          &lt;Text style={styles.selectedText}>e-Mail&lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                      {contactPreference != "CNT_PREF_EMAIL" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.normalBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_mail_normal.png")}
+                          >&lt;/Image>
+                          &lt;Text style={styles.normalText}>e-Mail&lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                    &lt;/TouchableOpacity>
+                  &lt;/View>
+
+                  &lt;View style={styles.predImageBox}>
+                    &lt;TouchableOpacity
+                      activeOpacity={0.9}
+                      onPress={onPressWhatsApp}
+                    >
+                      {contactPreference === "CNT_PREF_NTC" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.selectedBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_donot_white.png")}
+                          >&lt;/Image>
+                          &lt;Text
+                            style={{
+                              ...styles.selectedText,
+                              fontSize: 9,
+                              lineHeight: 10,
+                              marginTop: 3,
+                            }}
+                          >
+                            Not To Contact
+                          &lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                      {contactPreference != "CNT_PREF_NTC" &amp;&amp; (
+                        &lt;ImageBackground
+                          resizeMode="cover"
+                          style={styles.normalBackground}
+                        >
+                          &lt;Image
+                            style={styles.prefImgae}
+                            source={require("../../Assets/icons/ic_donot_black.png")}
+                          >&lt;/Image>
+                          &lt;Text style={{ ...styles.normalText, fontSize: 9 }}>
+                            Not To Contact
+                          &lt;/Text>
+                        &lt;/ImageBackground>
+                      )}
+                    &lt;/TouchableOpacity>
+                  &lt;/View>
+                &lt;/View>
+
+                &lt;View style={{ marginTop: 40 }}>
                   {enquilryDetailsData.initInquiry ? (
-                    <CustomActivityIndicator
+                    &lt;CustomActivityIndicator
                       size={buttonSize.LARGE}
                       bgColor={color.BLACK}
                       loderColor={color.WHITE}
                     />
-                  ) : !enquilryDetailsData.initInquiry &&
-                    !enquilryDetailsData.isInquiryError &&
+                  ) : !enquilryDetailsData.initInquiry &amp;&amp;
+                    !enquilryDetailsData.isInquiryError &amp;&amp;
                     enquilryDetailsData?.inquiryData ? (
-                    enquilryDetailsData?.inquiryData?.status === "CLOSED" ? (
-                      <View>
+                    enquilryDetailsData?.inquiryData?.status === "NEW" ? (
+                      &lt;View>
                         {showSuccessMessage(
-                          strings.inquiry_success +
-                          " " +
+                          strings.complaint_success,
                           enquilryDetailsData?.inquiryData?.interactionId
                         )}
-                      </View>
+                      &lt;/View>
                     ) : (
-                      <Button
+                      &lt;Button
                         type={buttonType.PRIMARY}
                         size={buttonSize.LARGE}
-                        label={strings.submitInquiry}
+                        label={strings.submitComplaint}
                         disabled={
                           servicename === "" ||
-                          problem === "" ||
-                          finalDepId === ""
+                            problem === "" ||
+                            finalDepId === "" ||
+                            description === "" ||
+                            location === "" ||
+                            contactPreference === ""
+                            ? true
+                            : false
                         }
                         bgColor={color.BCAE_PRIMARY}
                         textColor={color.WHITE}
@@ -771,34 +1111,34 @@ const CreateEnquiry = ({ route, navigation }) => {
                           fontWeight: "400",
                           lineHeight: spacing.HEIGHT_16,
                         }}
-                        onPress={onSubmitEnquiry}
+                        onPress={onSubmitComplaint}
                       />
                     )
                   ) : (
-                    <View>
+                    &lt;View>
                       {showErrorMessage(
                         enquilryDetailsData?.inquiryData?.message
                       )}
-                    </View>
+                    &lt;/View>
                   )}
-                </View>
-                {/* <TouchableOpacity activeOpacity={0.5} onPress={() => clearFlag()}>
-                <Image
+                &lt;/View>
+                {/* &lt;TouchableOpacity activeOpacity={0.5} onPress={() => clearFlag()}>
+                &lt;Image
                   style={[styles.rightArrow, styles.searchIcon]}
                   source={require("../../Assets/icons/ic_delete_red.png")}
                 />
-              </TouchableOpacity> */}
-                <TouchableOpacity style={{ height: 50 }}></TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
+              &lt;/TouchableOpacity> */}
+                &lt;TouchableOpacity style={{ height: 50 }}>&lt;/TouchableOpacity>
+              &lt;/View>
+            &lt;/View>
+          &lt;/ScrollView>
         ) : (
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.emptyList}>{strings.no_internet}</Text>
-          </View>
+          &lt;View style={{ alignItems: "center" }}>
+            &lt;Text style={styles.emptyList}>{strings.no_internet}&lt;/Text>
+          &lt;/View>
         )}
-      </View>
-      <Modal
+      &lt;/View>
+      &lt;Modal
         animationType="fade"
         visible={attachmentModalVisible}
         mode="overFullScreen"
@@ -807,31 +1147,32 @@ const CreateEnquiry = ({ route, navigation }) => {
         }}
         transparent={true}
         outsideClick={() => {
-          if (closeOnClickOutside) {
+          if (attachmentModalVisible) {
             hideAttachmentModal();
           }
         }}
       >
-        <View
+        &lt;View
           style={{
-            marginTop: spacing.WIDTH_15,
-            marginBottom: spacing.WIDTH_30,
+            marginTop: spacing.WIDTH_10 * 20,
+            marginBottom: spacing.WIDTH_30 * 0.3,
             alignItems: "center",
-            flex: 1,
+
             flexDirection: "row",
           }}
         >
-          <View
+          &lt;View
             style={{
               alignItems: "center",
               flex: 1,
+
               flexDirection: "row",
               backgroundColor: color.BCAE_OFF_WHITE,
               borderRadius: 10,
               padding: 10,
             }}
           >
-            <Pressable
+            &lt;Pressable
               onPress={() => handleDocumentSelection()}
               style={{
                 marginTop: spacing.HEIGHT_6,
@@ -841,15 +1182,18 @@ const CreateEnquiry = ({ route, navigation }) => {
                 width: "33%",
               }}
             >
-              <Image
+              &lt;Image
                 style={styles.upperLogo}
                 source={require("../../Assets/icons/documents.png")}
               />
-              <Text style={styles.upperText}>{strings.document}</Text>
-            </Pressable>
+              &lt;Text style={styles.upperText}>{strings.document}&lt;/Text>
+            &lt;/Pressable>
 
-            <Pressable
-              onPress={() => launchCamera1()}
+            &lt;Pressable
+              onPress={() => {
+                // hideAttachmentModal();
+                launchCamera1();
+              }}
               style={{
                 marginTop: spacing.HEIGHT_6,
                 flexDirection: "column",
@@ -858,14 +1202,14 @@ const CreateEnquiry = ({ route, navigation }) => {
                 width: "33%",
               }}
             >
-              <Image
+              &lt;Image
                 style={styles.upperLogo}
                 source={require("../../Assets/icons/camera.png")}
               />
-              <Text style={styles.upperText}>{strings.camera}</Text>
-            </Pressable>
+              &lt;Text style={styles.upperText}>{strings.camera}&lt;/Text>
+            &lt;/Pressable>
 
-            <Pressable
+            &lt;Pressable
               onPress={() => launchImageLibrary1()}
               style={{
                 marginTop: spacing.HEIGHT_6,
@@ -875,16 +1219,34 @@ const CreateEnquiry = ({ route, navigation }) => {
                 width: "33%",
               }}
             >
-              <Image
+              &lt;Image
                 style={styles.upperLogo}
                 source={require("../../Assets/icons/gallery.png")}
               />
-              <Text style={styles.upperText}>{strings.gallery}</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-    </SafeAreaView>
+              &lt;Text style={styles.upperText}>{strings.gallery}&lt;/Text>
+            &lt;/Pressable>
+          &lt;/View>
+        &lt;/View>
+      &lt;/Modal>
+
+      &lt;Popup
+        title={strings.view_desc}
+        modalVisible={modalVisible}
+        isOnlyCloseButton={true}
+        setModalVisible={(status) => setModalVisible(status)}
+        isFollowUpLoaing={false}
+      >
+        &lt;Text
+          style={{
+            marginTop: 30,
+            textAlign: "center",
+            paddingVertical: spacing.HEIGHT_17,
+          }}
+        >
+          {description}
+        &lt;/Text>
+      &lt;/Popup>
+    &lt;/SafeAreaView>
   );
 };
 
@@ -1021,4 +1383,27 @@ const styles = StyleSheet.create({
   },
 });
 //make this component available to the app
-export default CreateEnquiry;
+export default CreateComplaint;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ShareDoc">ShareDoc</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 27 2023 09:49:41 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
