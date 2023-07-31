@@ -37,7 +37,7 @@ const Splash = ({ route, navigation }) => {
   /**
   * Check if user is already logged in or not. if logged, navigate to homescreen 
   * @memberOf Splash
-  * @param  {string} customerUuid Customer UUID
+  * @param  {string} customerUuid Customer UUID info
   */
   const checkLogin = () => {
     getToken()
