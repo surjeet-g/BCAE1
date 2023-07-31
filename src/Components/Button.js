@@ -7,6 +7,16 @@ import {
   buttonSize,
 } from "../Utilities/Constants/Constant";
 
+/**
+* Custom UI for Button
+* @method
+* @param  {Object} buttonStyle customize input style
+* @param  {string} label caption of Button
+* @param  {string} placeHolder placeholder of Button
+* @param  {bool} isDisabled Toggle state value of button disble or enable
+* @param  {function} onPress invoke clicking on submit
+* @returns {JSX} Return JSX of
+*/
 export const Button = (props) => {
   let type = props.type ?? buttonType.PRIMARY;
   let size = props.size ?? buttonSize.FLEXI;
@@ -16,8 +26,8 @@ export const Button = (props) => {
   let bgColor = disabled
     ? color.DISABLED_GREY
     : props.bgColor
-    ? props.bgColor
-    : color.TRANSPARENT;
+      ? props.bgColor
+      : color.TRANSPARENT;
   let textColor = props.textColor ? props.textColor : color.BLACK;
   let width = size === buttonSize.LARGE ? { width: "100%" } : {};
   let customStyle = props.customStyle ?? {};

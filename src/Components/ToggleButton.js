@@ -1,7 +1,15 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { color, spacing } from "../Utilities/Constants/Constant";
-
+/**
+* @method
+* @param  {string} label Caption of component
+* @param  {function} onPressFirst invoke clicking on first tab
+* @param  {function} onPressSecond invoke clicking on second tab
+* @param  {object} textPro customize the text inside toggle button
+* @param  {boolean} isFirstSelected status of toggle buttom
+* @returns {JSX} Return JSX 
+*/
 export const ToggleButton = (props) => {
   let label = props.label ?? {};
   let onPressFirst = props.onPressFirst ?? null;

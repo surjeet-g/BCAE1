@@ -1,4 +1,32 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/TextBoxWithCTAEmail.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/TextBoxWithCTAEmail.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
 import {
   StyleSheet,
   Text,
@@ -31,32 +59,32 @@ export const TextBoxWithCTAEmail = (props) => {
   let onClicked = props.onPress ?? null;
   let isDisableButton = props.isDisableButton ?? false;
   return (
-    <View>
-      <View style={{ marginTop: 10 }}>
-        <Text style={styles.placeHolderText}>
+    &lt;View>
+      &lt;View style={{ marginTop: 10 }}>
+        &lt;Text style={styles.placeHolderText}>
           {props.value != ""
             ? props.placeHolder
-            : props?.isResendOTP && props?.countryCode != ""
+            : props?.isResendOTP &amp;&amp; props?.countryCode != ""
               ? props.placeHolder
               : " "}
-        </Text>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        {props?.correctOtp && (
-          <View style={{ ...styles.correctStyle }}>
-            <Image source={require("../Assets/icons/Verify.png")} />
-          </View>
+        &lt;/Text>
+      &lt;/View>
+      &lt;View style={{ flexDirection: "row" }}>
+        {props?.correctOtp &amp;&amp; (
+          &lt;View style={{ ...styles.correctStyle }}>
+            &lt;Image source={require("../Assets/icons/Verify.png")} />
+          &lt;/View>
         )}
         {props?.loader ? (
-          <View style={{ backgroundColor: color.BLACK, ...styles.ctaStyle }}>
-            <CustomActivityIndicator
+          &lt;View style={{ backgroundColor: color.BLACK, ...styles.ctaStyle }}>
+            &lt;CustomActivityIndicator
               size={buttonSize.SMALL}
               bgColor={color.BLACK}
               loderColor={color.WHITE}
             />
-          </View>
+          &lt;/View>
         ) : props?.label ? (
-          <TouchableOpacity
+          &lt;TouchableOpacity
             onPress={onClicked}
             disabled={isDisableButton}
             style={{
@@ -64,19 +92,19 @@ export const TextBoxWithCTAEmail = (props) => {
               ...styles.ctaStyle,
             }}
           >
-            <Text style={{ ...btnTextPro }}>{props.label}</Text>
-          </TouchableOpacity>
+            &lt;Text style={{ ...btnTextPro }}>{props.label}&lt;/Text>
+          &lt;/TouchableOpacity>
         ) : null}
 
-        <View
+        &lt;View
           style={{
             flexDirection: "row",
             marginVertical: spacing.HEIGHT_3,
             height: 35,
           }}
         >
-          {props?.isResendOTP && props?.countryCode != "" && (
-            <TouchableOpacity
+          {props?.isResendOTP &amp;&amp; props?.countryCode != "" &amp;&amp; (
+            &lt;TouchableOpacity
               style={{
                 flexDirection: "row",
                 position: "absolute",
@@ -86,7 +114,7 @@ export const TextBoxWithCTAEmail = (props) => {
                 marginTop: 5,
               }}
             >
-              <Text
+              &lt;Text
                 style={{
                   color: color.DARK_GREY,
                   fontSize: fontSizes.FONT_14,
@@ -95,21 +123,21 @@ export const TextBoxWithCTAEmail = (props) => {
               >
                 {" "}
                 {"+" + props.countryCode}
-              </Text>
-              <Image
+              &lt;/Text>
+              &lt;Image
                 source={require("../Assets/icons/ci_dropdown.png")}
                 style={{ width: spacing.WIDTH_16, height: spacing.WIDTH_16 }}
               />
-            </TouchableOpacity>
+            &lt;/TouchableOpacity>
           )}
-          <TextInput
+          &lt;TextInput
             autoCapitalize="none"
             autoCorrect={false}
             editable={
-              props?.isResendOTP && props?.countryCode == "" ? false : true
+              props?.isResendOTP &amp;&amp; props?.countryCode == "" ? false : true
             }
             placeholder={
-              props?.isResendOTP && props?.countryCode != ""
+              props?.isResendOTP &amp;&amp; props?.countryCode != ""
                 ? ""
                 : props.placeHolder
             }
@@ -118,7 +146,7 @@ export const TextBoxWithCTAEmail = (props) => {
               ...styles.textInput,
               ...customStyle,
               paddingLeft:
-                props?.isResendOTP && props?.countryCode != ""
+                props?.isResendOTP &amp;&amp; props?.countryCode != ""
                   ? spacing.WIDTH_37 * 2
                   : 0,
             }}
@@ -128,9 +156,9 @@ export const TextBoxWithCTAEmail = (props) => {
               props.onSubmitEditing ? props.onSubmitEditing : null
             }
           />
-        </View>
-      </View>
-    </View>
+        &lt;/View>
+      &lt;/View>
+    &lt;/View>
   );
 };
 
@@ -174,3 +202,26 @@ const styles = StyleSheet.create({
     height: spacing.HEIGHT_38,
   },
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Homescreen.html">Homescreen</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li><li><a href="TicketDetails.html">TicketDetails</a></li><li><a href="TicketListing.html">TicketListing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#CustomActivityIndicator">CustomActivityIndicator</a></li><li><a href="global.html#EditText">EditText</a></li><li><a href="global.html#ShareDoc">ShareDoc</a></li><li><a href="global.html#TextBoxWithCTA">TextBoxWithCTA</a></li><li><a href="global.html#TextBoxWithCTAEmail">TextBoxWithCTAEmail</a></li><li><a href="global.html#ToastTemplete">ToastTemplete</a></li><li><a href="global.html#ToggleButton">ToggleButton</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#getFcmDeviceId">getFcmDeviceId</a></li><li><a href="global.html#notificationListener">notificationListener</a></li><li><a href="global.html#permission">permission</a></li><li><a href="global.html#requestUserPermission">requestUserPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 31 2023 10:47:06 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

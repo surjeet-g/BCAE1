@@ -1,4 +1,32 @@
-import React, { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/TabScreens/MyTickets.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/TabScreens/MyTickets.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -107,7 +135,7 @@ const MyTickets = ({ route, navigation }) => {
 
   const onPressFirst = () => {
     setFirstSelected(true);
-    if (!myTickets?.initMytickets && !myTickets?.isMyTicketsError) {
+    if (!myTickets?.initMytickets &amp;&amp; !myTickets?.isMyTicketsError) {
       myTickets?.myTicketsData?.filter(
         (data) => data.currStatus != "REASSIGNED"
       );
@@ -115,7 +143,7 @@ const MyTickets = ({ route, navigation }) => {
   };
   const onPressSecond = () => {
     setFirstSelected(false);
-    if (!myTickets?.initMytickets && !myTickets?.isMyTicketsError) {
+    if (!myTickets?.initMytickets &amp;&amp; !myTickets?.isMyTicketsError) {
       myTickets?.myTicketsData?.filter(
         (data) => data.currStatus == "REASSIGNED"
       );
@@ -124,33 +152,33 @@ const MyTickets = ({ route, navigation }) => {
 
   const showErrorMessage = (errMessage) => {
     return (
-      <View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
-        <Image
+      &lt;View style={{ marginTop: spacing.HEIGHT_6, flexDirection: "row" }}>
+        &lt;Image
           style={styles.errorLogo}
           source={require("../../Assets/icons/ci_error_warning.png")}
         />
-        <Text style={styles.errorText}>{errMessage}</Text>
+        &lt;Text style={styles.errorText}>{errMessage}&lt;/Text>
         {sessionOut()}
-      </View>
+      &lt;/View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.rootContainer}>
-      <Header
+    &lt;SafeAreaView style={styles.rootContainer}>
+      &lt;Header
         navigation={navigation}
         Text={myscreenmae}
         backIconVisibility={false}
         rightIconsVisibility={true}
         bcae={true}
-      ></Header>
-      <View style={styles.innerContainer}>
-        <View style={styles.inputBox}>
-          <Image
+      >&lt;/Header>
+      &lt;View style={styles.innerContainer}>
+        &lt;View style={styles.inputBox}>
+          &lt;Image
             style={styles.searchIcon}
             source={require("../../Assets/icons/ic_search.png")}
           />
-          <TextInput
+          &lt;TextInput
             style={styles.searchInput}
             onChangeText={setSearchText}
             value={searchText}
@@ -158,10 +186,10 @@ const MyTickets = ({ route, navigation }) => {
             keyboardType="default"
             inlineImageLeft="Search"
           />
-        </View>
+        &lt;/View>
 
-        <View style={styles.toggleContainer}>
-          <ToggleButton
+        &lt;View style={styles.toggleContainer}>
+          &lt;ToggleButton
             isFirstSelected={isFirstSelected}
             label={{ first: strings.opened, second: strings.resolved }}
             bgColor={{
@@ -179,134 +207,134 @@ const MyTickets = ({ route, navigation }) => {
             }}
             onPressFirst={onPressFirst}
             onPressSecond={onPressSecond}
-          ></ToggleButton>
-        </View>
-        <View style={{ flexDirection: "row", width: "95%", marginTop: 20 }}>
-          <View style={styles.allItemsContainerText}>
-            <Text style={styles.allItems}>{strings.all_interaction}</Text>
-          </View>
-          <View style={styles.allItemsContainerFilter}>
-            <View
+          >&lt;/ToggleButton>
+        &lt;/View>
+        &lt;View style={{ flexDirection: "row", width: "95%", marginTop: 20 }}>
+          &lt;View style={styles.allItemsContainerText}>
+            &lt;Text style={styles.allItems}>{strings.all_interaction}&lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.allItemsContainerFilter}>
+            &lt;View
               style={{
                 height: "70%",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <Menu
+              &lt;Menu
                 visible={visible}
                 anchor={
-                  <TouchableOpacity activeOpacity={0.5} onPress={showMenu}>
-                    <Image
+                  &lt;TouchableOpacity activeOpacity={0.5} onPress={showMenu}>
+                    &lt;Image
                       source={require("../../Assets/icons/ic_filter.png")}
                     />
-                  </TouchableOpacity>
+                  &lt;/TouchableOpacity>
                 }
                 onRequestClose={hideMenu}
               >
-                <MenuItem
+                &lt;MenuItem
                   onPress={handleFilterChangeAll}
                   style={{ marginTop: 12 }}
                 >
-                  <View
+                  &lt;View
                     style={{
                       flexDirection: "row",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <View style={styles.ticketItemHeading}>
-                      {selectedFilter != "ALL" && (
-                        <Image
+                    &lt;View style={styles.ticketItemHeading}>
+                      {selectedFilter != "ALL" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_unselected_radio.png")}
                         />
                       )}
-                      {selectedFilter == "ALL" && (
-                        <Image
+                      {selectedFilter == "ALL" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_selected_radio.png")}
                         />
                       )}
-                      <Text style={[styles.description]}> All</Text>
-                    </View>
-                  </View>
-                </MenuItem>
-                <MenuItem onPress={handleFilterChangeEnquiry}>
-                  <View
+                      &lt;Text style={[styles.description]}> All&lt;/Text>
+                    &lt;/View>
+                  &lt;/View>
+                &lt;/MenuItem>
+                &lt;MenuItem onPress={handleFilterChangeEnquiry}>
+                  &lt;View
                     style={{
                       flexDirection: "row",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <View style={styles.ticketItemHeading}>
-                      {selectedFilter != "REQINQ" && (
-                        <Image
+                    &lt;View style={styles.ticketItemHeading}>
+                      {selectedFilter != "REQINQ" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_unselected_radio.png")}
                         />
                       )}
-                      {selectedFilter == "REQINQ" && (
-                        <Image
+                      {selectedFilter == "REQINQ" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_selected_radio.png")}
                         />
                       )}
-                      <Text style={[styles.description]}> Enquiry</Text>
-                    </View>
-                  </View>
-                </MenuItem>
-                <MenuItem onPress={handleFilterChangeComplaint}>
-                  <View
+                      &lt;Text style={[styles.description]}> Enquiry&lt;/Text>
+                    &lt;/View>
+                  &lt;/View>
+                &lt;/MenuItem>
+                &lt;MenuItem onPress={handleFilterChangeComplaint}>
+                  &lt;View
                     style={{
                       flexDirection: "row",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <View style={styles.ticketItemHeading}>
-                      {selectedFilter != "REQCOMP" && (
-                        <Image
+                    &lt;View style={styles.ticketItemHeading}>
+                      {selectedFilter != "REQCOMP" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_unselected_radio.png")}
                         />
                       )}
-                      {selectedFilter == "REQCOMP" && (
-                        <Image
+                      {selectedFilter == "REQCOMP" &amp;&amp; (
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_selected_radio.png")}
                         />
                       )}
-                      <Text style={[styles.description]}> Complaint</Text>
-                    </View>
-                  </View>
-                </MenuItem>
-              </Menu>
-            </View>
-          </View>
-        </View>
-        {!myTickets?.initMytickets &&
-          myTickets?.isMyTicketsError &&
-          myTickets?.myTicketsData?.errorCode == 401 &&
+                      &lt;Text style={[styles.description]}> Complaint&lt;/Text>
+                    &lt;/View>
+                  &lt;/View>
+                &lt;/MenuItem>
+              &lt;/Menu>
+            &lt;/View>
+          &lt;/View>
+        &lt;/View>
+        {!myTickets?.initMytickets &amp;&amp;
+          myTickets?.isMyTicketsError &amp;&amp;
+          myTickets?.myTicketsData?.errorCode == 401 &amp;&amp;
           showErrorMessage(myTickets?.myTicketsData?.message)}
-        {myTickets.initMytickets && (
-          <View
+        {myTickets.initMytickets &amp;&amp; (
+          &lt;View
             style={{
               alignItems: "center",
               justifyContent: "center",
               marginTop: 200,
             }}
           >
-            <LoadingAnimation></LoadingAnimation>
-            <Text style={styles.emptyList}>{strings.please_wait}</Text>
-          </View>
+            &lt;LoadingAnimation>&lt;/LoadingAnimation>
+            &lt;Text style={styles.emptyList}>{strings.please_wait}&lt;/Text>
+          &lt;/View>
         )}
 
-        {!myTickets?.initMytickets &&
-          !myTickets?.isMyTicketsError &&
+        {!myTickets?.initMytickets &amp;&amp;
+          !myTickets?.isMyTicketsError &amp;&amp;
           myTickets?.myTicketsData.length > 0 ? (
-          <MyTicketList
+          &lt;MyTicketList
             isRefreshing={isRefreshing}
             onRefresh={onRefresh}
             ticketItemList={
@@ -354,9 +382,9 @@ const MyTickets = ({ route, navigation }) => {
             }
           />
         ) : (
-          <>
-            <View style={{ height: 200 }}>
-              <FlatList
+          &lt;>
+            &lt;View style={{ height: 200 }}>
+              &lt;FlatList
                 contentContainerStyle={{
                   marginTop: 12,
                   // backgroundColor: "red",
@@ -368,49 +396,49 @@ const MyTickets = ({ route, navigation }) => {
                 ListEmptyComponent={({ item }) => {
                   if (myTickets?.initMytickets) return null;
                   return (
-                    <View
+                    &lt;View
                       style={{
                         height: "70%",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
-                      <Text style={styles.emptyList}>
+                      &lt;Text style={styles.emptyList}>
                         {strings.empty_ticket_list}
-                      </Text>
-                    </View>
+                      &lt;/Text>
+                    &lt;/View>
                   );
                 }}
                 data={[]}
                 refreshControl={
-                  <RefreshControl
+                  &lt;RefreshControl
                     colors={["#9Bd35A", "#689F38"]}
                     refreshing={isRefreshing}
                     onRefresh={onRefresh}
                   />
                 }
               />
-            </View>
-            <View
+            &lt;/View>
+            &lt;View
               style={{
                 height: "70%",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              {!myTickets?.initMytickets &&
-                myTickets?.isMyTicketsError &&
-                myTickets?.myTicketsData?.errorCode === "10001" && (
-                  <Text style={styles.emptyList}>{strings.no_internet}</Text>
+              {!myTickets?.initMytickets &amp;&amp;
+                myTickets?.isMyTicketsError &amp;&amp;
+                myTickets?.myTicketsData?.errorCode === "10001" &amp;&amp; (
+                  &lt;Text style={styles.emptyList}>{strings.no_internet}&lt;/Text>
                 )}
-            </View>
-          </>
+            &lt;/View>
+          &lt;/>
         )}
-        {!myTickets?.initMytickets &&
+        {!myTickets?.initMytickets &amp;&amp;
           (myTickets?.myTicketsData?.errorCode == "10000" ||
-            myTickets?.myTicketsData?.errorCode == "10001") && (
-            <View style={styles.toast}>
-              <Toast
+            myTickets?.myTicketsData?.errorCode == "10001") &amp;&amp; (
+            &lt;View style={styles.toast}>
+              &lt;Toast
                 bgColor={color.TOAST_RED}
                 customStyle={{ paddingHorizontal: spacing.WIDTH_30 }}
                 textPro={{
@@ -429,10 +457,10 @@ const MyTickets = ({ route, navigation }) => {
                     : strings.something_went_wrong
                 }
               />
-            </View>
+            &lt;/View>
           )}
-      </View>
-    </SafeAreaView>
+      &lt;/View>
+    &lt;/SafeAreaView>
   );
 };
 
@@ -526,3 +554,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Homescreen.html">Homescreen</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li><li><a href="TicketDetails.html">TicketDetails</a></li><li><a href="TicketListing.html">TicketListing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#CustomActivityIndicator">CustomActivityIndicator</a></li><li><a href="global.html#EditText">EditText</a></li><li><a href="global.html#ShareDoc">ShareDoc</a></li><li><a href="global.html#TextBoxWithCTA">TextBoxWithCTA</a></li><li><a href="global.html#TextBoxWithCTAEmail">TextBoxWithCTAEmail</a></li><li><a href="global.html#ToastTemplete">ToastTemplete</a></li><li><a href="global.html#ToggleButton">ToggleButton</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#getFcmDeviceId">getFcmDeviceId</a></li><li><a href="global.html#notificationListener">notificationListener</a></li><li><a href="global.html#permission">permission</a></li><li><a href="global.html#requestUserPermission">requestUserPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 31 2023 10:47:06 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

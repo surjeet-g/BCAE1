@@ -20,8 +20,8 @@ import { CustomActivityIndicator } from "../../../Components/CustomActivityIndic
 
 const CustomerEmailLogin = (props) => {
   let login = useSelector((state) => state.login);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("baasha441@gmail.com");
+  const [password, setPassword] = useState("Test@123");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 

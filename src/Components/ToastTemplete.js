@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { spacing } from "../Utilities/Constants/Constant";
-
+/**
+* Toast message with customized UI
+* @method
+* @param  {string} bgColor background color 
+* @param  {string} text text message 
+* @returns {JSX} Return JSX of
+*/
 export const ToastTemplete = ({ bgColor, text }) => {
   return (
     <View

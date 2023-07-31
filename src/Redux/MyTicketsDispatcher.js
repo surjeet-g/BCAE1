@@ -9,8 +9,14 @@ import Geocoder from "@timwangdev/react-native-geocoder";
 import { storageKeys } from "../Utilities/Constants/Constant";
 import { getDataFromDB, saveDataToDB } from "../Storage/token";
 import get from "lodash.get";
-
-export function getMyTicketsData(cb = () => {}) {
+/**
+* Reducer Dispatch
+* Handle API call for Fetch Interaction details for Top category and Recently Interaction
+* @memberOf TicketDetails
+* @param  {function} cb callback after success get API response
+* @returns {Object} Dispatcher to reducer
+*/
+export function getMyTicketsData(cb = () => { }) {
   return async (dispatch) => {
     dispatch(initMyTicketsData());
 

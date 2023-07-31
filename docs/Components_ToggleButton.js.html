@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/ToggleButton.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/ToggleButton.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import { color, spacing } from "../Utilities/Constants/Constant";
+/**
+* @method
+* @param  {string} label Caption of component
+* @param  {function} onPressFirst invoke clicking on first tab
+* @param  {function} onPressSecond invoke clicking on second tab
+* @param  {object} textPro customize the text inside toggle button
+* @param  {boolean} isFirstSelected status of toggle buttom
+* @returns {JSX} Return JSX 
+*/
+export const ToggleButton = (props) => {
+  let label = props.label ?? {};
+  let onPressFirst = props.onPressFirst ?? null;
+  let onPressSecond = props.onPressSecond ?? null;
+  let bgColor = props.bgColor;
+  let textColor = props.textColor ? props.textColor : color.BLACK;
+  let width = { width: "50%" };
+  let customStyle = props.customStyle ?? {};
+  let activeOpacity = props.opacity ?? 0.2;
+  let textPro = props.textPro ?? {};
+  let isFirstSelected = props.isFirstSelected ?? false;
+
+  return (
+    &lt;View
+      style={{
+        flexDirection: "row",
+        backgroundColor: bgColor.unselected,
+        borderRadius: spacing.HEIGHT_24,
+      }}
+    >
+      &lt;TouchableOpacity
+        onPress={onPressFirst}
+        activeOpacity={activeOpacity}
+        style={{
+          paddingHorizontal: spacing.WIDTH_5,
+          backgroundColor: isFirstSelected
+            ? bgColor.selected
+            : bgColor.unselected,
+          borderRadius: spacing.HEIGHT_24,
+          justifyContent: "center",
+          alignItems: "center",
+          height: spacing.HEIGHT_32,
+          ...width,
+          ...customStyle,
+        }}
+      >
+        {
+          &lt;Text
+            style={{
+              ...textPro,
+              color: isFirstSelected
+                ? textColor.selected
+                : textColor.unselected,
+            }}
+          >
+            {label.first}
+          &lt;/Text>
+        }
+      &lt;/TouchableOpacity>
+
+      &lt;TouchableOpacity
+        onPress={onPressSecond}
+        activeOpacity={activeOpacity}
+        style={{
+          paddingHorizontal: spacing.WIDTH_5,
+          backgroundColor: !isFirstSelected
+            ? bgColor.selected
+            : bgColor.unselected,
+          borderRadius: spacing.HEIGHT_24,
+          justifyContent: "center",
+          alignItems: "center",
+          height: spacing.HEIGHT_32,
+          ...width,
+          ...customStyle,
+        }}
+      >
+        {
+          &lt;Text
+            style={{
+              ...textPro,
+              color: !isFirstSelected
+                ? textColor.selected
+                : textColor.unselected,
+            }}
+          >
+            {label.second}
+          &lt;/Text>
+        }
+      &lt;/TouchableOpacity>
+    &lt;/View>
+  );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Homescreen.html">Homescreen</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li><li><a href="TicketDetails.html">TicketDetails</a></li><li><a href="TicketListing.html">TicketListing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#CustomActivityIndicator">CustomActivityIndicator</a></li><li><a href="global.html#EditText">EditText</a></li><li><a href="global.html#ShareDoc">ShareDoc</a></li><li><a href="global.html#TextBoxWithCTA">TextBoxWithCTA</a></li><li><a href="global.html#TextBoxWithCTAEmail">TextBoxWithCTAEmail</a></li><li><a href="global.html#ToastTemplete">ToastTemplete</a></li><li><a href="global.html#ToggleButton">ToggleButton</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#getFcmDeviceId">getFcmDeviceId</a></li><li><a href="global.html#notificationListener">notificationListener</a></li><li><a href="global.html#permission">permission</a></li><li><a href="global.html#requestUserPermission">requestUserPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 31 2023 10:47:06 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

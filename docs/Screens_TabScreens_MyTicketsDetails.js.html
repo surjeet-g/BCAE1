@@ -1,4 +1,32 @@
-import React, { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/TabScreens/MyTicketsDetails.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/TabScreens/MyTicketsDetails.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -142,7 +170,7 @@ const MyTicketDetails = ({ route, navigation }) => {
       followUpInfo.map((data) => {
         temp.push({
           icon: (
-            <Image
+            &lt;Image
               style={{ width: 20, height: 20 }}
               source={require("../../Assets/icons/doc_timeline.png")}
             />
@@ -181,31 +209,31 @@ const MyTicketDetails = ({ route, navigation }) => {
       get(data, "attachments.length", false) == false ? false : true;
     if (followupForm) {
       return (
-        <View style={styles.followupDetailsTabCont}>
-          <View style={styles.followUpBox1}>
-            <Image
+        &lt;View style={styles.followupDetailsTabCont}>
+          &lt;View style={styles.followUpBox1}>
+            &lt;Image
               style={{ width: 20, height: 20, borderRadius: 20 }}
               source={{
                 uri: `data:image/jpeg;base64,${profile?.savedProfileData?.profilePicture}`,
               }}
             />
-          </View>
-          <View style={styles.followupBox2}>
-            <Text
+          &lt;/View>
+          &lt;View style={styles.followupBox2}>
+            &lt;Text
               style={{
                 ...styles.requestText,
                 ...{ fontWeight: "500", marginBottom: spacing.HEIGHT_3 },
               }}
             >
               {data.description}
-            </Text>
-            <View
+            &lt;/Text>
+            &lt;View
               style={{ flexDirection: "row", marginBottom: spacing.HEIGHT_6 }}
             >
-              <Text style={{ ...styles.requestText, fontSize: 12 }}>
+              &lt;Text style={{ ...styles.requestText, fontSize: 12 }}>
                 {Moment(data?.createdAt).format("DD MMM YYYY hh:MM A")}
-              </Text>
-              <Image
+              &lt;/Text>
+              &lt;Image
                 style={{
                   width: spacing.WIDTH_20,
                   height: spacing.WIDTH_20,
@@ -213,8 +241,8 @@ const MyTicketDetails = ({ route, navigation }) => {
                 }}
                 source={require("../../Assets/icons/attachment.png")}
               />
-            </View>
-            <Button
+            &lt;/View>
+            &lt;Button
               type={buttonType.PRIMARY}
               size={buttonSize.MEDIUM}
               label={strings.click_to_more}
@@ -233,41 +261,41 @@ const MyTicketDetails = ({ route, navigation }) => {
                 setModalVisible(true);
               }}
             />
-          </View>
-        </View>
+          &lt;/View>
+        &lt;/View>
       );
     }
     return (
-      <View
+      &lt;View
         style={{
           marginTop: -spacing.HEIGHT_12,
           flexDirection: "column",
           paddingRight: 50,
         }}
       >
-        <Text
+        &lt;Text
           style={{
             marginLeft: 10,
             fontWeight: "600",
           }}
         >
           {data?.status == "CLOSED" ? "Assigned" : "New Request"}
-        </Text>
+        &lt;/Text>
 
-        <Text
+        &lt;Text
           style={{
             marginLeft: 10,
           }}
         >
           {Moment(data?.createdAt).format("DD MMM YYYY hh:MM A")}
-        </Text>
-      </View>
+        &lt;/Text>
+      &lt;/View>
     );
   };
   const renderFollowUp = () => {
-    if (followUpFormat && followUpFormat.length == 0) return null;
+    if (followUpFormat &amp;&amp; followUpFormat.length == 0) return null;
     return (
-      <Timeline
+      &lt;Timeline
         style={styles.followup}
         data={followUpFormat}
         showTime={false}
@@ -279,16 +307,16 @@ const MyTicketDetails = ({ route, navigation }) => {
     );
   };
   return (
-    <>
-      <Header
+    &lt;>
+      &lt;Header
         navigation={navigation}
         Text="Interaction"
         backIconVisibility={true}
         rightIconsVisibility={true}
-      ></Header>
-      <SafeAreaView style={styles.rootContainer}>
-        <ScrollView>
-          <View
+      >&lt;/Header>
+      &lt;SafeAreaView style={styles.rootContainer}>
+        &lt;ScrollView>
+          &lt;View
             key={1}
             style={{
               ...{
@@ -300,100 +328,100 @@ const MyTicketDetails = ({ route, navigation }) => {
             }}
           >
             {myTicketDetails?.initMyTicketDetails ? (
-              <View
+              &lt;View
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
                   marginTop: 200,
                 }}
               >
-                <LoadingAnimation></LoadingAnimation>
-                <Text style={styles.emptyList}>{strings.please_wait}</Text>
-              </View>
+                &lt;LoadingAnimation>&lt;/LoadingAnimation>
+                &lt;Text style={styles.emptyList}>{strings.please_wait}&lt;/Text>
+              &lt;/View>
             ) : (
-              <>
-                <View style={[styles.cardView]}>
-                  <View style={{ flexDirection: "column" }}>
-                    <View style={styles.ticketItemHeading}>
-                      <Image
+              &lt;>
+                &lt;View style={[styles.cardView]}>
+                  &lt;View style={{ flexDirection: "column" }}>
+                    &lt;View style={styles.ticketItemHeading}>
+                      &lt;Image
                         style={styles.searchIcon}
                         source={require("../../Assets/icons/ic_ticket_red.png")}
                       />
-                      <Text
+                      &lt;Text
                         style={[styles.textBase_primary, styles.description]}
                       >
                         {myTicketDetails?.myTicketDetailsData?.typeDescription}
-                      </Text>
-                      <View style={styles.alignRight}>
-                        <Image
+                      &lt;/Text>
+                      &lt;View style={styles.alignRight}>
+                        &lt;Image
                           style={styles.searchIcon}
                           source={require("../../Assets/icons/ic_td123_logo.png")}
                         />
-                      </View>
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={[styles.box1]}>
+                      &lt;/View>
+                    &lt;/View>
+                    &lt;View style={{ flexDirection: "row" }}>
+                      &lt;View style={[styles.box1]}>
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
-                          "REQINQ" && (
-                            <>
-                              <View style={{ flexDirection: "row" }}>
-                                <View style={{ flex: 1 }}>
-                                  <Text style={[styles.status]}>
+                          "REQINQ" &amp;&amp; (
+                            &lt;>
+                              &lt;View style={{ flexDirection: "row" }}>
+                                &lt;View style={{ flex: 1 }}>
+                                  &lt;Text style={[styles.status]}>
                                     {strings.inquiryNo}
-                                  </Text>
-                                </View>
-                                <View style={{ flex: 1, alignItems: "flex-end" }}>
-                                  <Pressable onPress={onPressInquiryNotification}>
-                                    <Text style={[styles.notification]}>
+                                  &lt;/Text>
+                                &lt;/View>
+                                &lt;View style={{ flex: 1, alignItems: "flex-end" }}>
+                                  &lt;Pressable onPress={onPressInquiryNotification}>
+                                    &lt;Text style={[styles.notification]}>
                                       {strings.inquiryInfo}
-                                    </Text>
-                                  </Pressable>
-                                </View>
-                              </View>
+                                    &lt;/Text>
+                                  &lt;/Pressable>
+                                &lt;/View>
+                              &lt;/View>
 
-                              <Text style={[styles.requestText]}>
+                              &lt;Text style={[styles.requestText]}>
                                 {myTicketDetails?.myTicketDetailsData?.intxnId}
-                              </Text>
-                            </>
+                              &lt;/Text>
+                            &lt;/>
                           )}
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
-                          "REQCOMP" && (
-                            <>
-                              <Text style={[styles.status]}>
+                          "REQCOMP" &amp;&amp; (
+                            &lt;>
+                              &lt;Text style={[styles.status]}>
                                 {strings.requestNo}
-                              </Text>
-                              <Text style={[styles.requestText]}>
+                              &lt;/Text>
+                              &lt;Text style={[styles.requestText]}>
                                 {myTicketDetails?.myTicketDetailsData?.intxnId}
-                              </Text>
-                            </>
+                              &lt;/Text>
+                            &lt;/>
                           )}
-                      </View>
+                      &lt;/View>
 
-                      <View style={[styles.box3]}></View>
-                    </View>
+                      &lt;View style={[styles.box3]}>&lt;/View>
+                    &lt;/View>
 
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={[styles.box1]}>
-                        <Text style={[styles.status]}>{strings.date}</Text>
-                        <Text style={{ ...styles.requestText, fontSize: 12 }}>
+                    &lt;View style={{ flexDirection: "row" }}>
+                      &lt;View style={[styles.box1]}>
+                        &lt;Text style={[styles.status]}>{strings.date}&lt;/Text>
+                        &lt;Text style={{ ...styles.requestText, fontSize: 12 }}>
                           {Moment(
                             myTicketDetails?.myTicketDetailsData?.createdAt
                           ).format("DD MMM YYYY hh:MM A")}
-                        </Text>
-                      </View>
-                      <View style={[styles.box2]}>
-                        <Text style={[styles.status]}>{strings.status}</Text>
-                        <Text style={[styles.requestText]}>
+                        &lt;/Text>
+                      &lt;/View>
+                      &lt;View style={[styles.box2]}>
+                        &lt;Text style={[styles.status]}>{strings.status}&lt;/Text>
+                        &lt;Text style={[styles.requestText]}>
                           {
                             myTicketDetails?.myTicketDetailsData
                               ?.currStatusDescription
                           }
-                        </Text>
-                      </View>
-                      <View style={[styles.box3]}></View>
-                    </View>
+                        &lt;/Text>
+                      &lt;/View>
+                      &lt;View style={[styles.box3]}>&lt;/View>
+                    &lt;/View>
                     {/* interaction type row */}
-                    <View
+                    &lt;View
                       style={{
                         flexDirection: "row",
 
@@ -401,70 +429,70 @@ const MyTicketDetails = ({ route, navigation }) => {
                         height: "100%",
                       }}
                     >
-                      <View style={[styles.box1]}>
-                        <Text style={[styles.status]}>
+                      &lt;View style={[styles.box1]}>
+                        &lt;Text style={[styles.status]}>
                           {strings.inquiryType}
-                        </Text>
-                        <Text style={[styles.requestText]}>
+                        &lt;/Text>
+                        &lt;Text style={[styles.requestText]}>
                           {myTicketDetails?.myTicketDetailsData?.ticketType}
-                        </Text>
-                      </View>
-                      <View style={[styles.box2]}>
-                        <Text style={[styles.status]}>
+                        &lt;/Text>
+                      &lt;/View>
+                      &lt;View style={[styles.box2]}>
+                        &lt;Text style={[styles.status]}>
                           {strings.serviceType}
-                        </Text>
+                        &lt;/Text>
                         {myTicketDetails?.myTicketDetailsData?.intxnType ===
                           "REQCOMP" ? (
-                          <Text style={[styles.requestText]}>
+                          &lt;Text style={[styles.requestText]}>
                             {
                               myTicketDetails?.myTicketDetailsData
                                 ?.categoryDescription
                             }
-                          </Text>
+                          &lt;/Text>
                         ) : (
-                          <Text style={[styles.requestText]}>
+                          &lt;Text style={[styles.requestText]}>
                             {
                               myTicketDetails?.myTicketDetailsData
                                 ?.typeDescription
                             }
-                          </Text>
+                          &lt;/Text>
                         )}
-                      </View>
-                      <View style={[styles.box3]}></View>
-                    </View>
+                      &lt;/View>
+                      &lt;View style={[styles.box3]}>&lt;/View>
+                    &lt;/View>
                     {/* interaction type row end*/}
 
-                    <View style={{ flexDirection: "row" }}>
-                      <View style={[styles.box1]}>
-                        <Text style={[styles.status]}>
+                    &lt;View style={{ flexDirection: "row" }}>
+                      &lt;View style={[styles.box1]}>
+                        &lt;Text style={[styles.status]}>
                           {strings.problemType}
-                        </Text>
-                        <Text style={[styles.requestText]}>
+                        &lt;/Text>
+                        &lt;Text style={[styles.requestText]}>
                           {
                             myTicketDetails?.myTicketDetailsData
                               ?.problemCodeDescription
                           }
-                        </Text>
-                      </View>
-                    </View>
-                    {intxnType == "REQCOMP" && (
-                      <View style={{ flexDirection: "row", marginTop: 10 }}>
-                        <View style={[styles.enquiryDesc]}>
-                          <Text style={[styles.status]}>
+                        &lt;/Text>
+                      &lt;/View>
+                    &lt;/View>
+                    {intxnType == "REQCOMP" &amp;&amp; (
+                      &lt;View style={{ flexDirection: "row", marginTop: 10 }}>
+                        &lt;View style={[styles.enquiryDesc]}>
+                          &lt;Text style={[styles.status]}>
                             {strings.description}
-                          </Text>
+                          &lt;/Text>
 
-                          <ViewMoreText
+                          &lt;ViewMoreText
                             numberOfLines={4}
                             renderViewMore={(onPress) => (
-                              <Pressable
+                              &lt;Pressable
                                 onPress={onPress}
                                 style={styles.showMore}
                               >
-                                <Text style={styles.requestText}>
+                                &lt;Text style={styles.requestText}>
                                   {strings.view_more}
-                                </Text>
-                                <Image
+                                &lt;/Text>
+                                &lt;Image
                                   style={{
                                     marginTop: spacing.HEIGHT_5,
                                     width: spacing.WIDTH_20,
@@ -472,17 +500,17 @@ const MyTicketDetails = ({ route, navigation }) => {
                                   }}
                                   source={require("../../Assets/icons/down.png")}
                                 />
-                              </Pressable>
+                              &lt;/Pressable>
                             )}
                             renderViewLess={(onPress) => (
-                              <Pressable
+                              &lt;Pressable
                                 onPress={onPress}
                                 style={styles.showMore}
                               >
-                                <Text style={styles.requestText}>
+                                &lt;Text style={styles.requestText}>
                                   {strings.view_less}
-                                </Text>
-                                <Image
+                                &lt;/Text>
+                                &lt;Image
                                   style={{
                                     marginTop: spacing.HEIGHT_3,
                                     width: spacing.WIDTH_20,
@@ -491,22 +519,22 @@ const MyTicketDetails = ({ route, navigation }) => {
                                   }}
                                   source={require("../../Assets/icons/down.png")}
                                 />
-                              </Pressable>
+                              &lt;/Pressable>
                             )}
                           // textStyle={{ textAlign: "center" }}
                           >
-                            <Text style={[styles.requestText]}>
+                            &lt;Text style={[styles.requestText]}>
                               {myTicketDetails?.myTicketDetailsData
                                 ?.description || strings.details_na + "\n\n"}
-                            </Text>
-                          </ViewMoreText>
-                        </View>
-                      </View>
+                            &lt;/Text>
+                          &lt;/ViewMoreText>
+                        &lt;/View>
+                      &lt;/View>
                     )}
 
-                    {attachmentList?.attachmentData?.length > 0 && (
-                      <>
-                        <Text
+                    {attachmentList?.attachmentData?.length > 0 &amp;&amp; (
+                      &lt;>
+                        &lt;Text
                           style={[
                             styles.textBase,
                             styles.description,
@@ -514,9 +542,9 @@ const MyTicketDetails = ({ route, navigation }) => {
                           ]}
                         >
                           {strings.my_attachments}
-                        </Text>
+                        &lt;/Text>
                         {attachmentList.attachmentData?.map((attachment) => (
-                          <Pressable
+                          &lt;Pressable
                             key={attachment?.fileName}
                             style={styles.ticketItemHeading}
                             onPressIn={async () => {
@@ -527,7 +555,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                             }}
                           >
                             {getFileExtention(attachment?.fileName) == "doc" ? (
-                              <Image
+                              &lt;Image
                                 style={{
                                   ...styles.searchIcon,
                                   ...{ marginLeft: spacing.WIDTH_8 },
@@ -535,7 +563,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                                 source={require("../../Assets/icons/documents.png")}
                               />
                             ) : (
-                              <Image
+                              &lt;Image
                                 style={{
                                   ...styles.searchIcon,
                                   ...{ marginLeft: spacing.WIDTH_8 },
@@ -543,21 +571,21 @@ const MyTicketDetails = ({ route, navigation }) => {
                                 source={require("../../Assets/icons/gallery.png")}
                               />
                             )}
-                            <Text style={styles.description}>
+                            &lt;Text style={styles.description}>
                               {attachment?.fileName}
-                            </Text>
-                          </Pressable>
+                            &lt;/Text>
+                          &lt;/Pressable>
                         ))}
-                      </>
+                      &lt;/>
                     )}
                     {get(
                       myTicketDetails,
                       "myTicketDetailsData.addressString",
                       ""
-                    ) != "" && (
-                        <>
-                          <View style={{ flexDirection: "row" }}>
-                            <Text
+                    ) != "" &amp;&amp; (
+                        &lt;>
+                          &lt;View style={{ flexDirection: "row" }}>
+                            &lt;Text
                               style={[
                                 styles.textBase,
                                 styles.description,
@@ -565,20 +593,20 @@ const MyTicketDetails = ({ route, navigation }) => {
                               ]}
                             >
                               {strings.interaction_location}
-                            </Text>
-                          </View>
+                            &lt;/Text>
+                          &lt;/View>
                           {get(
                             myTicketDetails,
                             "myTicketDetailsData.address.addressType",
                             false
-                          ) && (
-                              <View style={{ flexDirection: "row" }}>
-                                <View style={styles.ticketItemHeading}>
-                                  <Image
+                          ) &amp;&amp; (
+                              &lt;View style={{ flexDirection: "row" }}>
+                                &lt;View style={styles.ticketItemHeading}>
+                                  &lt;Image
                                     style={styles.searchIcon}
                                     source={require("../../Assets/icons/ic_overlay_normal.png")}
                                   />
-                                  <Text
+                                  &lt;Text
                                     style={[styles.textBase, styles.description]}
                                   >
                                     {get(
@@ -586,26 +614,26 @@ const MyTicketDetails = ({ route, navigation }) => {
                                       "myTicketDetailsData.address.addressType",
                                       ""
                                     )}
-                                  </Text>
-                                </View>
-                              </View>
+                                  &lt;/Text>
+                                &lt;/View>
+                              &lt;/View>
                             )}
-                          <View style={{ flexDirection: "row" }}>
-                            <View style={styles.ticketItemHeading}>
-                              <Text style={[styles.textBase, styles.description]}>
+                          &lt;View style={{ flexDirection: "row" }}>
+                            &lt;View style={styles.ticketItemHeading}>
+                              &lt;Text style={[styles.textBase, styles.description]}>
                                 {
                                   myTicketDetails?.myTicketDetailsData
                                     ?.addressString
                                 }
-                              </Text>
-                            </View>
-                          </View>
-                        </>
+                              &lt;/Text>
+                            &lt;/View>
+                          &lt;/View>
+                        &lt;/>
                       )}
                     {get(myTicketDetails, "myTicketDetailsData.latitude", "") !=
-                      "" && (
-                        <>
-                          <View
+                      "" &amp;&amp; (
+                        &lt;>
+                          &lt;View
                             style={[
                               styles.cardView,
                               {
@@ -615,7 +643,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                               },
                             ]}
                           >
-                            <MapView
+                            &lt;MapView
                               provider={PROVIDER_GOOGLE}
                               style={[styles.map]}
                               initialRegion={{
@@ -633,7 +661,7 @@ const MyTicketDetails = ({ route, navigation }) => {
                                 longitudeDelta: 0.0421,
                               }}
                             >
-                              <Marker
+                              &lt;Marker
                                 key={1}
                                 coordinate={{
                                   latitude:
@@ -648,17 +676,17 @@ const MyTicketDetails = ({ route, navigation }) => {
                               // title={marker.title}
                               // description={marker.description}
                               />
-                            </MapView>
-                          </View>
-                        </>
+                            &lt;/MapView>
+                          &lt;/View>
+                        &lt;/>
                       )}
-                  </View>
-                </View>
-                <View style={[styles.cardViewTimeLine]}>
+                  &lt;/View>
+                &lt;/View>
+                &lt;View style={[styles.cardViewTimeLine]}>
                   {renderFollowUp()}
-                </View>
-                <View style={styles.bottonSpaceCorrection}>
-                  <Button
+                &lt;/View>
+                &lt;View style={styles.bottonSpaceCorrection}>
+                  &lt;Button
                     imgRight={require("../../Assets/icons/follow-up.png")}
                     type={buttonType.PRIMARY}
                     size={buttonSize.MEDIUM}
@@ -682,13 +710,13 @@ const MyTicketDetails = ({ route, navigation }) => {
                       setModalVisible(true);
                     }}
                   />
-                </View>
-              </>
+                &lt;/View>
+              &lt;/>
             )}
-          </View>
-        </ScrollView>
+          &lt;/View>
+        &lt;/ScrollView>
 
-        <FollowUp
+        &lt;FollowUp
           uploadedDocsData={uploadedDocsData}
           setUploadedDocData={setUploadedDocData}
           typeOfInteraction={intxnType}
@@ -703,8 +731,8 @@ const MyTicketDetails = ({ route, navigation }) => {
           docItem={docItem}
           setDocItem={(status) => setDocItem(status)}
         />
-      </SafeAreaView>
-    </>
+      &lt;/SafeAreaView>
+    &lt;/>
   );
 };
 
@@ -904,3 +932,26 @@ const styles = StyleSheet.create({
     marginBottom: spacing.HEIGHT_50,
   },
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Homescreen.html">Homescreen</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li><li><a href="TicketDetails.html">TicketDetails</a></li><li><a href="TicketListing.html">TicketListing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#CustomActivityIndicator">CustomActivityIndicator</a></li><li><a href="global.html#EditText">EditText</a></li><li><a href="global.html#ShareDoc">ShareDoc</a></li><li><a href="global.html#TextBoxWithCTA">TextBoxWithCTA</a></li><li><a href="global.html#TextBoxWithCTAEmail">TextBoxWithCTAEmail</a></li><li><a href="global.html#ToastTemplete">ToastTemplete</a></li><li><a href="global.html#ToggleButton">ToggleButton</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#getFcmDeviceId">getFcmDeviceId</a></li><li><a href="global.html#notificationListener">notificationListener</a></li><li><a href="global.html#permission">permission</a></li><li><a href="global.html#requestUserPermission">requestUserPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 31 2023 10:47:06 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

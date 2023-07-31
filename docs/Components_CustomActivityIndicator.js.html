@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Chat</title>
+    <title>JSDoc: Source: Components/CustomActivityIndicator.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,191 +17,63 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Chat</h1>
+    <h1 class="page-title">Source: Components/CustomActivityIndicator.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>Chat</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Chat : Chat screen, Mobile App using webview of Chat URL</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Screens_TabScreens_Chat.js.html">Screens/TabScreens/Chat.js</a>, <a href="Screens_TabScreens_Chat.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".fetchMyProfileData"><span class="type-signature">(static) </span>fetchMyProfileData<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Fetch API Data : profile  for interaction screen</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Screens_TabScreens_Chat.js.html">Screens/TabScreens/Chat.js</a>, <a href="Screens_TabScreens_Chat.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { View, ActivityIndicator } from "react-native";
+import { color, spacing, buttonSize } from "../Utilities/Constants/Constant";
+/**
+* Custom UI for Activity Indicator,Pre Loader component
+* @method
+* @param  {string} size size of activity indicator
+* @param  {Object} bgColor background color of activity indicator
+* @returns {JSX} Return JSX
+*/
+export const CustomActivityIndicator = (props) => {
+  let size = props.size ?? buttonSize.FLEXI;
+  let bgColor = props.bgColor ? props.bgColor : color.TRANSPARENT;
+  let loderColor = props.loderColor ? props.loderColor : color.BLACK;
+  let width = size === buttonSize.LARGE ? { width: "100%" } : {};
+  let customStyle = props.customStyle ?? {};
+  let topMargin = props.topMargin ? props.topMargin : 0;
+
+  return (
+    &lt;View style={{ flexDirection: "row" }}>
+      &lt;View
+        style={{
+          marginTop: topMargin,
+          backgroundColor: bgColor,
+          borderRadius: spacing.HEIGHT_3,
+          justifyContent: "center",
+          alignItems: "center",
+          height:
+            size === buttonSize.SMALL ? spacing.HEIGHT_30 : spacing.HEIGHT_47,
+          ...width,
+          ...customStyle,
+        }}
+      >
+        {
+          &lt;ActivityIndicator
+            color={loderColor}
+            animating={true}
+            size="small"
+            style={{ alignSelf: "center", height: 50, width: 50 }}
+          />
+        }
+      &lt;/View>
+    &lt;/View>
+  );
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

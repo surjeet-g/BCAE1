@@ -8,12 +8,12 @@ import {
   requestMultiple,
 } from "react-native-permissions";
 /**
- * <function description>
- * @param   {<type>} param1 <description>
- * @param   {<type>} param2 <description>
- * @param   {<type>} param3 <description>
- * @return  {<type>}        <description>
- */
+* handles share files both android and IOS
+* @method
+* @param {string} base64String input base64 data
+* @param {string} fileType file type of given file
+* @param {string} filesName file name of given file
+*/
 export const ShareDoc = async (
   base64String,
   fileType = "image/png",
@@ -41,7 +41,12 @@ export const ShareDoc = async (
       });
   }
 };
-
+/**
+* handle the file download from base64Data
+* @method
+* @param {string} base64Data input base64 data
+* @param {string} filesName file name of given file
+*/
 export const downloadFile = async (base64Data, filesName = "sample.pdf") => {
   const fileArr = filesName.split(".");
 
@@ -105,7 +110,10 @@ export const downloadFile = async (base64Data, filesName = "sample.pdf") => {
     })
     .catch((err) => console.log("err", err));
 };
-
+/**
+* handle premission for storage access
+* @method
+*/
 const permission = async () => {
   const checkPermission = await checkMultiple(
     Platform.OS === "android"

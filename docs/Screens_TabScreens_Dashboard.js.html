@@ -1,4 +1,32 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Screens/TabScreens/Dashboard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Screens/TabScreens/Dashboard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -92,7 +120,7 @@ const Dashboard = ({ route, navigation }) => {
   const Markers = React.memo(({ data }) => {
     return data.map((marker, index) => {
       const dom = (
-        <Marker
+        &lt;Marker
           key={marker.intxnId}
           onPress={() => onMarkerPressed(marker, index)}
           coordinate={{
@@ -102,7 +130,7 @@ const Dashboard = ({ route, navigation }) => {
           //coordinate={{latitude: 4.931796, longitude: 114.836504}}
           title={marker.address}
         >
-          <TouchableOpacity onPress={() => setMarkerSelected(true)}>
+          &lt;TouchableOpacity onPress={() => setMarkerSelected(true)}>
             {markerAddedWithRemoveDuplication(
               {
                 latitude: marker?.latitude,
@@ -110,16 +138,16 @@ const Dashboard = ({ route, navigation }) => {
               },
               index
             )}
-          </TouchableOpacity>
+          &lt;/TouchableOpacity>
 
-          <Callout tooltip={true} width={210} style={styles.ticketItem}>
-            <View>
-              <Text style={[styles.textBase, styles.description]}>
+          &lt;Callout tooltip={true} width={210} style={styles.ticketItem}>
+            &lt;View>
+              &lt;Text style={[styles.textBase, styles.description]}>
                 {getAddressFromResponse(marker)}
-              </Text>
-            </View>
-          </Callout>
-        </Marker>
+              &lt;/Text>
+            &lt;/View>
+          &lt;/Callout>
+        &lt;/Marker>
       );
       mapPlotedCoordinates.push({
         latitude: marker?.latitude,
@@ -134,8 +162,8 @@ const Dashboard = ({ route, navigation }) => {
 
   useEffect(() => {
     if (
-      !dashboard?.initMyDashboard &&
-      sessionPopupDisable &&
+      !dashboard?.initMyDashboard &amp;&amp;
+      sessionPopupDisable &amp;&amp;
       dashboard?.myDashboardData?.errorCode == "401"
     ) {
       setSessionPopupDisable(false);
@@ -256,7 +284,7 @@ const Dashboard = ({ route, navigation }) => {
   const markerAddedWithRemoveDuplication = (marker, index) => {
     const matchedCoord = mapPlotedCoordinates.filter(
       (mark) =>
-        mark.latitude == marker.latitude && mark.longitude == marker.longitude
+        mark.latitude == marker.latitude &amp;&amp; mark.longitude == marker.longitude
     );
 
     const icon =
@@ -264,9 +292,9 @@ const Dashboard = ({ route, navigation }) => {
         ? require("../../Assets/icons/ic_overlay_highlighted.png")
         : require("../../Assets/icons/ic_overlay_normal_ios.png");
     return (
-      <View>
-        <Image source={icon} style={styles.icon} resizeMode="contain" />
-      </View>
+      &lt;View>
+        &lt;Image source={icon} style={styles.icon} resizeMode="contain" />
+      &lt;/View>
     );
   };
   const onScroll = useCallback(
@@ -310,79 +338,79 @@ const Dashboard = ({ route, navigation }) => {
     function OnClickTicketItem() { }
 
     return (
-      <Pressable
+      &lt;Pressable
         onPress={OnClickTicketItem}
-        style={({ pressed }) => pressed && styles.pressed}
+        style={({ pressed }) => pressed &amp;&amp; styles.pressed}
       >
-        <View style={[styles.ticketItem]}>
-          <View style={{ flexDirection: "column" }}>
-            <View style={styles.ticketItemHeading}>
-              {type == "Master Interaction" && (
-                <Text
+        &lt;View style={[styles.ticketItem]}>
+          &lt;View style={{ flexDirection: "column" }}>
+            &lt;View style={styles.ticketItemHeading}>
+              {type == "Master Interaction" &amp;&amp; (
+                &lt;Text
                   numberOfLines={1}
                   style={[styles.textBase, styles.description]}
                 >
                   Master Interaction
-                </Text>
+                &lt;/Text>
               )}
-              {type != "Master Interaction" && (
-                <Text style={[styles.textBase, styles.description]}>
+              {type != "Master Interaction" &amp;&amp; (
+                &lt;Text style={[styles.textBase, styles.description]}>
                   My Interaction
-                </Text>
+                &lt;/Text>
               )}
-            </View>
-            <View style={{ flexDirection: "column", marginBottom: 10 }}>
-              <View style={[styles.box1]}>
-                <View style={{ flex: 7 }}>
-                  <Text style={[styles.ticketNo]}>{ticketNo}</Text>
-                </View>
-                <View style={{ flex: 3, alignItems: "flex-end" }}>
-                  <Text style={[styles.date]}>
+            &lt;/View>
+            &lt;View style={{ flexDirection: "column", marginBottom: 10 }}>
+              &lt;View style={[styles.box1]}>
+                &lt;View style={{ flex: 7 }}>
+                  &lt;Text style={[styles.ticketNo]}>{ticketNo}&lt;/Text>
+                &lt;/View>
+                &lt;View style={{ flex: 3, alignItems: "flex-end" }}>
+                  &lt;Text style={[styles.date]}>
                     {Moment(date).format("DD MMM")}
-                  </Text>
-                </View>
-              </View>
+                  &lt;/Text>
+                &lt;/View>
+              &lt;/View>
 
-              <Text numberOfLines={1} style={[styles.title]}>
+              &lt;Text numberOfLines={1} style={[styles.title]}>
                 {title}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <View style={[styles.box1loc]}>
-                <Image
+              &lt;/Text>
+            &lt;/View>
+            &lt;View style={{ flexDirection: "row" }}>
+              &lt;View style={[styles.box1loc]}>
+                &lt;Image
                   source={require("../../Assets/icons/ic_overlay_normal.png")}
                   style={styles.icon}
                 />
-              </View>
-              <View style={[styles.box3add]}>
-                <Text style={[styles.date, []]}>{address}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Pressable>
+              &lt;/View>
+              &lt;View style={[styles.box3add]}>
+                &lt;Text style={[styles.date, []]}>{address}&lt;/Text>
+              &lt;/View>
+            &lt;/View>
+          &lt;/View>
+        &lt;/View>
+      &lt;/Pressable>
     );
   };
   const loaderDom = () => {
     return (
-      <View
+      &lt;View
         style={{
           alignItems: "center",
           justifyContent: "center",
           marginTop: 200,
         }}
       >
-        <LoadingAnimation></LoadingAnimation>
-        <Text style={styles.emptyList}>{loadingMessage}</Text>
-      </View>
+        &lt;LoadingAnimation>&lt;/LoadingAnimation>
+        &lt;Text style={styles.emptyList}>{loadingMessage}&lt;/Text>
+      &lt;/View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {dashboard?.initMyDashboard && loaderDom(loadingMessage)}
-      {!dashboard.initMyDashboard && !dashboard?.isMyDashboardError && (
-        <MapView
+    &lt;SafeAreaView style={styles.container}>
+      {dashboard?.initMyDashboard &amp;&amp; loaderDom(loadingMessage)}
+      {!dashboard.initMyDashboard &amp;&amp; !dashboard?.isMyDashboardError &amp;&amp; (
+        &lt;MapView
           showsMyLocationButton={true}
           provider={PROVIDER_GOOGLE}
           ref={mapRef}
@@ -401,39 +429,39 @@ const Dashboard = ({ route, navigation }) => {
             longitudeDelta: longitudeDelta,
           }}
         >
-          {!dashboard?.initMyDashboard &&
-            dashboard?.myDashboardData?.length > 0 && (
-              <Markers data={dashboard?.myDashboardData} />
+          {!dashboard?.initMyDashboard &amp;&amp;
+            dashboard?.myDashboardData?.length > 0 &amp;&amp; (
+              &lt;Markers data={dashboard?.myDashboardData} />
             )}
-        </MapView>
+        &lt;/MapView>
       )}
-      <View>
-        {(!dashboard?.initMyDashboard && dashboard?.isMyDashboardError) ||
-          (!dashboard?.initMyDashboard && dashboard?.myDashboardData && (
-            <Header
+      &lt;View>
+        {(!dashboard?.initMyDashboard &amp;&amp; dashboard?.isMyDashboardError) ||
+          (!dashboard?.initMyDashboard &amp;&amp; dashboard?.myDashboardData &amp;&amp; (
+            &lt;Header
               navigation={navigation}
               Text={myscreenmae}
               backIconVisibility={false}
               transparent={true}
               bcae={true}
               rightIconsVisibility={true}
-            ></Header>
+            >&lt;/Header>
           ))}
 
-        {dashboard?.initMyDashboardBackground && (
-          <Text>data fetched in background</Text>
+        {dashboard?.initMyDashboardBackground &amp;&amp; (
+          &lt;Text>data fetched in background&lt;/Text>
         )}
-      </View>
-      {!dashboard?.initMyDashboard &&
-        dashboard?.isMyDashboardError &&
-        dashboard?.myDashboardData?.errorCode === "10001" && (
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.emptyList}>{strings.no_internet}</Text>
-          </View>
+      &lt;/View>
+      {!dashboard?.initMyDashboard &amp;&amp;
+        dashboard?.isMyDashboardError &amp;&amp;
+        dashboard?.myDashboardData?.errorCode === "10001" &amp;&amp; (
+          &lt;View style={{ alignItems: "center" }}>
+            &lt;Text style={styles.emptyList}>{strings.no_internet}&lt;/Text>
+          &lt;/View>
         )}
-      {!dashboard?.initMyDashboard && dashboard?.myDashboardData.length > 0 && (
-        <View style={[{ height: "auto" }, styles.bottomView]}>
-          <FlatList
+      {!dashboard?.initMyDashboard &amp;&amp; dashboard?.myDashboardData.length > 0 &amp;&amp; (
+        &lt;View style={[{ height: "auto" }, styles.bottomView]}>
+          &lt;FlatList
             contentContainerStyle={{ padding: 20 }}
             horizontal
             onScroll={onScroll}
@@ -442,7 +470,7 @@ const Dashboard = ({ route, navigation }) => {
             onEndReached={LoadMoreRandomData}
             renderItem={({ item }, data) => {
               return (
-                <ListItem
+                &lt;ListItem
                   title={
                     item.serviceTypeDesc
                       ? item.serviceTypeDesc
@@ -462,29 +490,29 @@ const Dashboard = ({ route, navigation }) => {
                 return null;
               }
               return (
-                <View style={{ marginBottom: spacing.HEIGHT_30 }}>
-                  <ActivityIndicator size="large" />
-                </View>
+                &lt;View style={{ marginBottom: spacing.HEIGHT_30 }}>
+                  &lt;ActivityIndicator size="large" />
+                &lt;/View>
               );
             }}
           />
-        </View>
+        &lt;/View>
       )}
 
-      {!dashboard?.initMyDashboard && dashboard?.myDashboardData.length < 1 && (
-        <View
+      {!dashboard?.initMyDashboard &amp;&amp; dashboard?.myDashboardData.length &lt; 1 &amp;&amp; (
+        &lt;View
           style={{
             alignItems: "center",
             justifyContent: "center",
             marginTop: 120,
           }}
         >
-          <Text style={[styles.textBase, styles.description]}>
+          &lt;Text style={[styles.textBase, styles.description]}>
             {strings.empty_ticket_list}
-          </Text>
-        </View>
+          &lt;/Text>
+        &lt;/View>
       )}
-    </SafeAreaView>
+    &lt;/SafeAreaView>
   );
 };
 
@@ -594,3 +622,26 @@ const styles = StyleSheet.create({
   },
 });
 export default Dashboard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Chat.html">Chat</a></li><li><a href="CreateComplaints.html">CreateComplaints</a></li><li><a href="CreateEquiry.html">CreateEquiry</a></li><li><a href="Homescreen.html">Homescreen</a></li><li><a href="Login.html">Login</a></li><li><a href="Register.html">Register</a></li><li><a href="Splash.html">Splash</a></li><li><a href="TicketDetails.html">TicketDetails</a></li><li><a href="TicketListing.html">TicketListing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#CustomActivityIndicator">CustomActivityIndicator</a></li><li><a href="global.html#EditText">EditText</a></li><li><a href="global.html#ShareDoc">ShareDoc</a></li><li><a href="global.html#TextBoxWithCTA">TextBoxWithCTA</a></li><li><a href="global.html#TextBoxWithCTAEmail">TextBoxWithCTAEmail</a></li><li><a href="global.html#ToastTemplete">ToastTemplete</a></li><li><a href="global.html#ToggleButton">ToggleButton</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#getFcmDeviceId">getFcmDeviceId</a></li><li><a href="global.html#notificationListener">notificationListener</a></li><li><a href="global.html#permission">permission</a></li><li><a href="global.html#requestUserPermission">requestUserPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 31 2023 10:47:06 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

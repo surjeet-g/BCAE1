@@ -1,7 +1,13 @@
 import React from "react";
 import { View, ActivityIndicator } from "react-native";
 import { color, spacing, buttonSize } from "../Utilities/Constants/Constant";
-
+/**
+* Custom UI for Activity Indicator,Pre Loader component
+* @method
+* @param  {string} size size of activity indicator
+* @param  {Object} bgColor background color of activity indicator
+* @returns {JSX} Return JSX
+*/
 export const CustomActivityIndicator = (props) => {
   let size = props.size ?? buttonSize.FLEXI;
   let bgColor = props.bgColor ? props.bgColor : color.TRANSPARENT;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Chat</title>
+    <title>JSDoc: Source: Components/ToastTemplete.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,191 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Chat</h1>
+    <h1 class="page-title">Source: Components/ToastTemplete.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>Chat</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Chat : Chat screen, Mobile App using webview of Chat URL</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Screens_TabScreens_Chat.js.html">Screens/TabScreens/Chat.js</a>, <a href="Screens_TabScreens_Chat.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".fetchMyProfileData"><span class="type-signature">(static) </span>fetchMyProfileData<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Fetch API Data : profile  for interaction screen</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Screens_TabScreens_Chat.js.html">Screens/TabScreens/Chat.js</a>, <a href="Screens_TabScreens_Chat.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { View, Text, Image } from "react-native";
+import { spacing } from "../Utilities/Constants/Constant";
+/**
+* Toast message with customized UI
+* @method
+* @param  {string} bgColor background color 
+* @param  {string} text text message 
+* @returns {JSX} Return JSX of
+*/
+export const ToastTemplete = ({ bgColor, text }) => {
+  return (
+    &lt;View
+      style={{
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: bgColor,
+        paddingLeft: spacing.WIDTH_10,
+        paddingVertical: spacing.WIDTH_15,
+      }}
+    >
+      {bgColor == "red" ? (
+        &lt;Image
+          style={{ height: spacing.WIDTH_20, width: spacing.WIDTH_20 }}
+          source={require("../Assets/icons/ci_error-warning-fill.png")}
+        />
+      ) : null}
+
+      &lt;Text
+        style={{
+          color: "white",
+          fontWeight: "500",
+          marginLeft: spacing.HEIGHT_10,
+          overflowWrap: "break-word",
+          marginRight: spacing.WIDTH_19,
+        }}
+      >
+        {text}
+      &lt;/Text>
+    &lt;/View>
+  );
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
